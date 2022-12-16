@@ -1,2 +1,1 @@
-let str:string = 'Hello, world!';
-console.log(str);
+import './style.css';
