@@ -84,7 +84,7 @@
 
 .list-category__checkbox-input:checked+label::before {
   background-color: #243b53;
-  background-image: url("./catalog-img/img/ico-checkbox.png");
+  background-image: url("../../catalog-img/img/ico-checkbox.png");
 }
 /*------------------*/
 
