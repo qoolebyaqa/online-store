@@ -1,0 +1,138 @@
+/*-------Sort---------*/
+.product-top__sort{
+  box-sizing: border-box;
+  max-width: 133px;
+  position: relative;
+}
+
+.select{
+  width: 133px;
+  background: #2a2f3b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #000;
+  border-radius: 0.5em;
+  padding: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 12px;
+}
+
+.select:hover{
+  background: #5e6066;
+}
+
+.select-click{
+  border: 2px solid rgb(68, 34, 34);
+  box-shadow: 0 0 0.8em #000;
+}
+
+.caret{
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: 0.3s;
+}
+
+.caret-rotate{
+  transform: rotate(180deg);
+}
+
+.menu{
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: #4a4e58;
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  color: #fff;
+  position: absolute;
+  top: 27px;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
+}
+
+.menu-open{
+  display: block;
+  opacity: 1;
+}
+
+.menu li{
+  padding: 5px 4px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.menu li:hover{
+  background: #757880;
+}
+
+.active{
+  background: #23232a;
+}
+
+/*------------------------------------*/
+.product-top__found{
+  font-size: 12px;
+}
+
+.main__right-product-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #000;
+}
+
+
+.product-top__view-cards{
+  display: flex;
+}
+.view-cards__left,
+.view-cards__right{
+width: 25px;
+height: 25px;
+background: #2a2f3b;
+margin: 2px;
+border-radius: 5px;
+cursor: pointer;
+transition: all 0.4s;
+}
+
+.view-cards__left:hover,
+.view-cards__right:hover{
+ border: 2px solid #cc1111;
+}
+
+.product-top__search-input{
+  border-radius: 10px;
+  padding-left: 15px;
+  border: 1px solid #4a4e58;
+  font-size: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.product-top__search{
+position: relative;
+}
+
+.search__ico{
+  width: 12px;
+  height: 12px;
+  background: url('./catalog-img/img/search.png') no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}

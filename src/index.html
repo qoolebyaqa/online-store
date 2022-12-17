@@ -38,8 +38,198 @@
   <main class="main">
     <section class="main__left-section">
 
+    <div class="block-category">
+      <div class="block-category__reset-copy">
+          <div class="block-category__reset-copy-text">
+            <h1 class="block-category__reset-copy-text-h1">Категория</h1>
+          </div>
+          <div class="block-category__reset-copy-reset">
+            Сбросить
+          </div>
+          <div class="block-category__reset-copy-copy">
+            Копия 
+          </div>
+      </div>
+
+      <div class="list-category">
+          <div class="list-category__checkbox">
+            <input class="list-category__checkbox-input" type="checkbox" id="input1">
+            <label for="input1">Ноутбуки</label>
+            <span class="availability">(10)</span>
+          </div>
+
+          <div class="list-category__checkbox">
+            <input class="list-category__checkbox-input" type="checkbox" id="input2">
+            <label for="input2">Телефоны</label>
+            <span class="availability">(10)</span>
+          </div>
+
+          <div class="list-category__checkbox">
+            <input class="list-category__checkbox-input" type="checkbox" id="input3">
+            <label for="input3">Планшеты</label>
+            <span class="availability">(10)</span>
+          </div>
+
+          <div class="list-category__checkbox">
+            <input class="list-category__checkbox-input" type="checkbox" id="input4">
+            <label for="input4">Наушники</label>
+            <span class="availability">(10)</span>
+          </div>
+
+          <div class="list-category__checkbox">
+            <input class="list-category__checkbox-input" type="checkbox" id="input5">
+            <label for="input5">Часы</label>
+            <span class="availability">(10)</span>
+          </div>
+
+      </div>
+    </div>
+
+    <div class="block-brand">
+      <div class="block-brand__text">
+        <h1 class="block-brand__text-h1">Бренд</h1>
+      </div>
+
+      <div class="list-category">
+        <div class="list-category__checkbox">
+          <input class="list-category__checkbox-input" type="checkbox" id="input6">
+          <label for="input6">Apple</label>
+          <span class="availability">(10)</span>
+        </div>
+
+        <div class="list-category__checkbox">
+          <input class="list-category__checkbox-input" type="checkbox" id="input7">
+          <label for="input7">Samsung</label>
+          <span class="availability">(10)</span>
+        </div>
+
+        <div class="list-category__checkbox">
+          <input class="list-category__checkbox-input" type="checkbox" id="input8">
+          <label for="input8">Xiaomi</label>
+          <span class="availability">(10)</span>
+        </div>
+
+        <div class="list-category__checkbox">
+          <input class="list-category__checkbox-input" type="checkbox" id="input9">
+          <label for="input9">lenovo</label>
+          <span class="availability">(10)</span>
+        </div>
+
+        <div class="list-category__checkbox">
+          <input class="list-category__checkbox-input" type="checkbox" id="input10">
+          <label for="input10">Huawei</label>
+          <span class="availability">(10)</span>
+        </div>
+
+        <div class="list-category__checkbox">
+          <input class="list-category__checkbox-input" type="checkbox" id="input11">
+          <label for="input11">Poco</label>
+          <span class="availability">(10)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-price">
+      <h1 class="filter-price__h1">Цена</h1>
+      <div class="filter-price__slider">
+        <div class="price-inputs">
+          <div class="price-input">
+              <label class="filter-price__label">
+                <span>от</span>
+                <input type="number" class="input-min " placeholder="0">
+                <span>$</span>
+              </label>
+          </div>
+
+          <div class="price-input">
+              <label class="filter-price__label">
+                <span>до</span>
+                <input type="number" class="input-max" placeholder="999999">
+                <span>$</span>
+              </label>
+          </div>
+        </div>
+
+        <div class="slider">
+          <div class="progress"></div>
+        </div>
+        <div class="range-input">
+          <input type="range" class="range-min" min="0" max="10000" value="0" step="1">
+          <input type="range" class="range-max" min="0" max="10000" value="10000" step="1">
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="filter-stock">
+      <h1 class="filter-stock__h1">Наличие на складе</h1>
+      <div class="filter-stock__slider">
+        <div class="stock-inputs">
+          <div class="stock-input">
+              <label class="filter-stock__label">
+                <input type="number" class="input-min " placeholder="1">
+                <span>шт</span>
+              </label>
+          </div>
+
+          <div class="stock-input">
+              <label class="filter-stock__label">
+                <input type="number" class="input-max" placeholder="100">
+                <span>шт</span>
+              </label>
+          </div>
+        </div>
+
+        <div class="slider-stock">
+          <div class="progress-stock"></div>
+        </div>
+        <div class="range-input-stock">
+          <input type="range" class="range-min" min="1" max="100" value="0" step="1">
+          <input type="range" class="range-max" min="1" max="100" value="100" step="1">
+        </div>
+
+      </div>
+
+    </div>
+
+
     </section>
     <section class="main__right-product">
+      <div class="main__right-product-top">
+
+        <div class="product-top__sort">
+          <div class="select">
+            <span class="selected">Сортировать по:</span>
+            <div class="caret"></div>
+          </div>
+          <ul class="menu">
+            <li>Популярности</li>
+            <li>Рейтингу</li>
+            <li>Цене от мин</li>
+            <li>Цене от макс</li>
+            <li>Скидке</li>
+          </ul>
+        </div>
+
+        <div class="product-top__found">
+          Найдено: <span>()</span>
+        </div>
+
+        <div class="product-top__search">
+          <div class="search__ico"></div>
+          <input class="product-top__search-input" type="search" placeholder="Поиск">
+        </div>
+
+        <div class="product-top__view-cards">
+          <div class="view-cards__left">
+
+          </div>
+          <div class="view-cards__right"></div>
+        </div>
+
+      </div>
       dfdf <br>
       dfdf <br>
       dfdf <br>
