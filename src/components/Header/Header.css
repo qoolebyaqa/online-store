@@ -49,8 +49,8 @@
 }
 .header__title:hover #header__logo,
 .header__title:hover .header__text {
-  fill: rgb(30, 37, 120);
-  color: rgb(30, 37, 120);
+  fill: green;
+  color: green;
   cursor: pointer;
   transition: all .4s ease;
 }

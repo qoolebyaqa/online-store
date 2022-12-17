@@ -24,18 +24,17 @@ body{
   display: flex;
   width: 100%;
   min-height: 85vh;
-  justify-content: space-around;
 }
 
 .main__left-section{
   width: 30%;
   background: rgb(230, 230, 222);
-  border: 1px solid rgb(233, 14, 14);
+  border: 1px solid green;
 }
 
 .main__right-product{
-  width: 68%;
-  border: 1px solid rgb(0, 0, 0);
+  width: 70%;
+  border: 1px solid green;
 }
 
 .footer{
