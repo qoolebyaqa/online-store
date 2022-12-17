@@ -103,7 +103,7 @@
     </div>
 
     <div class="filter-price">
-      <h1>Цена</h1>
+      <h1 class="filter-price__h1">Цена</h1>
       <div class="filter-price__slider">
         <div class="price-inputs">
           <div class="price-input">
@@ -129,6 +129,38 @@
         <div class="range-input">
           <input type="range" class="range-min" min="0" max="10000" value="0" step="1">
           <input type="range" class="range-max" min="0" max="10000" value="10000" step="1">
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="filter-stock">
+      <h1 class="filter-stock__h1">Наличие на складе</h1>
+      <div class="filter-stock__slider">
+        <div class="stock-inputs">
+          <div class="stock-input">
+              <label class="filter-stock__label">
+                <input type="number" class="input-min " placeholder="1">
+                <span>шт</span>
+              </label>
+          </div>
+
+          <div class="stock-input">
+              <label class="filter-stock__label">
+                <input type="number" class="input-max" placeholder="100">
+                <span>шт</span>
+              </label>
+          </div>
+        </div>
+
+        <div class="slider-stock">
+          <div class="progress-stock"></div>
+        </div>
+        <div class="range-input-stock">
+          <input type="range" class="range-min" min="1" max="100" value="0" step="1">
+          <input type="range" class="range-max" min="1" max="100" value="100" step="1">
         </div>
 
       </div>
