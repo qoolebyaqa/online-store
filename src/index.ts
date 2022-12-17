@@ -1,3 +1,4 @@
 import './style.css';
-import './script.ts';
-import './script2.ts'
+import './main-left.css';
+import './range-price.ts';
+import './range-stock.ts'
