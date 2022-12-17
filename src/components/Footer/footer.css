@@ -1,0 +1,38 @@
+.footer__wrapper {
+  display: flex;
+  max-width: 1900px;
+  height: 170px;
+  justify-content: space-around;
+  background-image: url(../../icons/footer-bg.png);
+  padding-top: 15px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 42px;
+}
+.footer__link,
+.footer__soc-link {
+  text-decoration: none;
+  color: black;
+}
+.footer__link-discript {
+  margin: 10px auto;
+}
+.footer__left-section,
+.footer__middle-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.footer__gh-pic {
+  width: 90px;
+  height: 35px;
+}
+.footer__icon {
+  width: 25px;
+  height: 25px;
+  transition: all 0.4ms ease-in;
+}
+.footer__icon:hover {
+  border-radius: 50px;
+}

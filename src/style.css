@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+
 *{
   box-sizing: border-box;
   padding: 0;
@@ -8,13 +10,14 @@ body{
   width: 100%;
   height: 100vh;
   margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 16px;
 }
 
 .header{
   width: 100%;
   height: 60px;
-  background: rgb(42,78,107);
-  background: linear-gradient(90deg, rgba(42,78,107,1) 0%, rgba(61,61,108,1) 31%, rgb(120, 141, 165) 47%, rgba(2,0,36,1) 79%, rgba(58,87,93,1) 100%);
+  background: white;
 }
 
 .main{
@@ -37,6 +40,5 @@ body{
 
 .footer{
   width: 100%;
-  height: 60px;
-  background: rgb(175, 174, 161);
+  background: #e9e9e9;
 }
