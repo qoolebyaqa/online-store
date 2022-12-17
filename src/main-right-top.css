@@ -104,5 +104,35 @@ height: 25px;
 background: #2a2f3b;
 margin: 2px;
 border-radius: 5px;
+cursor: pointer;
+transition: all 0.4s;
 }
 
+.view-cards__left:hover,
+.view-cards__right:hover{
+ border: 2px solid #cc1111;
+}
+
+.product-top__search-input{
+  border-radius: 10px;
+  padding-left: 15px;
+  border: 1px solid #4a4e58;
+  font-size: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.product-top__search{
+position: relative;
+}
+
+.search__ico{
+  width: 12px;
+  height: 12px;
+  background: url('./catalog-img/img/search.png') no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+}
