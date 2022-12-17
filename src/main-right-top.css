@@ -1,0 +1,87 @@
+/*-------Sort---------*/
+.product-top__sort{
+  box-sizing: border-box;
+  max-width: 133px;
+  position: relative;
+}
+
+.select{
+  background: #2a2f3b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #000;
+  border-radius: 0.5em;
+  padding: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.select:hover{
+  background: #5e6066;
+}
+
+.select-click{
+  border: 2px solid rgb(68, 34, 34);
+  box-shadow: 0 0 0.8em #000;
+}
+
+.caret{
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: 0.3s;
+}
+
+.caret-rotate{
+  transform: rotate(180deg);
+}
+
+.menu{
+  list-style: none;
+  padding: 0.2em 0.5em;
+  background: #4a4e58;
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  color: #fff;
+  position: absolute;
+  top: 3em;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  opacity: 0;
+  display: none;
+  transition: 0.2s;
+  z-index: 1;
+}
+
+.menu-open{
+  display: block;
+  opacity: 1;
+}
+
+.menu li{
+  padding: 0.7em 0.5em;
+  margin: 0.3em 0;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.menu li:hover{
+  background: #757880;
+}
+
+.active{
+  background: #23232a;
+}
+
+/*------------------------------------*/
+.main__right-product-top{
+  display: block;
+  width: 100%;
+  height: 60px;
+  border: 1px solid #000;
+}
