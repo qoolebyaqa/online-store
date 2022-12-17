@@ -5,3 +5,4 @@ import './range-price.ts';
 import './range-stock.ts';
 import './product-top-sort.ts';
 import './components/Header/header.css';
+import './components/Footer/footer.css';

@@ -15,7 +15,9 @@
   display: flex;
   justify-content: space-around;
   position: fixed;
+  z-index: 3;
   width: 100%;
+  padding-top: 10px;
   background: white;  
 }
 .header__list {
@@ -32,7 +34,7 @@
   height: 40px;
   display: flex;
   justify-content: end;
-  background-image: url(../../icons/cart.png);
+  background-image: url(../../catalog-img/img/cart.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -41,7 +43,7 @@
   text-align: center;
   height: 15px;
   width: 15px;
-  font-size: 90%;
+  font-size: 70%;
   border: 2px solid rgb(162, 189, 198);
   border-radius: 50px;
 }
@@ -50,7 +52,7 @@
   fill: rgb(30, 37, 120);
   color: rgb(30, 37, 120);
   cursor: pointer;
-  transition: all .4ms ease-in;
+  transition: all .4s ease;
 }
 .header__list li:last-child:hover {
   cursor: pointer;
