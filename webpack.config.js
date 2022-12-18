@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const EslingPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const baseConfig = {
     entry: path.resolve(__dirname, './src/index.ts'),
@@ -18,12 +19,13 @@ const baseConfig = {
                 use: 'ts-loader',
             },
             { 
-                test: /.(png|svg|jpg|jpeg|gif)$/i, 
+                test: /\.(png|svg|jpg|jpeg|gif)$/i, 
                 type: 'asset/resource', 
-                generator: {
-                    filename: 'img/[name][ext]'
-                }
             },
+            {
+                test: /\.html$/i,
+                use: 'html-loader',
+            }
         ],
     },
     resolve: {
@@ -40,6 +42,11 @@ const baseConfig = {
         }),
         new CleanWebpackPlugin(),
         new EslingPlugin({ extensions: 'ts' }),
+        new CopyPlugin({
+            patterns: [
+                {from: "./src/catalog-img", to: "catalog-img"}
+            ]
+        })
     ],
 };
 
