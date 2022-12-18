@@ -13,6 +13,9 @@ export function PriceAndCart () {
     CurrentQuantity++;
     if (target instanceof HTMLElement) {
       CurrentPrice = CurrentPrice + Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
+      (target as HTMLButtonElement).disabled = true;
+      target.classList.remove('cards__button');
+      target.classList.add('cards__button-active');
     }
     if (Cart?.innerHTML) {
       Cart.innerHTML = CurrentQuantity.toString();
