@@ -1,5 +1,5 @@
 import { PRODUCTS } from "../goods";
-
+import { PriceAndCart } from "../Header/Header";
 function CardsRender () {
   const wrapper = document.querySelector('.cards__wrapper')
   if (wrapper) {
@@ -40,5 +40,9 @@ function CardsRender () {
   })
 }
 
+
+
 CardsRender();
+PriceAndCart();
+
 
