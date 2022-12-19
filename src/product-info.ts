@@ -209,17 +209,11 @@ cardsHover.forEach(item => item.addEventListener('click', (e: Event) => {
     }
   })
   
-  // const click = document.querySelectorAll('.element-img__small div')
-  // click.forEach(item => {
-  //   item.addEventListener('click', (e) => {
-  //     const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement | null
-  //     const s = e.target as HTMLElement
-  //     console.log(s.getAttribute('src'))
-
-  //     if (item) {
-  //       elementImgBigImg.src = s.getAttribute('src')
-  //     }
-      
-  //   })
-  // })
+  const clickSmallimg = document.querySelectorAll('.small-1-img')
+  clickSmallimg.forEach(item => {
+    item.addEventListener('mouseenter', (e: Event) => {
+      const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
+      elementImgBigImg.src = `${(<HTMLElement>e.target).getAttribute('src')}`
+    })
+  })
 }))
