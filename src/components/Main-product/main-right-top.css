@@ -92,6 +92,8 @@
   align-items: center;
   width: 100%;
   border: 1px solid #000;
+  position: relative;
+  z-index: 2;
 }
 
 
