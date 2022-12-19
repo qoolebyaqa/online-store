@@ -23,6 +23,7 @@ function CardsRender () {
     const cardButton = document.createElement('button');
     const cardHover = document.createElement('div');
     cardHover.classList.add('cards__hover');
+    cardHover.setAttribute('id', `${value.id}`)
     cardHover.innerHTML = `${value.title} Только сегодня со скидкой ${value.discountPrecentage}% Поспешите осталось ${value.stock} штук`
     if (cardButton) {
       cardButton?.classList.add('cards__button');

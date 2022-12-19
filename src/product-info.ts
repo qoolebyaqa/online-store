@@ -1,8 +1,4 @@
 import { PRODUCTS } from "./components/goods";
-import { PriceAndCart } from "./components/Header/Header";
-
-const cardsImgWrapper = document.querySelectorAll('.cards__img-wrapper')
-console.log(cardsImgWrapper)
 
 function RenderInfoProduct() {
   const main = document.querySelector('.main');
@@ -22,16 +18,6 @@ function RenderInfoProduct() {
   productInfoAllElementImg.classList.add('product-info__all-element-img');
   const elementImgBig = document.createElement('div');
   elementImgBig.classList.add('element-img__big');
-  const elementImgSmall = document.createElement('div');
-  elementImgSmall.classList.add('element-img__small');
-  const small1 = document.createElement('div');
-  small1.classList.add('small-1');
-  const small2 = document.createElement('div');
-  small2.classList.add('small-2');
-  const small3 = document.createElement('div');
-  small3.classList.add('small-3');
-  const small4 = document.createElement('div');
-  small4.classList.add('small-4');
 
   const detalisWrapper = document.createElement('div');
   detalisWrapper.classList.add('detalis-wrapper');
@@ -89,6 +75,12 @@ function RenderInfoProduct() {
   const detalisWrapperPriceBtrRemove = document.createElement('button');
   detalisWrapperPriceBtrRemove.classList.add('detalis-wrapper__price-btr-remove');
 
+  const elementImgBigImg = document.createElement('img')
+  elementImgBigImg.classList.add('element-img__big-img')
+
+  const elementImgSmall = document.createElement('div');
+  elementImgSmall.classList.add('element-img__small');
+
   main?.append(mainProductInfo)
   mainProductInfo.append(productInfoAdd)
   mainProductInfo.append(productInfoAll)
@@ -100,17 +92,10 @@ function RenderInfoProduct() {
   productInfoAllElement.append(detalisWrapper)
 
   productInfoAllElementImg.append(elementImgBig)
-  productInfoAllElementImg.append(elementImgSmall)
-
-  elementImgSmall.append(small1)
-  elementImgSmall.append(small2)
-  elementImgSmall.append(small3)
-  elementImgSmall.append(small4)
+  elementImgBig.append(elementImgBigImg)
 
   detalisWrapper.append(allElementDetalis)
   detalisWrapper.append(detalisWrapperPrice)
-  detalisWrapperPrice.append()
-  detalisWrapperPrice.append()
 
   allElementDetalis.append(elementDetalisBrand)
   elementDetalisBrand.append(detalisBrand)
@@ -139,34 +124,102 @@ function RenderInfoProduct() {
   detalisWrapperPrice.append(detalisWrapperPricePrice)
   detalisWrapperPrice.append(detalisWrapperPriceBtrAdd)
   detalisWrapperPrice.append(detalisWrapperPriceBtrRemove)
+  productInfoAllElementImg.append(elementImgSmall)
 
   productInfoAdd.innerHTML = 'Инфо'
-  productInfoAllTitle.innerHTML = 'title'
+  // productInfoAllTitle.innerHTML = 'title'
 
 
   detalisBrand.innerHTML = 'Брэнд:'
-  detalisBrandText.innerHTML = 'Samsung'
+  // detalisBrandText.innerHTML = 'Samsung'
 
   detalisDiscount.innerHTML = 'Cкидка:'
-  detalisDiscountText.innerHTML = '10%'
+  // detalisDiscountText.innerHTML = '10%'
   
   detalisRaiting.innerHTML = 'Рейтинг:'
-  detalisRaitingText.innerHTML = '3.9'
+  // detalisRaitingText.innerHTML = '3.9'
 
   detalisStock.innerHTML = 'Наличие:'
-  detalisStockText.innerHTML = '75'
+  // detalisStockText.innerHTML = '75'
 
   detalisCategory.innerHTML = 'Категория:'
-  detalisCategoryText.innerHTML = 'Наушники'
+  // detalisCategoryText.innerHTML = 'Наушники'
 
   detalisDescription.innerHTML = 'Описание:'
-  detalisDescriptionText.innerHTML = 'Новые беспроводные наушники от Samsung Galaxy Buds 2, наряду со смартфонами, смогли также быстро завоевать доверие среди своих пользователей. Ничего сверхсложного - только стильный дизайн, качественный звук и при этом доступная цена в совокупности дают нам успех. Наушники Samsung Galaxy Buds 2 подключаются через Bluetooth 5.2 и легко синхронизируются с любыми новейшими устройствами - как версии Android, так и iOS. С помощью '
+  // detalisDescriptionText.innerHTML = 'Новые беспроводные наушники от Samsung Galaxy Buds 2, наряду со смартфонами, смогли также быстро завоевать доверие среди своих пользователей. Ничего сверхсложного - только стильный дизайн, качественный звук и при этом доступная цена в совокупности дают нам успех. Наушники Samsung Galaxy Buds 2 подключаются через Bluetooth 5.2 и легко синхронизируются с любыми новейшими устройствами - как версии Android, так и iOS. С помощью '
 
-  detalisWrapperPricePrice.innerHTML = '150%'
+  // detalisWrapperPricePrice.innerHTML = '150%'
   detalisWrapperPriceBtrAdd.innerHTML = 'Добавить в козрзину'
   detalisWrapperPriceBtrRemove.innerHTML = 'Купить сейчас'
 
 
+  const mainLeft = document.querySelector('.main__left-section')
+  const mainright = document.querySelector('.main__right-product')
+
+  mainright?.classList.add('active')
+  mainLeft?.classList.add('active')
 }
 
-// RenderInfoProduct();
+
+const cardsHover = document.querySelectorAll('.cards__hover')
+cardsHover.forEach(item => item.addEventListener('click', (e: Event) => {
+  
+  RenderInfoProduct();
+  const t = e.target as HTMLElement
+  t.getAttribute('id')
+
+  PRODUCTS.forEach(item => {
+    if (item.id === Number(t.getAttribute('id'))) {
+    const productInfoAllTitle = document.querySelector('.product-info__all-title') as HTMLElement
+    const detalisBrandText = document.querySelector('.detalis-brand-text') as HTMLElement
+    const detalisDiscountText = document.querySelector('.detalis-discount-text') as HTMLElement
+    const detalisRaitingText = document.querySelector('.detalis-raiting-text') as HTMLElement
+    const detalisStockText = document.querySelector('.detalis-stock-text') as HTMLElement
+    const detalisCategoryText = document.querySelector('.detalis-category-text') as HTMLElement
+    const detalisDescriptionText = document.querySelector('.detalis-description-text') as HTMLElement
+    const detalisWrapperPricePrice = document.querySelector('.detalis-wrapper__price-price') as HTMLElement
+    
+    const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
+
+    detalisDescriptionText.innerHTML = item.description
+    productInfoAllTitle.innerHTML = item.title 
+    
+    detalisDiscountText.innerHTML = item.discountPrecentage.toString()
+    detalisRaitingText.innerHTML = item.raiting.toString()
+    detalisStockText.innerHTML = item.stock.toString()
+    detalisCategoryText.innerHTML = item.category
+    detalisWrapperPricePrice.innerHTML = item.price.toString()
+    elementImgBigImg.src = item.previewImg
+      detalisBrandText.innerHTML = item.brand
+      
+      item.images.filter(item => {
+        const elementImgSmall = document.querySelector('.element-img__small') as HTMLElement
+
+        const small1 = document.createElement('div');
+        small1.classList.add('small-1');
+
+        const small1Img = document.createElement('img')
+        small1Img.classList.add('small-1-img')
+
+        
+        elementImgSmall.append(small1)
+        small1.append(small1Img)
+        small1Img.src = item
+    })
+    }
+  })
+  
+  // const click = document.querySelectorAll('.element-img__small div')
+  // click.forEach(item => {
+  //   item.addEventListener('click', (e) => {
+  //     const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement | null
+  //     const s = e.target as HTMLElement
+  //     console.log(s.getAttribute('src'))
+
+  //     if (item) {
+  //       elementImgBigImg.src = s.getAttribute('src')
+  //     }
+      
+  //   })
+  // })
+}))

@@ -42,7 +42,13 @@ body{
   background: #e9e9e9;
 }
 
-/* .main__left-section,
-.main__right-product{
+
+/*--------временно*/
+.main__left-section.active{
   display: none;
-} */
+}
+
+.main__right-product.active{
+  display: none;
+}
+/*--------временно*/
