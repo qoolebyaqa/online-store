@@ -42,7 +42,7 @@ function CardsRender (sources: Array<IProduct>) {
   PriceAndCart();
 }
 
-function filter (){
+function filterRange (){
   const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
   const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
   const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
@@ -118,6 +118,92 @@ function filter (){
   CardsRender(FiltredPRODUCTS);
 }
 
+function filterCheckbox (){
+  const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
+  const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
+  const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
+  const priceInputMax = document.querySelector('.price-inputs')?.querySelector('.input-max');
+  const stokeInputMin = document.querySelector('.stock-inputs')?.querySelector('.input-min');
+  const stokeInputMax = document.querySelector('.stock-inputs')?.querySelector('.input-max');
+  const CategoryFilter: Array<string> = [];
+  const BrandFilter: Array<string> = [];
+  let FiltredPRODUCTS: Array<IProduct> = [];
+  PRODUCTS.forEach((value) => {
+    FiltredPRODUCTS.push(value);
+  })
+  if (inputsCategoryCollection !== undefined) {
+    for (const input of inputsCategoryCollection) {
+      if (input.checked === true) {
+        CategoryFilter.push(input.id);
+      }
+    }
+  }
+  if (inputsBrandCollection !== undefined) {
+    for (const input of inputsBrandCollection) {
+      if (input.checked === true) {
+        BrandFilter.push(input.id);
+      }
+    }
+  }
+  FiltredPRODUCTS = FiltredPRODUCTS.filter((value) => {
+    if (BrandFilter.length > 0 
+      && CategoryFilter.length > 0) {
+      for (let i = 0; i < BrandFilter.length; i++) {
+        for (let j = 0; j < CategoryFilter.length; j++) {
+          if (value.brand === BrandFilter[i] && value.category === CategoryFilter[j]) {
+            return true;
+          }
+        }
+      }
+    }
+    else if (BrandFilter.length > 0 && CategoryFilter.length === 0) {
+      for (let i = 0; i < BrandFilter.length; i++) {
+        if (value.brand === BrandFilter[i]) {
+          return true;
+        }        
+      }
+    }
+    else if (BrandFilter.length === 0 && CategoryFilter.length > 0) {
+      for (let i = 0; i < CategoryFilter.length; i++) {
+        if (value.category === CategoryFilter[i]) {
+          return true;
+        }        
+      }
+    }
+    else if (BrandFilter.length === 0 && CategoryFilter.length === 0){
+        return value;
+      }
+    
+  }); 
+  
+
+  (priceInputMin as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.price);
+  }, Infinity).toString();
+  (priceInputMax as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.price);
+  }, 0).toString();
+  (stokeInputMin as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.stock);
+  }, Infinity).toString();
+  (stokeInputMax as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.stock);
+  }, 0).toString();
+  (inputRangeMin[0] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.price);
+  }, Infinity).toString();
+  (inputRangeMin[1] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.stock);
+  }, Infinity).toString();
+  (inputRangeMax[0] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.price);
+  }, 0).toString();
+  (inputRangeMax[1] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.stock);
+  }, 0).toString();
+  CardsRender(FiltredPRODUCTS);
+}
+
 const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
 const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
 const inputRangeMin = document.querySelectorAll('.range-min');
@@ -131,26 +217,26 @@ inputs.push(priceInputMax, priceInputMin, stokeInputMin, stokeInputMax);
 
 if (inputsCategoryCollection !== undefined) {
   for (const input of inputsCategoryCollection) {
-    input.addEventListener('input', filter);
+    input.addEventListener('input', filterCheckbox);
   }
 }
 if (inputsBrandCollection !== undefined) {
   for (const input of inputsBrandCollection) {
-    input.addEventListener('input', filter);
+    input.addEventListener('input', filterCheckbox);
   }
 }
 if (inputRangeMin !== undefined) {
   for (const input of inputRangeMin) {
-    input.addEventListener('input', filter);
+    input.addEventListener('input', filterRange);
   }
 }
 if (inputRangeMax !== undefined) {
   for (const input of inputRangeMax) {
-    input.addEventListener('input', filter);
+    input.addEventListener('input', filterRange);
   }
 }
 inputs.forEach((input) => {
-  input?.addEventListener('input', filter);
+  input?.addEventListener('input', filterRange);
 })
 
 CardsRender(PRODUCTS);
