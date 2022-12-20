@@ -1,9 +1,11 @@
 import { PRODUCTS } from "../goods";
 import { PriceAndCart } from "../Header/Header";
 import { IProduct } from "../goods";
+import { restartFilters } from "./quantity-counters";
 
-function CardsRender (sources: Array<IProduct>) {
-  const wrapper = document.querySelector('.cards__wrapper')
+export function CardsRender (sources: Array<IProduct>) {
+  const wrapper = document.querySelector('.cards__wrapper');
+  const counter = document.querySelector('.counter');
   if (wrapper) {
     wrapper.innerHTML = ''
   }
@@ -38,7 +40,10 @@ function CardsRender (sources: Array<IProduct>) {
     cardPrice.innerHTML = value.price.toString() + '$';
     container.append(Imgcontainer, cardCategory, cardBrand, cardTitle, cardPrice, cardButton);
     wrapper?.append(container);   
-  })  
+  })
+  if (counter?.innerHTML) {
+    counter.innerHTML = sources.length.toString();
+  }
   PriceAndCart();
 }
 
@@ -238,5 +243,7 @@ if (inputRangeMax !== undefined) {
 inputs.forEach((input) => {
   input?.addEventListener('input', filterRange);
 })
+
+document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
 
 CardsRender(PRODUCTS);
