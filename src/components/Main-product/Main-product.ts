@@ -28,6 +28,7 @@ export function CardsRender (sources: Array<IProduct>) {
     const cardHover = document.createElement('div');
     cardHover.classList.add('cards__hover');
     cardHover.innerHTML = `${value.title} Только сегодня со скидкой ${value.discountPrecentage}% Поспешите осталось ${value.stock} шт.`
+    cardHover.setAttribute('id', `${value.id}`)
     if (cardButton) {
       cardButton?.classList.add('cards__button');
       cardButton.innerHTML = 'Add to Cart';
