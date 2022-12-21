@@ -53,6 +53,16 @@
   width: 90%;
 }
 
+.modal__details-name-text,
+.modal__details-phone-text,
+.modal__details-address-text,
+.modal__details-email-text{
+  font-size: 10px;
+  padding-left: 15px;
+  color: rgb(0, 0, 0, .6);
+  margin-bottom: 3px;
+}
+
 .modal__details-cards{
   display: flex;
   flex-direction: column;
@@ -138,4 +148,20 @@
 
 .modal__details-btn:hover{
   background-color: rgba(120, 209, 60, 0.925);
+}
+
+input:invalid {
+  outline: red;
+}
+
+input:invalid {
+  border: 2px solid red;
+}
+
+input:valid {
+  outline: #18a12a;
+}
+
+input:focus{
+ border:solid 2px #18E109;
 }
