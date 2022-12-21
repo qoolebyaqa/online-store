@@ -2,6 +2,7 @@ import { PRODUCTS } from "../goods";
 import { PriceAndCart } from "../Header/Header";
 import { IProduct } from "../goods";
 import { restartFilters } from "./quantity-counters";
+import { urlChanger } from "./location-funcs";
 
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
@@ -210,6 +211,7 @@ function filterCheckbox (){
   CardsRender(FiltredPRODUCTS);
 }
 
+
 const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
 const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
 const inputRangeMin = document.querySelectorAll('.range-min');
@@ -224,11 +226,13 @@ inputs.push(priceInputMax, priceInputMin, stokeInputMin, stokeInputMax);
 if (inputsCategoryCollection !== undefined) {
   for (const input of inputsCategoryCollection) {
     input.addEventListener('input', filterCheckbox);
+    input.addEventListener('input', urlChanger);
   }
 }
 if (inputsBrandCollection !== undefined) {
   for (const input of inputsBrandCollection) {
     input.addEventListener('input', filterCheckbox);
+    input.addEventListener('input', urlChanger);
   }
 }
 if (inputRangeMin !== undefined) {
