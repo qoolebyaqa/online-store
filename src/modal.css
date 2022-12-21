@@ -150,18 +150,10 @@
   background-color: rgba(120, 209, 60, 0.925);
 }
 
-input:invalid {
-  outline: red;
+.valid{
+ border: 2px solid  #18E109;
 }
 
-input:invalid {
-  border: 2px solid red;
-}
-
-input:valid {
-  outline: #18a12a;
-}
-
-input:focus{
- border:solid 2px #18E109;
-}
+.invalid{
+  border: 2px solid  #e10909;
+ }
