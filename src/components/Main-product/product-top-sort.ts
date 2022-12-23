@@ -70,3 +70,39 @@ function sort () {
     default: return PRODUCTS;
   }
 }
+
+function searchFilter() {
+  const cards = document.querySelectorAll('.cards__container');
+  const wrapper = document.querySelector('.cards__wrapper');
+  const searcher = document.querySelector('.product-top__search-input');
+  const serachedfield: Array<IProduct> = [];
+  const arrToCollect: Array<IProduct> = [];
+  const currentNamesArr: Array<string> = [];
+
+  cards.forEach((card) => {
+    currentNamesArr.push(card.children[3].innerHTML);
+  })
+
+  PRODUCTS.forEach((value) => {
+    if (currentNamesArr.includes(value.title)) {
+      arrToCollect.push(value);
+    }
+  })
+
+  arrToCollect.forEach((value) => {
+    if (Object.values(value).join('').includes((searcher as HTMLInputElement).value)){
+      serachedfield.push(value);
+    }
+  })
+  if (wrapper?.innerHTML) {
+    wrapper.innerHTML = '';
+  }
+  if ((searcher as HTMLInputElement).value === '') {
+    CardsRender(arrToCollect)
+  }
+  else {
+    CardsRender(serachedfield);
+  }
+}
+
+document.querySelector('.product-top__search-input')?.addEventListener('input', searchFilter);
