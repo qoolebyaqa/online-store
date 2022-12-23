@@ -37,7 +37,7 @@ function RenderModal() {
   inputName.setAttribute('placeholder', 'Имя и фамилия')
   const inputPhone = document.createElement('input');
   inputPhone.classList.add('input', 'input-details', 'input-details-phone');
-  inputPhone.setAttribute('type', 'number')
+  inputPhone.setAttribute('type', 'text')
   inputPhone.setAttribute('placeholder', 'Телефон')
   inputPhone.setAttribute('name', "phone")
   const inputAddress = document.createElement('input');
@@ -61,17 +61,17 @@ function RenderModal() {
   infoCardNumberInput.classList.add('info__card-number-input');
   const cardNumberNumber = document.createElement('input');
   cardNumberNumber.classList.add('input', 'card-number__number');
-  cardNumberNumber.setAttribute('type', 'number')
+  cardNumberNumber.setAttribute('type', 'text')
   const infoCvv = document.createElement('div');
   infoCvv.classList.add('info__cvv');
   const infoCvvValid = document.createElement('label');
   infoCvvValid.classList.add('info__cvv-valid');
   const cvvValidInput = document.createElement('input');
   cvvValidInput.classList.add('input', 'cvv-valid__input');
-  cvvValidInput.setAttribute('type', 'number')
+  cvvValidInput.setAttribute('type', 'text')
   const infoCvvCvv = document.createElement('label');
   infoCvvCvv.classList.add('info__cvv-cvv');
-  cvvValidInput.setAttribute('type', 'number')
+  infoCvvCvv.setAttribute('type', 'number')
   const cvvCvvInput = document.createElement('input');
   cvvCvvInput.classList.add('input', 'cvv-cvv__input');
   cvvCvvInput.setAttribute('type', 'number')
@@ -127,42 +127,63 @@ const cvvCvvInput = document.querySelector('.cvv-cvv__input') as HTMLInputElemen
 const modalDetailsBtn = document.querySelector('.modal__details-btn') as HTMLButtonElement
 
 
+cardNumberNumber.addEventListener('keydown', function (e) {
+  const value = this.value.replace(/\s+/g, '');
+  const isBackspace = e.key === 'Backspace'; 
 
-const nameFullReg = /^([a-z]{3,})*\s([a-z]{3,})*$/;
-const phoneReg = /^(\+375)(\(\(\d{3}\)|\d{3})\d{6}$/;
-const addressReg = /^([a-z]{5,})*\s([a-z]{5,})*\s([a-z]{5,})*$/;
-const emailReg = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
-const cvvReg = /[0-9]|\./;
+  if ((e.key.length === 1 && /^[^\d\s]+$/.test(e.key)) || (!isBackspace && value.length === 16)) {
+      e.preventDefault();
+      return false;
+  }
+
+  this.value = value.split('').reverse().join('').replace(/\B(?=(\d{4})+(?!\d))/g, " ").split('').reverse().join('').trim();
+});
+
+
+cvvValidInput.addEventListener('keydown', function (e) {
+  const value = this.value.replace(/\s+/g, '');
+  const isBackspace = e.key === 'Backspace'; 
+
+  if ((e.key.length === 1 && /^[^\d\s]+$/.test(e.key)) || (!isBackspace && value.length === 4)) {
+      e.preventDefault();
+      return false;
+  }
+  
+  this.value = value.split('').reverse().join('').replace(/\B(?=(\d{2})+(?!\d))/g, " ").split('').reverse().join('').trim();
+});
+
+
+cvvCvvInput.oninput = function () {
+  cvvCvvInput.value = cvvCvvInput.value.substr(0,3)
+}
+
+
+const nameFullReg = /^(([a-zA-Z]|[а-я]){3,})*\s(([a-zA-Z]|[а-я]){3,})*$/;
+const phoneReg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+const addressReg = /^(([a-zA-Z]|[а-я]){5,})*\s(([a-zA-Z]|[а-я]){5,})*\s(([a-zA-Z]|[а-я]){5,})*$/;
+const emailReg = /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/;
+const cardNumberReg = /(?:\d[ -]?){12,18}\d/;
+const cvvValidReg = /^(?!0.*$)([1-2]{1})+(?!0.*$)([0-9]{1})*\s(?!0.*$)([0-2]{1})+(?!0.*$)([0-9]{1})$/;
+const cvvReg = /^[0-9]{3}$/;
 
 form.addEventListener('submit', (e: Event) => {
   e.preventDefault();
-
   checkInput();
-  console.log('hi')
 })
-
 
 function checkInput() {
   const inputName = inputDetailsName.value.trim();
   const inputPhone = inputDetailsPhone.value.trim();
   const inputEmail = inputDetailsEmail.value.trim();
-  const inputAddress = inputDetailsAddress.value.trim()
-  const cvvInput = cvvCvvInput.value.trim()
-
-
-  // if (inputName === ''){
-  //   inputDetailsName.classList.add('invalid')
-  // } else {
-  //   inputDetailsName.classList.remove('invalid')
-  //   inputDetailsName.classList.add('valid')
-  // }
+  const inputAddress = inputDetailsAddress.value.trim();
+  const cardNumber = cardNumberNumber.value.trim();
+  const cvvInputData = cvvValidInput.value.trim();
+  const cvvInput = cvvCvvInput.value.trim();
 
   inputs.forEach(item => {
     if ((item as HTMLInputElement).value === '') {
       (item as HTMLInputElement).classList.add('invalid')
-      } else {
-        (item as HTMLInputElement).classList.add('valid')
-      }
+    }
   })
 
   if (!nameFullReg.test(inputName)) {
@@ -172,7 +193,8 @@ function checkInput() {
     inputDetailsName.classList.add('valid')
   }
 
-  if (!phoneReg.test(inputPhone)) {
+console.log(inputPhone.startsWith('+'))
+  if (!phoneReg.test(inputPhone) && inputPhone.startsWith('+')) {
     inputDetailsPhone.classList.add('invalid')
   }else {
     inputDetailsPhone.classList.remove('invalid')
@@ -193,110 +215,31 @@ function checkInput() {
     inputDetailsEmail.classList.add('valid')
   }
 
-  if (!cvvReg.test(cvvInput)) {
-    inputDetailsEmail.classList.add('invalid')
+  if (!cardNumberReg.test(cardNumber)) {
+      cardNumberNumber.classList.add('invalid')
   }else {
-    inputDetailsEmail.classList.remove('invalid')
-    inputDetailsEmail.classList.add('valid')
+    cardNumberNumber.classList.remove('invalid')
+    cardNumberNumber.classList.add('valid')
+  }
+
+
+  const start = +(cvvValidInput.value.slice(0, 2))
+  const end = +(cvvValidInput.value.slice(3))
+  // console.log(start)
+  if (!cvvValidReg.test(cvvInputData)) {
+    cvvValidInput.classList.add('invalid')
+  }else if (start <= end) {
+    cvvValidInput.classList.remove('invalid')
+    cvvValidInput.classList.add('valid')
+  }
+
+  if (!cvvReg.test(cvvInput)) {
+    cvvCvvInput.classList.add('invalid')
+  }else {
+    cvvCvvInput.classList.remove('invalid')
+    cvvCvvInput.classList.add('valid')
   }
 
 }
 
 
-
-
-
-
-// form?.addEventListener('input', inputClick);
-
-// function inputClick(e: Event) {
-//   const a = (e.target as HTMLInputElement).value
-//   const value = e.target as HTMLInputElement
-//   const att = value.getAttribute('name')
-//   console.log(att)
-
-//   if(!regex.test(a)){
-//     console.log('Не соответствует');
-//     value.classList.add('invalid')
-//     value.classList.remove('valid')
-//     }else{
-//     console.log('Соответствует');
-//     value.classList.add('valid')
-//     value.classList.remove('invalid')
-//   }
-
-//   if(!email.test(a)){
-//     console.log('Не соответствует');
-//     value.classList.add('invalid')
-//     value.classList.remove('valid')
-//     }else{
-//     console.log('Соответствует');
-//     value.classList.add('valid')
-//     value.classList.remove('invalid')
-//   }
-
-//   if(!textTwo.test(a)){
-//     console.log('Не соответствует');
-//     value.classList.add('invalid')
-//     value.classList.remove('valid')
-//     }else{
-//     console.log('Соответствует');
-//     value.classList.add('valid')
-//     value.classList.remove('invalid')
-//   }
-
-//   if(!textThree.test(a)){
-//     console.log('Не соответствует');
-//     value.classList.add('invalid')
-//     value.classList.remove('valid')
-//     }else{
-//     console.log('Соответствует');
-//     value.classList.add('valid')
-//     value.classList.remove('invalid')
-//   }
-// }
-
-
-// function validEmail(email: string) {
-//   const regex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
-//   return regex.test(String(email).toLocaleLowerCase())
-// }
-
-// function validPhone(phone: string) {
-//   const regex = /^(\+375)(\(\(\d{3}\)|\d{3})\d{6}$/;
-//   return regex.test(String(phone).toLocaleLowerCase())
-// }
-
-// form.onsubmit = function () {
-//   const emailVal = inputDetailsEmail.value
-//   const phoneVal = inputDetailsPhone.value
-//   const emptyInput = Array.from(inputs).filter(input => (input as HTMLInputElement).value === '')
-
-//   inputs.forEach(item => {
-//     if ((item as HTMLInputElement).value === '') {
-//       item.classList.add('invalid')
-//     } else {
-//       item.classList.add('valid')
-//     }
-
-//     if (!validEmail(emailVal)) {
-//       item.classList.add('valid')
-//       return false
-//     } else{
-//       item.classList.add('valid')
-//     }
-
-//     if (!validPhone(phoneVal)) {
-//       item.classList.add('invalid')
-//       return false
-//     } else{
-//       item.classList.remove('invalid')
-//     }
-
-//     if (emptyInput.length !== 0) {
-//       console.log('not');
-//       return false
-//     }
-
-//   })
-// }
