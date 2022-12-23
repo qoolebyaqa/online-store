@@ -80,7 +80,7 @@
   border-radius: 10px;
   background: rgb(0,9,36);
   background: linear-gradient(90deg,rgb(112, 119, 7) 6%,rgb(159, 170, 5) 34%,rgb(195, 209, 5) 100%);
-  width: 55%;
+  width: 65%;
   height: 105px;
   box-shadow:
   0 1px 4px rgba(0, 0, 0, .3),
@@ -92,7 +92,18 @@
 
 .wrapper-modal__form .input{
   text-align: center;
-  font-size: 14px;
+  font-size: 10px;
+}
+
+.info__card-number-input{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 10px;
+}
+
+.card-number__card-name{
+  padding: 2px;
 }
 
 .modal__details,
@@ -106,6 +117,7 @@
   width: 100%;
   border-radius: 5px;
   background-color: rgb(221, 217, 217);
+  margin-right: 2px;
 }
 
 .info__cvv{
@@ -156,4 +168,19 @@
 
 .invalid{
   border: 2px solid  #e10909;
+ }
+
+
+ .wrapper-finish{
+  display: flex;
+  color: aliceblue;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 900;
+  box-shadow: 0 0 40px rgba(233, 223, 223, 1);
+ }
+
+ .wrapper-modal__finish-span{
+  margin-left: 10px;
  }

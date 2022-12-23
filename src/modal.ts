@@ -59,6 +59,8 @@ function RenderModal() {
   infoCardNumber.classList.add('info__card-number');
   const infoCardNumberInput = document.createElement('div');
   infoCardNumberInput.classList.add('info__card-number-input');
+  const cardNumberCardName = document.createElement('div');
+  cardNumberCardName.classList.add('card-number__card-name');
   const cardNumberNumber = document.createElement('input');
   cardNumberNumber.classList.add('input', 'card-number__number');
   cardNumberNumber.setAttribute('type', 'text')
@@ -96,7 +98,7 @@ function RenderModal() {
   detailsCardsInfo.append(infoCardNumber, infoCvv)
 
   infoCardNumber.append(infoCardNumberInput)
-  infoCardNumberInput.append(cardNumberNumber)
+  infoCardNumberInput.append(cardNumberCardName, cardNumberNumber)
 
   infoCvv.append(infoCvvValid, infoCvvCvv)
   infoCvvValid.append(cvvValidSpan, cvvValidInput)
@@ -113,6 +115,7 @@ function RenderModal() {
   modalDetailsBtn.innerHTML = 'Подтвердить';
 }
 
+
 RenderModal()
 
 const form = document.querySelector('.form-modal') as HTMLElement
@@ -124,8 +127,6 @@ const inputDetailsEmail = document.querySelector('.input-details-email') as HTML
 const cardNumberNumber = document.querySelector('.card-number__number') as HTMLInputElement
 const cvvValidInput = document.querySelector('.cvv-valid__input') as HTMLInputElement
 const cvvCvvInput = document.querySelector('.cvv-cvv__input') as HTMLInputElement
-const modalDetailsBtn = document.querySelector('.modal__details-btn') as HTMLButtonElement
-
 
 cardNumberNumber.addEventListener('keydown', function (e) {
   const value = this.value.replace(/\s+/g, '');
@@ -162,7 +163,7 @@ const nameFullReg = /^(([a-zA-Z]|[а-я]){3,})*\s(([a-zA-Z]|[а-я]){3,})*$/;
 const phoneReg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
 const addressReg = /^(([a-zA-Z]|[а-я]){5,})*\s(([a-zA-Z]|[а-я]){5,})*\s(([a-zA-Z]|[а-я]){5,})*$/;
 const emailReg = /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/;
-const cardNumberReg = /(?:\d[ -]?){12,18}\d/;
+const cardNumberReg = /(?:\d[ -]?){15,20}\d/;
 const cvvValidReg = /^(?!0.*$)([1-2]{1})+(?!0.*$)([0-9]{1})*\s(?!0.*$)([0-2]{1})+(?!0.*$)([0-9]{1})$/;
 const cvvReg = /^[0-9]{3}$/;
 
@@ -170,6 +171,26 @@ form.addEventListener('submit', (e: Event) => {
   e.preventDefault();
   checkInput();
 })
+
+
+function nameCard() {
+  cardNumberNumber.addEventListener('input', () => {
+    const cardNumberCardName = document.querySelector('.card-number__card-name') as HTMLInputElement
+    if (+(cardNumberNumber.value[0]) === 4) {
+      cardNumberCardName.innerHTML = 'Visa'
+    } else if (+(cardNumberNumber.value[0]) === 5) {
+      cardNumberCardName.innerHTML = 'MasterCard'
+    } else if (+(cardNumberNumber.value[0]) === 2) {
+      cardNumberCardName.innerHTML = 'Master'
+    }else if (+(cardNumberNumber.value[0]) === 1) {
+      cardNumberCardName.innerHTML = 'Credit'
+    }
+    else if (+(cardNumberNumber.value[0]) === 3) {
+      cardNumberCardName.innerHTML = 'Electron'
+    }
+  })
+}
+nameCard()
 
 function checkInput() {
   const inputName = inputDetailsName.value.trim();
@@ -227,13 +248,13 @@ function checkInput() {
   }
 
 
-  const start = +(cvvValidInput.value.slice(0, 2))
-  const end = +(cvvValidInput.value.slice(3))
+  // const start = +(cvvValidInput.value.slice(0, 2))
+  // const end = +(cvvValidInput.value.slice(3))
   // console.log(start)
   if (!cvvValidReg.test(cvvInputData)){
     cvvValidInput.classList.add('invalid')
     cvvValidInput.classList.remove('valid')
-  }else if (start <= end) {
+  }else {
     cvvValidInput.classList.remove('invalid')
     cvvValidInput.classList.add('valid')
   }
@@ -262,3 +283,27 @@ function checkInput() {
 }
 
 
+function fin() {
+  const wrapperModal = document.querySelector('.wrapper-modal') as HTMLElement
+  wrapperModal.innerHTML = '';
+
+  const wrapperFinish = document.createElement('div');
+  wrapperFinish.classList.add('wrapper-finish');
+  const wrapperModalFinish = document.createElement('div');
+  wrapperModalFinish.classList.add('wrapper-modal__finish');
+  const wrapperModalFinishSpan = document.createElement('span');
+  wrapperModalFinishSpan.classList.add('wrapper-modal__finish-span');
+ 
+  wrapperFinish.append(wrapperModalFinish, wrapperModalFinishSpan)
+  wrapperModal.append(wrapperFinish)
+
+  wrapperModalFinish.innerHTML = 'Ваш заказ принят в обработку'
+  wrapperModalFinishSpan.innerHTML = '3'
+
+
+  // for (let i=0; i < 3; i++){
+  //   wrapperModalFinishSpan.innerHTML = 
+  // }
+}
+
+fin()
