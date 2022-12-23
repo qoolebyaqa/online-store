@@ -194,7 +194,7 @@ function checkInput() {
   }
 
 console.log(inputPhone.startsWith('+'))
-  if (!phoneReg.test(inputPhone) && inputPhone.startsWith('+')) {
+  if (!phoneReg.test(inputPhone)) {
     inputDetailsPhone.classList.add('invalid')
   }else {
     inputDetailsPhone.classList.remove('invalid')
@@ -238,6 +238,17 @@ console.log(inputPhone.startsWith('+'))
   }else {
     cvvCvvInput.classList.remove('invalid')
     cvvCvvInput.classList.add('valid')
+  }
+
+  let validModal = 0
+  inputs.forEach(item => {
+    if (item.classList.contains('valid')) {
+      validModal++;
+    }
+  })
+
+  if (validModal === 7) {
+    console.log('hi')
   }
 
 }
