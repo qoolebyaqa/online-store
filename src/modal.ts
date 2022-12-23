@@ -188,14 +188,15 @@ function checkInput() {
 
   if (!nameFullReg.test(inputName)) {
     inputDetailsName.classList.add('invalid')
+    inputDetailsName.classList.remove('valid')
   }else {
     inputDetailsName.classList.remove('invalid')
     inputDetailsName.classList.add('valid')
   }
 
-console.log(inputPhone.startsWith('+'))
-  if (!phoneReg.test(inputPhone)) {
+  if (!phoneReg.test(inputPhone) || !inputPhone.startsWith('+')) {
     inputDetailsPhone.classList.add('invalid')
+    inputDetailsPhone.classList.remove('valid')
   }else {
     inputDetailsPhone.classList.remove('invalid')
     inputDetailsPhone.classList.add('valid')
@@ -203,6 +204,7 @@ console.log(inputPhone.startsWith('+'))
 
   if (!addressReg.test(inputAddress)) {
     inputDetailsAddress.classList.add('invalid')
+    inputDetailsAddress.classList.remove('valid')
   }else {
     inputDetailsAddress.classList.remove('invalid')
     inputDetailsAddress.classList.add('valid')
@@ -210,13 +212,15 @@ console.log(inputPhone.startsWith('+'))
 
   if (!emailReg.test(inputEmail)) {
     inputDetailsEmail.classList.add('invalid')
+    inputDetailsEmail.classList.remove('valid')
   }else {
     inputDetailsEmail.classList.remove('invalid')
     inputDetailsEmail.classList.add('valid')
   }
 
   if (!cardNumberReg.test(cardNumber)) {
-      cardNumberNumber.classList.add('invalid')
+    cardNumberNumber.classList.add('invalid')
+    cardNumberNumber.classList.remove('valid')
   }else {
     cardNumberNumber.classList.remove('invalid')
     cardNumberNumber.classList.add('valid')
@@ -226,8 +230,9 @@ console.log(inputPhone.startsWith('+'))
   const start = +(cvvValidInput.value.slice(0, 2))
   const end = +(cvvValidInput.value.slice(3))
   // console.log(start)
-  if (!cvvValidReg.test(cvvInputData)) {
+  if (!cvvValidReg.test(cvvInputData)){
     cvvValidInput.classList.add('invalid')
+    cvvValidInput.classList.remove('valid')
   }else if (start <= end) {
     cvvValidInput.classList.remove('invalid')
     cvvValidInput.classList.add('valid')
@@ -235,6 +240,7 @@ console.log(inputPhone.startsWith('+'))
 
   if (!cvvReg.test(cvvInput)) {
     cvvCvvInput.classList.add('invalid')
+    cvvCvvInput.classList.remove('valid')
   }else {
     cvvCvvInput.classList.remove('invalid')
     cvvCvvInput.classList.add('valid')
@@ -249,8 +255,10 @@ console.log(inputPhone.startsWith('+'))
 
   if (validModal === 7) {
     console.log('hi')
+    validModal = 0
   }
 
+  console.log(validModal)
 }
 
 
