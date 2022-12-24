@@ -3,6 +3,7 @@ import { PriceAndCart } from "../Header/Header";
 import { IProduct } from "../goods";
 import { restartFilters } from "./quantity-counters";
 import { urlChanger } from "./location-funcs";
+import { cartStorage } from "../Header/Header";
 
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
@@ -47,6 +48,7 @@ export function CardsRender (sources: Array<IProduct>) {
     counter.innerHTML = sources.length.toString();
   }
   PriceAndCart();
+  cartStorage();
 }
 
 function filterRange (){
