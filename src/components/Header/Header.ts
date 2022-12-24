@@ -11,33 +11,54 @@ export function PriceAndCart () {
     if (Cart?.innerHTML) {
       CurrentQuantity = Number(Cart.innerHTML);
     }
-    CurrentQuantity++;
-    if (target instanceof HTMLElement) {
-      CurrentPrice = CurrentPrice + Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
-      (target as HTMLButtonElement).disabled = true;
-      target.classList.remove('cards__button');
-      target.classList.add('cards__button-active');
-      let arrToStorage = [];
-      if (localStorage.cards) {
-        arrToStorage = JSON.parse(localStorage.cards);
-        PRODUCTS.forEach((value) => {if(value.title === target.parentElement?.children[3].innerHTML) {
-          arrToStorage.push(value);
-        }})
+    if ((target as HTMLButtonElement).innerHTML === 'Add to Cart') {
+      CurrentQuantity++;
+      if (target instanceof HTMLElement) {
+        CurrentPrice = CurrentPrice + Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
+        (target as HTMLButtonElement).innerHTML = 'Drop from Cart';
+        target.classList.remove('cards__button');
+        target.classList.add('cards__button-active');
+        let arrToStorage = [];
+        if (localStorage.cards) {
+          arrToStorage = JSON.parse(localStorage.cards);
+          PRODUCTS.forEach((value) => {if(value.title === target.parentElement?.children[3].innerHTML) {
+            arrToStorage.push(value);
+          }})
+        }
+        else {
+          PRODUCTS.forEach((value) => {if(value.title === target.parentElement?.children[3].innerHTML) {
+            arrToStorage.push(value);
+          }})
+        }
+        localStorage.setItem('cards', JSON.stringify(arrToStorage));
       }
-      else {
-        PRODUCTS.forEach((value) => {if(value.title === target.parentElement?.children[3].innerHTML) {
-          arrToStorage.push(value);
-        }})
-      }
-      localStorage.setItem('cards', JSON.stringify(arrToStorage));
     }
+    else {
+      CurrentQuantity--;
+      if (target instanceof HTMLElement) {
+        CurrentPrice = CurrentPrice - Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
+        (target as HTMLButtonElement).innerHTML = 'Add to Cart';
+        target.classList.remove('cards__button-active');
+        target.classList.add('cards__button');
+        const arrToStorage: Array<IProduct> = JSON.parse(localStorage.cards);
+        let index = 0;
+        arrToStorage.forEach((value, i) => {
+          if (value.title === target.parentElement?.children[3].innerHTML){
+            index = i;
+          }
+        })
+        arrToStorage.splice(index, 1);
+        
+        localStorage.setItem('cards', JSON.stringify(arrToStorage));
+      }
+    }
+    
     if (Cart?.innerHTML) {
       Cart.innerHTML = CurrentQuantity.toString();
     }
     if (totalPrice?.innerHTML) {
       totalPrice.innerHTML = '$' + CurrentPrice.toString();
     }
-    target?.removeEventListener('click', calculation)
   }
   const cardsCollection = document.querySelectorAll('.cards__button');
   cardsCollection.forEach((value) =>  {
@@ -58,7 +79,7 @@ export function cartStorage() {
         if(value.children[3].innerHTML === product.title) {
           value.children[5].classList.remove('cards__button');
           value.children[5].classList.add('cards__button-active');
-          (value.children[5] as HTMLButtonElement).disabled = true;
+          (value.children[5] as HTMLButtonElement).innerHTML = 'Drop from Cart';
         }
       }
       )
