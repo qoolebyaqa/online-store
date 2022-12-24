@@ -33,5 +33,3 @@ export const PageStatusWithValues: IPageStatusWithValues = {
   'sortType': 'Сортировать по',
   'searchValue': '',
 }
-
-export const cartStorage = [];
