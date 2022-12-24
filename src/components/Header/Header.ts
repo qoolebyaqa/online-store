@@ -47,7 +47,11 @@ export function PriceAndCart () {
 }
 
   
+<<<<<<< HEAD
 export function cartStorage() {
+=======
+function cartStorage() {
+>>>>>>> 6a02a3287e145c4ea02056c55ccc247e8f16b7be
   const CurrentElements = document.querySelectorAll('.cards__container');
   const Cart = document.querySelector('.header__cart-counter');
   const totalPrice = document.querySelector('.header__cart-price');
