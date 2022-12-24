@@ -128,27 +128,27 @@ function RenderModal() {
   cvvValidSpan.innerHTML = 'VALID:';
   cvvSvvSpan.innerHTML = 'CVV:';
   modalDetailsBtn.innerHTML = 'Подтвердить';
-
+  validation();
 }
 
-// RenderModal() --- модальное окно быстрой покупки; 
 
-const form = document.querySelector('.form-modal') as HTMLElement
-const inputs = document.querySelectorAll('.input') 
-const inputDetailsName = document.querySelector('.input-details-name') as HTMLInputElement
-const inputDetailsPhone = document.querySelector('.input-details-phone') as HTMLInputElement
-const inputDetailsAddress = document.querySelector('.input-details-address') as HTMLInputElement
-const inputDetailsEmail = document.querySelector('.input-details-email') as HTMLInputElement
-const cardNumberNumber = document.querySelector('.card-number__number') as HTMLInputElement
-const cvvValidInput = document.querySelector('.cvv-valid__input') as HTMLInputElement
-const cvvCvvInput = document.querySelector('.cvv-cvv__input') as HTMLInputElement
-const modalDetailsNameTextError = document.querySelector('.modal__details-name-text-error') as HTMLElement
-const modalDetailsPhoneTextError = document.querySelector('.modal__details-name-phone-error') as HTMLElement
-const modalDetailsAddressTextError = document.querySelector('.modal__details-name-address-error') as HTMLElement
-const modalDetailsEmailTextError = document.querySelector('.modal__details-name-email-error') as HTMLElement
-const cardNumberError = document.querySelector('.card-number__error') as HTMLElement
-const cvvValidError = document.querySelector('.cvv-valid__error') as HTMLElement
-const cvvCvvError = document.querySelector('.cvv-cvv__error') as HTMLElement
+function validation() {
+  const form = document.querySelector('.form-modal') as HTMLElement
+  const inputs = document.querySelectorAll('.input') 
+  const inputDetailsName = document.querySelector('.input-details-name') as HTMLInputElement
+  const inputDetailsPhone = document.querySelector('.input-details-phone') as HTMLInputElement
+  const inputDetailsAddress = document.querySelector('.input-details-address') as HTMLInputElement
+  const inputDetailsEmail = document.querySelector('.input-details-email') as HTMLInputElement
+  const cardNumberNumber = document.querySelector('.card-number__number') as HTMLInputElement
+  const cvvValidInput = document.querySelector('.cvv-valid__input') as HTMLInputElement
+  const cvvCvvInput = document.querySelector('.cvv-cvv__input') as HTMLInputElement
+  const modalDetailsNameTextError = document.querySelector('.modal__details-name-text-error') as HTMLElement
+  const modalDetailsPhoneTextError = document.querySelector('.modal__details-name-phone-error') as HTMLElement
+  const modalDetailsAddressTextError = document.querySelector('.modal__details-name-address-error') as HTMLElement
+  const modalDetailsEmailTextError = document.querySelector('.modal__details-name-email-error') as HTMLElement
+  const cardNumberError = document.querySelector('.card-number__error') as HTMLElement
+  const cvvValidError = document.querySelector('.cvv-valid__error') as HTMLElement
+  const cvvCvvError = document.querySelector('.cvv-cvv__error') as HTMLElement
 
 
 cardNumberNumber.addEventListener('keydown', function (e) {
@@ -337,17 +337,19 @@ function finishOrder() {
   wrapperModalFinishSpan.innerHTML = '5'
 
   let count = 5;
-const counter = setInterval(timer, 1000); 
+  const counter = setInterval(timer, 1000); 
 
-function timer(){
-  count--;
-  if (count <= 0){
-    clearInterval(counter);
-    alert("дописать переход на главную страницу, очистка корзины") // дописать переход на главную страницу, очистка корзины
+  function timer(){
+    count--;
+    if (count <= 0){
+      clearInterval(counter);
+      alert("дописать переход на главную страницу, очистка корзины") // дописать переход на главную страницу, очистка корзины
+    }
+    wrapperModalFinishSpan.innerHTML = count.toString()
   }
-  wrapperModalFinishSpan.innerHTML = count.toString()
 }
 }
+
 
 
 

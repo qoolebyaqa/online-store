@@ -2,6 +2,7 @@ import { PRODUCTS } from "../goods";
 import { PriceAndCart } from "../Header/Header";
 import { IProduct } from "../goods";
 import { restartFilters } from "./quantity-counters";
+import { CardInfo } from "../../product-info";
 
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
@@ -46,6 +47,7 @@ export function CardsRender (sources: Array<IProduct>) {
     counter.innerHTML = sources.length.toString();
   }
   PriceAndCart();
+  CardInfo();
 }
 
 function filterRange (){
