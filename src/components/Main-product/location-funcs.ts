@@ -5,11 +5,19 @@ export function urlChanger (e: Event) {
   let newUrl = window.location.href;
   
   pageStatus[(filterType as HTMLInputElement).id.toString()] = !pageStatus[(filterType as HTMLInputElement).id];
-  if (newUrl.includes(`?${(filterType as HTMLInputElement).id}:true`)) {
-    newUrl = newUrl.replace(`?${(filterType as HTMLInputElement).id}:true`, '');    
+  if (newUrl.includes(`?${(filterType as HTMLInputElement).id}`)) {
+    newUrl = newUrl.replace(`?${(filterType as HTMLInputElement).id}`, '');    
   }
   else {
-    newUrl = `${window.location.href}?${(filterType as HTMLInputElement).id}:${pageStatus[(filterType as HTMLInputElement).id]}`;
+    newUrl = `${window.location.href}?${(filterType as HTMLInputElement).id}`;
   }
   window.history.pushState({ path: newUrl }, '', newUrl);  
+}
+
+export function askToURL() {
+  Object.keys(pageStatus).forEach((value) => {
+    if (window.location.search.includes(value)) {
+      pageStatus[value] = !pageStatus[value];
+    }
+  });
 }

@@ -56,7 +56,7 @@
   width: 80%;
   margin: 0 auto;
   border: 1px solid red;
-  background-color: rgb(61, 173, 117);
+  background-color: green;
   transition: all 0.4s ease;
 }
 .cards__hover {
@@ -83,7 +83,7 @@
   transform: scale(0.95);
 }
 .cards__button-active:hover {
-  background-color: green;
+  background-color: rgb(116, 5, 5);
   cursor: pointer;
   transform: scale(0.95);
 }
