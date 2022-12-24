@@ -51,6 +51,7 @@
 .modal__details-address,
 .modal__details-email{
   width: 90%;
+  margin-top: 5px;
 }
 
 .modal__details-name-text,
@@ -183,4 +184,16 @@
 
  .wrapper-modal__finish-span{
   margin-left: 10px;
+ }
+
+ .modal__details-name-text-error,
+ .modal__details-name-phone-error,
+ .modal__details-name-address-error,
+ .modal__details-name-email-error,
+ .card-number__error,
+ .cvv-valid__error,
+ .cvv-cvv__error{
+  color: red;
+  padding-left: 15px;
+  font-size: 10px;
  }

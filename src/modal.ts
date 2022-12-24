@@ -13,6 +13,14 @@ function RenderModal() {
   modalDetails.classList.add('modal__details');
   const modalDetailsName = document.createElement('div');
   modalDetailsName.classList.add('modal__details-name');
+  const modalDetailsNameTextError = document.createElement('div');
+  modalDetailsNameTextError.classList.add('modal__details-name-text-error');
+  const modalDetailsPhoneTextError = document.createElement('div');
+  modalDetailsPhoneTextError.classList.add('modal__details-name-phone-error');
+  const modalDetailsAddressTextError = document.createElement('div');
+  modalDetailsAddressTextError.classList.add('modal__details-name-address-error');
+  const modalDetailsEmailTextError = document.createElement('div');
+  modalDetailsEmailTextError.classList.add('modal__details-name-email-error');
   const modalDetailsNameText = document.createElement('div');
   modalDetailsNameText.classList.add('modal__details-name-text');
   const modalDetailsPhone = document.createElement('div');
@@ -81,6 +89,13 @@ function RenderModal() {
   cvvValidSpan.classList.add('cvv-valid__span');
   const cvvSvvSpan = document.createElement('span');
   cvvSvvSpan.classList.add('cvv-cvv__span');
+  const cardNumberError = document.createElement('div');
+  cardNumberError.classList.add('card-number__error');
+  const cvvValidError = document.createElement('div');
+  cvvValidError.classList.add('cvv-valid__error');
+  const cvvCvvError = document.createElement('div');
+  cvvCvvError.classList.add('cvv-cvv__error');
+
 
 
   main?.append(wrapperModal)
@@ -89,12 +104,12 @@ function RenderModal() {
 
   formModal.append(modalDetails, modalDetailsName, modalDetailsPhone, modalDetailsAddress, modalDetailsEmail, modalDetailsCards, modalDetailsBtn)
 
-  modalDetailsName.append(inputName, modalDetailsNameText)
-  modalDetailsPhone.append(inputPhone, modalDetailsPhoneText)
-  modalDetailsAddress.append(inputAddress, modalDetailsAddressText)
-  modalDetailsEmail.append(inputEmail, modalDetailsEmailText)
+  modalDetailsName.append(inputName, modalDetailsNameTextError, modalDetailsNameText)
+  modalDetailsPhone.append(inputPhone,modalDetailsPhoneTextError, modalDetailsPhoneText)
+  modalDetailsAddress.append(inputAddress,modalDetailsAddressTextError, modalDetailsAddressText)
+  modalDetailsEmail.append(inputEmail,modalDetailsEmailTextError, modalDetailsEmailText)
 
-  modalDetailsCards.append(detailsCardsText, detailsCardsInfo)
+  modalDetailsCards.append(detailsCardsText, detailsCardsInfo, cardNumberError, cvvValidError, cvvCvvError)
   detailsCardsInfo.append(infoCardNumber, infoCvv)
 
   infoCardNumber.append(infoCardNumberInput)
@@ -113,10 +128,10 @@ function RenderModal() {
   cvvValidSpan.innerHTML = 'VALID:';
   cvvSvvSpan.innerHTML = 'CVV:';
   modalDetailsBtn.innerHTML = 'Подтвердить';
+
 }
 
-
-RenderModal()
+// RenderModal() --- модальное окно быстрой покупки; 
 
 const form = document.querySelector('.form-modal') as HTMLElement
 const inputs = document.querySelectorAll('.input') 
@@ -127,6 +142,14 @@ const inputDetailsEmail = document.querySelector('.input-details-email') as HTML
 const cardNumberNumber = document.querySelector('.card-number__number') as HTMLInputElement
 const cvvValidInput = document.querySelector('.cvv-valid__input') as HTMLInputElement
 const cvvCvvInput = document.querySelector('.cvv-cvv__input') as HTMLInputElement
+const modalDetailsNameTextError = document.querySelector('.modal__details-name-text-error') as HTMLElement
+const modalDetailsPhoneTextError = document.querySelector('.modal__details-name-phone-error') as HTMLElement
+const modalDetailsAddressTextError = document.querySelector('.modal__details-name-address-error') as HTMLElement
+const modalDetailsEmailTextError = document.querySelector('.modal__details-name-email-error') as HTMLElement
+const cardNumberError = document.querySelector('.card-number__error') as HTMLElement
+const cvvValidError = document.querySelector('.cvv-valid__error') as HTMLElement
+const cvvCvvError = document.querySelector('.cvv-cvv__error') as HTMLElement
+
 
 cardNumberNumber.addEventListener('keydown', function (e) {
   const value = this.value.replace(/\s+/g, '');
@@ -210,41 +233,52 @@ function checkInput() {
   if (!nameFullReg.test(inputName)) {
     inputDetailsName.classList.add('invalid')
     inputDetailsName.classList.remove('valid')
+    modalDetailsNameTextError.innerHTML = 'error'
   }else {
     inputDetailsName.classList.remove('invalid')
     inputDetailsName.classList.add('valid')
+    modalDetailsNameTextError.innerHTML = ''
   }
 
   if (!phoneReg.test(inputPhone) || !inputPhone.startsWith('+')) {
     inputDetailsPhone.classList.add('invalid')
     inputDetailsPhone.classList.remove('valid')
+    modalDetailsPhoneTextError.innerHTML = 'error'
   }else {
     inputDetailsPhone.classList.remove('invalid')
     inputDetailsPhone.classList.add('valid')
+    modalDetailsPhoneTextError.innerHTML = ''
   }
 
   if (!addressReg.test(inputAddress)) {
     inputDetailsAddress.classList.add('invalid')
     inputDetailsAddress.classList.remove('valid')
+    modalDetailsAddressTextError.innerHTML = 'error'
   }else {
     inputDetailsAddress.classList.remove('invalid')
     inputDetailsAddress.classList.add('valid')
+    modalDetailsAddressTextError.innerHTML = ''
   }
 
   if (!emailReg.test(inputEmail)) {
     inputDetailsEmail.classList.add('invalid')
     inputDetailsEmail.classList.remove('valid')
+    modalDetailsEmailTextError.innerHTML = 'error'
   }else {
     inputDetailsEmail.classList.remove('invalid')
     inputDetailsEmail.classList.add('valid')
+    modalDetailsEmailTextError.innerHTML = ''
   }
+  
 
   if (!cardNumberReg.test(cardNumber)) {
     cardNumberNumber.classList.add('invalid')
     cardNumberNumber.classList.remove('valid')
+    cardNumberError.innerHTML = 'error number card'
   }else {
     cardNumberNumber.classList.remove('invalid')
     cardNumberNumber.classList.add('valid')
+    cardNumberError.innerHTML = ''
   }
 
 
@@ -254,17 +288,21 @@ function checkInput() {
   if (!cvvValidReg.test(cvvInputData)){
     cvvValidInput.classList.add('invalid')
     cvvValidInput.classList.remove('valid')
+    cvvValidError.innerHTML = 'error data'
   }else {
     cvvValidInput.classList.remove('invalid')
     cvvValidInput.classList.add('valid')
+    cvvValidError.innerHTML = ''
   }
 
   if (!cvvReg.test(cvvInput)) {
     cvvCvvInput.classList.add('invalid')
     cvvCvvInput.classList.remove('valid')
+    cvvCvvError.innerHTML = 'error cvv'
   }else {
     cvvCvvInput.classList.remove('invalid')
     cvvCvvInput.classList.add('valid')
+    cvvCvvError.innerHTML = ''
   }
 
   let validModal = 0
@@ -275,15 +313,13 @@ function checkInput() {
   })
 
   if (validModal === 7) {
-    console.log('hi')
+    finishOrder();
     validModal = 0
   }
-
-  console.log(validModal)
 }
 
 
-function fin() {
+function finishOrder() {
   const wrapperModal = document.querySelector('.wrapper-modal') as HTMLElement
   wrapperModal.innerHTML = '';
 
@@ -293,17 +329,26 @@ function fin() {
   wrapperModalFinish.classList.add('wrapper-modal__finish');
   const wrapperModalFinishSpan = document.createElement('span');
   wrapperModalFinishSpan.classList.add('wrapper-modal__finish-span');
- 
+
   wrapperFinish.append(wrapperModalFinish, wrapperModalFinishSpan)
   wrapperModal.append(wrapperFinish)
 
   wrapperModalFinish.innerHTML = 'Ваш заказ принят в обработку'
-  wrapperModalFinishSpan.innerHTML = '3'
+  wrapperModalFinishSpan.innerHTML = '5'
 
+  let count = 5;
+const counter = setInterval(timer, 1000); 
 
-  // for (let i=0; i < 3; i++){
-  //   wrapperModalFinishSpan.innerHTML = 
-  // }
+function timer(){
+  count--;
+  if (count <= 0){
+    clearInterval(counter);
+    alert("дописать переход на главную страницу, очистка корзины") // дописать переход на главную страницу, очистка корзины
+  }
+  wrapperModalFinishSpan.innerHTML = count.toString()
+}
 }
 
-fin()
+
+
+export {RenderModal} 

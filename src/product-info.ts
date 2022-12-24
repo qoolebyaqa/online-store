@@ -1,4 +1,5 @@
 import { PRODUCTS } from "./components/goods";
+import { RenderModal } from './modal'
 
 function RenderInfoProduct() {
   const main = document.querySelector('.main');
@@ -207,6 +208,11 @@ cardsHover.forEach(item => item.addEventListener('click', (e: Event) => {
         small1Img.src = item
     })
     }
+
+    // const detalisWrapperPriceBtrrRemove = document.querySelector('.detalis-wrapper__price-btr-remove')
+    // detalisWrapperPriceBtrrRemove?.addEventListener('click', () => {
+    //   RenderModal()
+    // })
   })
   
   const clickSmallimg = document.querySelectorAll('.small-1-img')
