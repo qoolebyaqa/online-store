@@ -2,6 +2,8 @@ import { PRODUCTS } from "../goods";
 import { PriceAndCart } from "../Header/Header";
 import { IProduct } from "../goods";
 import { restartFilters } from "./quantity-counters";
+import { urlChanger } from "./location-funcs";
+import { cartStorage } from "../Header/Header";
 import { CardInfo } from "../../product-info";
 
 export function CardsRender (sources: Array<IProduct>) {
@@ -47,10 +49,11 @@ export function CardsRender (sources: Array<IProduct>) {
     counter.innerHTML = sources.length.toString();
   }
   PriceAndCart();
+  cartStorage();
   CardInfo();
 }
 
-function filterRange (){
+export function filterRange (){
   const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
   const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
   const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
@@ -126,7 +129,7 @@ function filterRange (){
   CardsRender(FiltredPRODUCTS);
 }
 
-function filterCheckbox (){
+export function filterCheckbox (){
   const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
   const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
   const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
@@ -212,6 +215,7 @@ function filterCheckbox (){
   CardsRender(FiltredPRODUCTS);
 }
 
+
 const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
 const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
 const inputRangeMin = document.querySelectorAll('.range-min');
@@ -226,11 +230,13 @@ inputs.push(priceInputMax, priceInputMin, stokeInputMin, stokeInputMax);
 if (inputsCategoryCollection !== undefined) {
   for (const input of inputsCategoryCollection) {
     input.addEventListener('input', filterCheckbox);
+    input.addEventListener('input', urlChanger);
   }
 }
 if (inputsBrandCollection !== undefined) {
   for (const input of inputsBrandCollection) {
     input.addEventListener('input', filterCheckbox);
+    input.addEventListener('input', urlChanger);
   }
 }
 if (inputRangeMin !== undefined) {
