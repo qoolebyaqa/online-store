@@ -11,3 +11,5 @@ import './components/Main-product/Main-product.ts';
 import './components/Main-product/Main-product.css';
 import './product-info.css';
 import './product-info.ts';
+import './modal.css';
+import './modal.ts'

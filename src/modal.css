@@ -1,0 +1,199 @@
+.wrapper-modal{
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(10 10 10 / 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper-modal__form{
+  padding: 1%;
+  border: 1px solid #000;
+  border-radius: 10px;
+  width: 40%;
+  /* background-color: #a5abb1; */
+  background: linear-gradient(90deg,rgb(148, 149, 160) 6%,rgb(172, 173, 185) 34%,rgb(193, 194, 207) 100%);
+  z-index: 10;
+  position: absolute;
+  box-shadow:
+  0 1px 4px rgba(0, 0, 0, .3),
+  -23px 0 20px -23px rgba(0, 0, 0, .8),
+  23px 0 20px -23px rgba(0, 0, 0, .8),
+  0 0 40px rgba(0, 0, 0, .1) inset;
+}
+
+.form-modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-details{
+  background-color: rgb(221, 217, 217);
+  width: 100%;
+  border: 1px solid #000;
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 0.4rem;
+  outline: none;
+  font-size: 90%;
+  text-align: center;
+  margin: 1% auto;
+}
+
+.modal__details-name,
+.modal__details-phone,
+.modal__details-address,
+.modal__details-email{
+  width: 90%;
+  margin-top: 5px;
+}
+
+.modal__details-name-text,
+.modal__details-phone-text,
+.modal__details-address-text,
+.modal__details-email-text{
+  font-size: 10px;
+  padding-left: 15px;
+  color: rgb(0, 0, 0, .6);
+  margin-bottom: 3px;
+}
+
+.modal__details-cards{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.details-cards__info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid #000;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: rgb(0,9,36);
+  background: linear-gradient(90deg,rgb(112, 119, 7) 6%,rgb(159, 170, 5) 34%,rgb(195, 209, 5) 100%);
+  width: 65%;
+  height: 105px;
+  box-shadow:
+  0 1px 4px rgba(0, 0, 0, .3),
+  -23px 0 20px -23px rgba(0, 0, 0, .8),
+  23px 0 20px -23px rgba(0, 0, 0, .8),
+  0 0 40px rgba(0, 0, 0, .1) inset;
+  margin-top: 5px;
+}
+
+.wrapper-modal__form .input{
+  text-align: center;
+  font-size: 10px;
+}
+
+.info__card-number-input{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 10px;
+}
+
+.card-number__card-name{
+  padding: 2px;
+}
+
+.modal__details,
+.details-cards__text{
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+}
+
+.card-number__number{
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(221, 217, 217);
+  margin-right: 2px;
+}
+
+.info__cvv{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.info__cvv-valid,
+.info__cvv-cvv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50%;
+}
+
+.cvv-valid__span,
+.cvv-cvv__span{
+  padding-right: 5px;
+  font-weight: 700;
+}
+
+.cvv-valid__input,
+.cvv-cvv__input{
+  width: 60%;
+  border-radius: 5px;
+  background-color: rgb(221, 217, 217);
+}
+
+.modal__details-btn{
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  cursor: pointer;
+  background-color: rgb(159, 170, 5, 0.5);
+  transition: 0.4s;
+}
+
+.modal__details-btn:hover{
+  background-color: rgba(120, 209, 60, 0.925);
+}
+
+.valid{
+ border: 2px solid  #18E109;
+}
+
+.invalid{
+  border: 2px solid  #e10909;
+ }
+
+
+ .wrapper-finish{
+  display: flex;
+  color: aliceblue;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 900;
+  box-shadow: 0 0 40px rgba(233, 223, 223, 1);
+ }
+
+ .wrapper-modal__finish-span{
+  margin-left: 10px;
+ }
+
+ .modal__details-name-text-error,
+ .modal__details-name-phone-error,
+ .modal__details-name-address-error,
+ .modal__details-name-email-error,
+ .card-number__error,
+ .cvv-valid__error,
+ .cvv-cvv__error{
+  color: red;
+  padding-left: 15px;
+  font-size: 10px;
+ }

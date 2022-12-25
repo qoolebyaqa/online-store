@@ -4,6 +4,7 @@ import { IProduct } from "../goods";
 import { restartFilters } from "./quantity-counters";
 import { urlChanger } from "./location-funcs";
 import { cartStorage } from "../Header/Header";
+import { CardInfo } from "../../product-info";
 
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
@@ -49,6 +50,7 @@ export function CardsRender (sources: Array<IProduct>) {
   }
   PriceAndCart();
   cartStorage();
+  CardInfo();
 }
 
 export function filterRange (){

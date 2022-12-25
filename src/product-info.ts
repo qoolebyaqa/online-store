@@ -1,4 +1,5 @@
 import { PRODUCTS } from "./components/goods";
+import { RenderModal } from './modal'
 
 function RenderInfoProduct() {
   const main = document.querySelector('.main');
@@ -158,62 +159,67 @@ function RenderInfoProduct() {
 
   mainright?.classList.add('active')
   mainLeft?.classList.add('active')
+
+  detalisWrapperPriceBtrRemove.addEventListener('click', RenderModal);
 }
 
 
-const cardsHover = document.querySelectorAll('.cards__hover')
-cardsHover.forEach(item => item.addEventListener('click', (e: Event) => {
-  
-  RenderInfoProduct();
-  const t = e.target as HTMLElement
-  t.getAttribute('id')
-
-  PRODUCTS.forEach(item => {
-    if (item.id === Number(t.getAttribute('id'))) {
-    const productInfoAllTitle = document.querySelector('.product-info__all-title') as HTMLElement
-    const detalisBrandText = document.querySelector('.detalis-brand-text') as HTMLElement
-    const detalisDiscountText = document.querySelector('.detalis-discount-text') as HTMLElement
-    const detalisRaitingText = document.querySelector('.detalis-raiting-text') as HTMLElement
-    const detalisStockText = document.querySelector('.detalis-stock-text') as HTMLElement
-    const detalisCategoryText = document.querySelector('.detalis-category-text') as HTMLElement
-    const detalisDescriptionText = document.querySelector('.detalis-description-text') as HTMLElement
-    const detalisWrapperPricePrice = document.querySelector('.detalis-wrapper__price-price') as HTMLElement
+export function CardInfo() {
+  const cardsHover = document.querySelectorAll('.cards__hover')
+  cardsHover.forEach(item => item.addEventListener('click', (e: Event) => {
     
-    const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
+    RenderInfoProduct();
+    const t = e.target as HTMLElement
+    t.getAttribute('id')
 
-    detalisDescriptionText.innerHTML = item.description
-    productInfoAllTitle.innerHTML = item.title 
-    
-    detalisDiscountText.innerHTML = item.discountPrecentage.toString()
-    detalisRaitingText.innerHTML = item.raiting.toString()
-    detalisStockText.innerHTML = item.stock.toString()
-    detalisCategoryText.innerHTML = item.category
-    detalisWrapperPricePrice.innerHTML = item.price.toString()
-    elementImgBigImg.src = item.previewImg
-      detalisBrandText.innerHTML = item.brand
+    PRODUCTS.forEach(item => {
+      if (item.id === Number(t.getAttribute('id'))) {
+        const productInfoAllTitle = document.querySelector('.product-info__all-title') as HTMLElement
+        const detalisBrandText = document.querySelector('.detalis-brand-text') as HTMLElement
+        const detalisDiscountText = document.querySelector('.detalis-discount-text') as HTMLElement
+        const detalisRaitingText = document.querySelector('.detalis-raiting-text') as HTMLElement
+        const detalisStockText = document.querySelector('.detalis-stock-text') as HTMLElement
+        const detalisCategoryText = document.querySelector('.detalis-category-text') as HTMLElement
+        const detalisDescriptionText = document.querySelector('.detalis-description-text') as HTMLElement
+        const detalisWrapperPricePrice = document.querySelector('.detalis-wrapper__price-price') as HTMLElement
       
-      item.images.filter(item => {
-        const elementImgSmall = document.querySelector('.element-img__small') as HTMLElement
+        const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
 
-        const small1 = document.createElement('div');
-        small1.classList.add('small-1');
-
-        const small1Img = document.createElement('img')
-        small1Img.classList.add('small-1-img')
-
+        detalisDescriptionText.innerHTML = item.description
+        productInfoAllTitle.innerHTML = item.title 
         
-        elementImgSmall.append(small1)
-        small1.append(small1Img)
-        small1Img.src = item
+        detalisDiscountText.innerHTML = item.discountPrecentage.toString()
+        detalisRaitingText.innerHTML = item.raiting.toString()
+        detalisStockText.innerHTML = item.stock.toString()
+        detalisCategoryText.innerHTML = item.category
+        detalisWrapperPricePrice.innerHTML = item.price.toString()
+        elementImgBigImg.src = item.previewImg
+        detalisBrandText.innerHTML = item.brand
+        
+        item.images.filter(item => {
+          const elementImgSmall = document.querySelector('.element-img__small') as HTMLElement
+
+          const small1 = document.createElement('div');
+          small1.classList.add('small-1');
+
+          const small1Img = document.createElement('img')
+          small1Img.classList.add('small-1-img')
+
+          
+          elementImgSmall.append(small1)
+          small1.append(small1Img)
+          small1Img.src = item;
+        })
+      }
     })
-    }
-  })
-  
-  const clickSmallimg = document.querySelectorAll('.small-1-img')
-  clickSmallimg.forEach(item => {
-    item.addEventListener('mouseenter', (e: Event) => {
-      const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
-      elementImgBigImg.src = `${(<HTMLElement>e.target).getAttribute('src')}`
+    
+    const clickSmallimg = document.querySelectorAll('.small-1-img')
+    clickSmallimg.forEach(item => {
+      item.addEventListener('mouseenter', (e: Event) => {
+        const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
+        elementImgBigImg.src = `${(<HTMLElement>e.target).getAttribute('src')}`
+      })
     })
-  })
-}))
+  }))
+}
+
