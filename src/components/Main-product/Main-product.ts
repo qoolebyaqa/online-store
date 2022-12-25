@@ -51,7 +51,7 @@ export function CardsRender (sources: Array<IProduct>) {
   cartStorage();
 }
 
-function filterRange (){
+export function filterRange (){
   const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
   const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
   const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
@@ -127,7 +127,7 @@ function filterRange (){
   CardsRender(FiltredPRODUCTS);
 }
 
-function filterCheckbox (){
+export function filterCheckbox (){
   const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
   const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
   const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');

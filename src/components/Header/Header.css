@@ -4,6 +4,10 @@
   font-weight: 700;
   font-size: 80%;
 }
+.header__link {
+  text-decoration: none;
+  color: black;
+}
 .header__svg {
   width: 25px;
   height: 40px;
