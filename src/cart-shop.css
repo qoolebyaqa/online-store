@@ -1,0 +1,94 @@
+.main__left-section,
+.main__right-product{
+  display: none;
+} /*временно для отрисовки корзины*/
+
+.main-wrapper__card-shop{
+width: 100%;
+}
+
+.card-shop{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+
+}
+
+.card-shop__product{
+  width: 75%;
+  border: 1px solid #000;
+  border-radius: 5px;
+  height: fit-content;
+}
+
+.card-shop__summ{
+  width: 20%;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.card-shop__summ div{
+  margin: 5px;
+}
+
+.card-shop__product-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.items-box-number{
+  width: 20px;
+  text-align: center;
+}
+
+.product-title__items{
+  display: flex;
+}
+.items-box{
+  display: flex;
+  align-items: center;
+}
+
+.product-title__page{
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.title__page-btn-left,
+.title__page-btn-right{
+  margin: 4px;
+  cursor: pointer;
+}
+
+.shop__summ-product,
+.shop__summ-total-price{
+  display: flex;
+}
+
+.input-promocod-text{
+  width: 85%;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.input-promocod-span{
+  font-size: 10px;
+}
+
+.card-shop__summ{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shop__summ-promocod{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-shop__summ-btn{
+  margin-top: 35px;
+}
