@@ -1,5 +1,6 @@
 import { pageStatus } from '../../components/Main-product/global-obj';
 import { filterCheckbox } from './Main-product';
+import { PageStatusWithValues } from '../../components/Main-product/global-obj';
 
 export function urlChanger (e: Event) {
   const filterType = e.target;
@@ -15,9 +16,32 @@ export function urlChanger (e: Event) {
   window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
+export function urlChanger4range (e: Event) {
+  const filterType = e.target;
+  let newUrl = window.location.href;  
+
+  PageStatusWithValues[(filterType as HTMLInputElement).id.toString()] = (filterType as HTMLInputElement).value;
+  if (newUrl.includes(`${(filterType as HTMLInputElement).id}`)) {
+    let str1 = ''
+    if (newUrl.indexOf('?', newUrl.indexOf((filterType as HTMLInputElement).id)) === -1) {
+      str1 = newUrl.slice(newUrl.indexOf((filterType as HTMLInputElement).id)+(filterType as HTMLInputElement).id.length);
+    }
+    else {
+      str1 = newUrl.slice(newUrl.indexOf((filterType as HTMLInputElement).id)+(filterType as HTMLInputElement).id.length, 
+      newUrl.indexOf('?', newUrl.indexOf((filterType as HTMLInputElement).id)));
+    }
+    
+    const str2 = `:${(filterType as HTMLInputElement).value}`;
+    newUrl = newUrl.replace(str1, str2);
+  }
+  else {
+    newUrl = `${window.location.href}?${(filterType as HTMLInputElement).id}:${(filterType as HTMLInputElement).value}`;
+  }
+  window.history.pushState({ path: newUrl }, '', newUrl);
+}
+
 export function askToURL() {
   const Checkboxes = document.querySelectorAll('.list-category__checkbox-input');
-  /* debugger; */
   Object.keys(pageStatus).forEach((value) => {
     if (window.location.search.includes(value)) {
       pageStatus[value] = !pageStatus[value];

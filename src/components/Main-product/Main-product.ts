@@ -5,6 +5,7 @@ import { restartFilters } from "./quantity-counters";
 import { urlChanger } from "./location-funcs";
 import { cartStorage } from "../Header/Header";
 import { CardInfo } from "../../product-info";
+import { urlChanger4range } from "./location-funcs";
 
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
@@ -242,15 +243,18 @@ if (inputsBrandCollection !== undefined) {
 if (inputRangeMin !== undefined) {
   for (const input of inputRangeMin) {
     input.addEventListener('input', filterRange);
+    input.addEventListener('input', urlChanger4range);
   }
 }
 if (inputRangeMax !== undefined) {
   for (const input of inputRangeMax) {
     input.addEventListener('input', filterRange);
+    input.addEventListener('input', urlChanger4range);
   }
 }
 inputs.forEach((input) => {
   input?.addEventListener('input', filterRange);
+  input?.addEventListener('input', urlChanger4range);
 })
 
 document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
