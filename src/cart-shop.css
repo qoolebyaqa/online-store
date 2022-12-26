@@ -92,3 +92,16 @@ width: 100%;
 .card-shop__summ-btn{
   margin-top: 35px;
 }
+
+.promocod-sale-10,
+.promocod-sale-20{
+display: none;
+}
+
+.promocod-sale-10.active{
+  display: block;
+}
+
+.promocod-sale-20.active{
+  display: block;
+}

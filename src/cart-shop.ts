@@ -67,7 +67,16 @@ function RenderCardShop() {
   shopSummPromocod.classList.add('shop__summ-promocod');
   const inputPromocodText = document.createElement('input');
   inputPromocodText.classList.add('input-promocod-text');
-  inputPromocodText.setAttribute('placeholder','введите код')
+  inputPromocodText.setAttribute('placeholder', 'введите код')
+  inputPromocodText.setAttribute('type', 'search')
+  const promocodSale10 = document.createElement('div');
+  promocodSale10.classList.add('promocod-sale-10');
+  const promocodSale10Add = document.createElement('span');
+  promocodSale10Add.classList.add('promocod-sale10-add');
+  const promocodSale20 = document.createElement('div');
+  promocodSale20.classList.add('promocod-sale-20');
+  const promocodSale20Add = document.createElement('span');
+  promocodSale20Add.classList.add('promocod-sale20-add');
   const inputPromocodSpan = document.createElement('span');
   inputPromocodSpan.classList.add('input-promocod-span');
   const cardShopSummBtn = document.createElement('button');
@@ -100,9 +109,37 @@ function RenderCardShop() {
   shopSummTotalPrice.append(totalPriceText, totalPriceValue)
   totalPriceText.innerHTML = 'Всего:'
   totalPriceValue.innerHTML = 'summ$'
-  shopSummPromocod.append(inputPromocodText, inputPromocodSpan)
+  shopSummPromocod.append(inputPromocodText, promocodSale10, promocodSale20, inputPromocodSpan)
+  promocodSale10.innerHTML = 'скидка 10%'
+  promocodSale20.innerHTML = 'скидка 20%'
+  promocodSale10.append(promocodSale10Add)
+  promocodSale20.append(promocodSale20Add)
   inputPromocodSpan.innerHTML = "код '1' '2'"
 
   
+
 }
 RenderCardShop()
+
+const inputPromocodText = document.querySelector('.input-promocod-text') as HTMLElement
+inputPromocodText.addEventListener('input', filterList)
+
+function filterList() {
+const searchInput = document.querySelector('.input-promocod-text')
+const promocodSale10 = document.querySelector('.promocod-sale-10')
+const promocodSale20 = document.querySelector('.promocod-sale-20')
+
+const filter = (searchInput as HTMLInputElement).value.toLowerCase()
+
+if (filter === 'low') {
+  (promocodSale10 as HTMLElement).classList.add('active')
+} else {
+  (promocodSale10 as HTMLElement).classList.remove('active')
+}
+
+if (filter === 'top') {
+  (promocodSale20 as HTMLElement).classList.add('active')
+} else {
+  (promocodSale20 as HTMLElement).classList.remove('active')
+}
+}
