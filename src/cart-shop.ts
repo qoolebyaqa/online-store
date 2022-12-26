@@ -114,7 +114,7 @@ function RenderCardShop() {
   promocodSale20.innerHTML = 'скидка 20%'
   promocodSale10.append(promocodSale10Add)
   promocodSale20.append(promocodSale20Add)
-  inputPromocodSpan.innerHTML = "код '1' '2'"
+  inputPromocodSpan.innerHTML = "код 'top' 'low'"
 
   
 
