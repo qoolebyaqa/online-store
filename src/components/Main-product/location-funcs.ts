@@ -1,5 +1,6 @@
 import { pageStatus } from '../../components/Main-product/global-obj';
-import { filterCheckbox } from './Main-product';
+/* import { filterCheckbox } from './Main-product'; */
+import { filterRange } from './Main-product';
 import { PageStatusWithValues } from '../../components/Main-product/global-obj';
 
 export function urlChanger (e: Event) {
@@ -42,6 +43,14 @@ export function urlChanger4range (e: Event) {
 
 export function askToURL() {
   const Checkboxes = document.querySelectorAll('.list-category__checkbox-input');
+  const inputRangeMin = document.querySelectorAll('.range-min');
+  const inputRangeMax = document.querySelectorAll('.range-max');
+  const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
+  const priceInputMax = document.querySelector('.price-inputs')?.querySelector('.input-max');
+  const stokeInputMin = document.querySelector('.stock-inputs')?.querySelector('.input-min');
+  const stokeInputMax = document.querySelector('.stock-inputs')?.querySelector('.input-max');
+  const inputs: Array<Element | null | undefined> = [];
+  inputs.push(priceInputMax, priceInputMin, stokeInputMin, stokeInputMax);
   Object.keys(pageStatus).forEach((value) => {
     if (window.location.search.includes(value)) {
       pageStatus[value] = !pageStatus[value];
@@ -52,7 +61,37 @@ export function askToURL() {
       }
     }
   });
-  filterCheckbox();
+  Object.keys(PageStatusWithValues).forEach((item) => {
+    if (window.location.search.includes(item)) {
+      if (window.location.search.indexOf('?', window.location.search.indexOf(item)+item.length) === -1) {
+        PageStatusWithValues[item] = window.location.search.slice(window.location.search.indexOf(item)+item.length);
+        console.log(PageStatusWithValues[item]);
+      }
+      else {
+        PageStatusWithValues[item] = window.location.search.slice(window.location.search.indexOf(item)+item.length,
+        window.location.search.indexOf('?', window.location.search.indexOf(item)+item.length));
+        console.log(PageStatusWithValues[item]);
+      }
+      
+      inputs.forEach((input) => {
+        if(input?.id === item) {
+          (input as HTMLInputElement).value = PageStatusWithValues[item].toString();
+        }
+      });
+      inputRangeMin.forEach((input => {
+        if(input?.id === item) {
+          (input as HTMLInputElement).value = PageStatusWithValues[item].toString();
+        }
+      }));
+      inputRangeMax.forEach((input => {
+        if(input?.id === item) {
+          (input as HTMLInputElement).value = PageStatusWithValues[item].toString();
+          console.log((input as HTMLInputElement).value)
+        }
+      }));
+    }
+  })
+  filterRange();
   
 }
 
