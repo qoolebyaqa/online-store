@@ -1,7 +1,8 @@
 .main__left-section,
 .main__right-product{
   display: none;
-} /*временно для отрисовки корзины*/
+} 
+/* временно для отрисовки корзины */
 
 .main-wrapper__card-shop{
 width: 100%;
@@ -87,6 +88,7 @@ width: 100%;
   align-items: center;
   background: rgb(0, 0, 0, 0.1);
   width: 20%;
+  height: fit-content;
   border: 1px solid #000;
   border-radius: 10px;
 }

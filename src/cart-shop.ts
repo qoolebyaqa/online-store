@@ -1,3 +1,5 @@
+import { IProduct } from "./components/goods";
+
 function RenderWrapperCardShop() {
   const main = document.querySelector('.main');
 
@@ -174,8 +176,13 @@ if (filter === 'top') {
 }
 }
 
-function RenderCardItem() {
-  const cardShopProduct = document.querySelector('.card-shop__product');
+
+
+const getParam = localStorage.getItem('cards')
+const localCards = JSON.parse(getParam || "{}")
+function RenderCardItem(localCards: Array<IProduct>) {
+  localCards.forEach(item => {
+    const cardShopProduct = document.querySelector('.card-shop__product');
 
   const cardShopProductItem = document.createElement('div');
   cardShopProductItem.classList.add('card-shop__product-item');
@@ -267,6 +274,8 @@ function RenderCardItem() {
   countAddAdd.innerHTML = '+'
   countAddValue.innerHTML = '1'
   countAddRemove.innerHTML = '-'
-}
+  } )
 
-RenderCardItem()
+  
+}
+RenderCardItem(localCards)
