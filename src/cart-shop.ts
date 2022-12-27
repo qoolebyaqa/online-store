@@ -59,6 +59,26 @@ function RenderCardShop() {
   summProductValue.classList.add('summ-product-value');
   const shopSummTotalPrice = document.createElement('div');
   shopSummTotalPrice.classList.add('shop__summ-total-price');
+
+  const shopSummTotalPriceSales = document.createElement('div');
+  shopSummTotalPriceSales.classList.add('shop__summ-total-price-sales');
+  const totalPriceTextSales = document.createElement('span');
+  totalPriceTextSales.classList.add('total-price-text-sales');
+  const totalPriceValueSales = document.createElement('span');
+  totalPriceValueSales.classList.add('total-price-value-sales');
+  const promocodAppliedSale10 = document.createElement('div');
+  promocodAppliedSale10.classList.add('promocod-applied-sale-10');
+  const promocodSaleRem10Text = document.createElement('span');
+  promocodSaleRem10Text.classList.add('promocod-sale-rem10-text');
+  const promocodSaleRem10 = document.createElement('span');
+  promocodSaleRem10.classList.add('promocod-sale-rem10');
+  const promocodAppliedSale20 = document.createElement('div');
+  promocodAppliedSale20.classList.add('promocod-applied-sale-20');
+  const promocodSaleRem20Text = document.createElement('span');
+    promocodSaleRem20Text.classList.add('promocod-sale-rem20-text');
+  const promocodSaleRem20 = document.createElement('span');
+  promocodSaleRem20.classList.add('promocod-sale-rem20');
+
   const totalPriceText = document.createElement('span');
   totalPriceText.classList.add('total-price-text');
   const totalPriceValue = document.createElement('span');
@@ -99,7 +119,18 @@ function RenderCardShop() {
   titlePageNumber.innerHTML = '1'
   titlePageBtnRight.innerHTML = '&gt;'
 
-  cardShopSumm.append(shopSummText, shopSummProduct, shopSummTotalPrice, shopSummPromocod, cardShopSummBtn)
+  cardShopSumm.append(shopSummText, shopSummProduct, shopSummTotalPrice, shopSummTotalPriceSales, promocodAppliedSale10, promocodAppliedSale20, shopSummPromocod, cardShopSummBtn)
+  shopSummTotalPriceSales.append(totalPriceTextSales, totalPriceValueSales)
+  totalPriceTextSales.innerHTML = 'Всего:'
+  totalPriceValueSales.innerHTML = 'со скидкой$'
+  promocodAppliedSale10.append(promocodSaleRem10Text, promocodSaleRem10)
+  promocodSaleRem10Text.innerHTML = 'скидка 10%'
+  promocodSaleRem10.innerHTML = '-'
+  promocodAppliedSale20.append(promocodSaleRem20Text, promocodSaleRem20)
+  promocodSaleRem20Text.innerHTML = 'скидка 20%'
+  promocodSaleRem20.innerHTML = '-'
+ 
+
   shopSummText.innerHTML = 'Итого'
   cardShopSummBtn.innerHTML = 'Оформить'
   
@@ -113,10 +144,10 @@ function RenderCardShop() {
   promocodSale10.innerHTML = 'скидка 10%'
   promocodSale20.innerHTML = 'скидка 20%'
   promocodSale10.append(promocodSale10Add)
+  promocodSale10Add.innerHTML = '+'
   promocodSale20.append(promocodSale20Add)
+  promocodSale20Add.innerHTML = '+'
   inputPromocodSpan.innerHTML = "код 'top' 'low'"
-
-  
 
 }
 RenderCardShop()

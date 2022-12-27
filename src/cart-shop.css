@@ -21,12 +21,6 @@ width: 100%;
   height: fit-content;
 }
 
-.card-shop__summ{
-  width: 20%;
-  border: 1px solid #000;
-  border-radius: 5px;
-}
-
 .card-shop__summ div{
   margin: 5px;
 }
@@ -81,6 +75,10 @@ width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: rgb(0, 0, 0, 0.2);
+  width: 20%;
+  border: 1px solid #000;
+  border-radius: 10px;
 }
 
 .shop__summ-promocod{
@@ -90,18 +88,83 @@ width: 100%;
 }
 
 .card-shop__summ-btn{
-  margin-top: 35px;
+  margin: 5px;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.card-shop__summ-btn:hover{
+background: rgb(132, 218, 99);
 }
 
 .promocod-sale-10,
 .promocod-sale-20{
 display: none;
+font-size: 11px;
+font-weight: 900;
+color: rgb(36, 175, 1);
 }
 
 .promocod-sale-10.active{
   display: block;
+  background: none;
 }
 
 .promocod-sale-20.active{
+  display: block;
+  background: none;
+}
+
+.promocod-applied-sale-10,
+.promocod-applied-sale-20{
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 900;
+  color: rgb(36, 175, 1);
+}
+
+.promocod-sale-rem10,
+.promocod-sale-rem20,
+.promocod-sale10-add,
+.promocod-sale20-add{
+margin-left: 10px;
+cursor: pointer;
+border: 1px solid #000;
+padding-left: 5px;
+padding-right: 5px;
+border-radius: 6px;
+transition: .8s;
+}
+
+.promocod-sale-rem10:hover,
+.promocod-sale-rem20:hover{
+background: rgb(238, 143, 143);
+}
+
+.promocod-sale10-add:hover,
+.promocod-sale20-add:hover{
+  background: rgb(169, 201, 143);
+}
+
+/* .shop__summ-total-price-sales,
+.promocod-applied-sale-10,
+.promocod-applied-sale-20{
+display: none;
+} */
+
+.shop__summ-total-price-sales.active{
+  display: block;
+}
+.promocod-applied-sale-10.active{
+  display: block;
+}
+.promocod-applied-sale-20.active{
+  display: block;
+}
+
+.promocod-sale-rem20{
   display: block;
 }
