@@ -13,7 +13,6 @@ function RenderWrapperCardShop() {
   mainCardShop.append(cardShopH1)
   cardShopH1.innerHTML = 'Корзина пуста'
 }
-
 RenderWrapperCardShop()
 
 function RenderCardShop() {
@@ -174,3 +173,100 @@ if (filter === 'top') {
   (promocodSale20 as HTMLElement).classList.remove('active')
 }
 }
+
+function RenderCardItem() {
+  const cardShopProduct = document.querySelector('.card-shop__product');
+
+  const cardShopProductItem = document.createElement('div');
+  cardShopProductItem.classList.add('card-shop__product-item');
+  const productItemBox = document.createElement('div');
+  productItemBox.classList.add('product-item__box');
+  const productItemBoxNumber = document.createElement('div');
+  productItemBoxNumber.classList.add('product-item__box-number');
+  const productItemBoxInfo = document.createElement('div');
+  productItemBoxInfo.classList.add('product-item__box-info');
+  const boxInfoImg = document.createElement('div');
+  boxInfoImg.classList.add('box-info__img');
+  const boxInfoImgImg = document.createElement('img');
+  boxInfoImgImg.classList.add('box-info__img-img');
+  const boxInfoAll = document.createElement('div');
+  boxInfoAll.classList.add('box-info__all');
+
+  const boxInfoAllTitle = document.createElement('div');
+  boxInfoAllTitle.classList.add('box-info__all-title');
+  const boxInfoAllDescription = document.createElement('div');
+  boxInfoAllDescription.classList.add('box-info__all-description');
+  const boxInfoAllRaitDisc = document.createElement('div');
+  boxInfoAllRaitDisc.classList.add('box-info__all-rait-disc');
+  const boxInfoAllRait = document.createElement('div');
+  boxInfoAllRait.classList.add('box-info__all-rait');
+  const infoAllRaitText = document.createElement('div');
+  infoAllRaitText.classList.add('info__all-rait-text');
+  const infoAllRaitValue = document.createElement('div');
+  infoAllRaitValue.classList.add('info__all-rait-value');
+  const boxInfoAllDisc = document.createElement('div');
+  boxInfoAllDisc.classList.add('box-info__all-disc');
+  const infoAllDiscText = document.createElement('div');
+  infoAllDiscText.classList.add('info__all-disc-text');
+  const infoAllDiscValue = document.createElement('div');
+  infoAllDiscValue.classList.add('info__all-disc-value');
+
+  const productItemCount = document.createElement('div');
+  productItemCount.classList.add('product-item__count');
+  const productItemCountStock = document.createElement('div');
+  productItemCountStock.classList.add('product-item__count-stock');
+  const countStockText = document.createElement('div');
+  countStockText.classList.add('count-stock__text');
+  const countStockValue = document.createElement('div');
+  countStockValue.classList.add('count-stock__value');
+
+  countStockText.innerHTML = 'stock:'
+  countStockValue.innerHTML = '40'
+
+  const productItemCountAdd = document.createElement('div');
+  productItemCountAdd.classList.add('product-item__count-add');
+  const countAddAdd = document.createElement('div');
+  countAddAdd.classList.add('count-add-add');
+  const countAddValue = document.createElement('div');
+  countAddValue.classList.add('count-add-value');
+  const countAddRemove = document.createElement('div');
+  countAddRemove.classList.add('count-add-remove');
+
+  const productItemCountStockPrice = document.createElement('div');
+  productItemCountStockPrice.classList.add('product-item__count-stock-price');
+
+  cardShopProduct?.append(cardShopProductItem)
+
+  cardShopProductItem.append(productItemBox)
+  productItemBox.append(productItemBoxNumber, productItemBoxInfo, productItemCount)
+
+  productItemBoxNumber.innerHTML = '1'
+
+  productItemBoxInfo.append(boxInfoImg, boxInfoAll)
+  boxInfoImg.append(boxInfoImgImg)
+  boxInfoAll.append(boxInfoAllTitle, boxInfoAllDescription, boxInfoAllRaitDisc)
+  boxInfoAllTitle.innerHTML =  'Airpods 2'
+  boxInfoAllDescription.innerHTML = '2022. Гаджет вызвал большой интерес благодаря безупречным характеристикам. Эти параметры сочетаются с выгодными условиями продажи'
+  
+  boxInfoAllRaitDisc.append(boxInfoAllRait, boxInfoAllDisc)
+  boxInfoAllRait.append(infoAllRaitText, infoAllRaitValue)
+  infoAllRaitText.innerHTML = 'Рейтинг:'
+  infoAllRaitValue.innerHTML = '4.84'
+  boxInfoAllDisc.append(infoAllDiscText, infoAllDiscValue)
+  infoAllDiscText.innerHTML = 'Скидка:'
+  infoAllDiscValue.innerHTML = '5'
+
+  productItemCount.append(productItemCountStock, productItemCountAdd, productItemCountStockPrice)
+  productItemCountStockPrice.innerHTML = '200$'
+
+  productItemCountStock.append(countStockText, countStockValue)
+  countStockText.innerHTML = 'stock:'
+  countStockValue.innerHTML = '40'
+
+  productItemCountAdd.append(countAddAdd, countAddValue, countAddRemove)
+  countAddAdd.innerHTML = '+'
+  countAddValue.innerHTML = '1'
+  countAddRemove.innerHTML = '-'
+}
+
+RenderCardItem()
