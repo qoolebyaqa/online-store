@@ -20,8 +20,10 @@ export function urlChanger (e: Event) {
 export function urlChanger4range (e: Event) {
   const filterType = e.target;
   let newUrl = window.location.href;  
-
-  PageStatusWithValues[(filterType as HTMLInputElement).id.toString()] = (filterType as HTMLInputElement).value;
+  if ((filterType as HTMLInputElement).value === '') {
+    return;
+  }
+  PageStatusWithValues[(filterType as HTMLInputElement).id] = (filterType as HTMLInputElement).value;
   if (newUrl.includes(`${(filterType as HTMLInputElement).id}`)) {
     let str1 = ''
     if (newUrl.indexOf('?', newUrl.indexOf((filterType as HTMLInputElement).id)) === -1) {
@@ -43,8 +45,8 @@ export function urlChanger4range (e: Event) {
 
 export function askToURL() {
   const Checkboxes = document.querySelectorAll('.list-category__checkbox-input');
-  const inputRangeMin = document.querySelectorAll('.range-min');
-  const inputRangeMax = document.querySelectorAll('.range-max');
+  /* const inputRangeMin = document.querySelectorAll('.range-min');
+  const inputRangeMax = document.querySelectorAll('.range-max'); */
   const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
   const priceInputMax = document.querySelector('.price-inputs')?.querySelector('.input-max');
   const stokeInputMin = document.querySelector('.stock-inputs')?.querySelector('.input-min');
@@ -72,23 +74,6 @@ export function askToURL() {
         window.location.search.indexOf('?', window.location.search.indexOf(item)+item.length));
         console.log(PageStatusWithValues[item]);
       }
-      
-      inputs.forEach((input) => {
-        if(input?.id === item) {
-          (input as HTMLInputElement).value = PageStatusWithValues[item].toString();
-        }
-      });
-      inputRangeMin.forEach((input => {
-        if(input?.id === item) {
-          (input as HTMLInputElement).value = PageStatusWithValues[item].toString();
-        }
-      }));
-      inputRangeMax.forEach((input => {
-        if(input?.id === item) {
-          (input as HTMLInputElement).value = PageStatusWithValues[item].toString();
-          console.log((input as HTMLInputElement).value)
-        }
-      }));
     }
   })
   filterRange();

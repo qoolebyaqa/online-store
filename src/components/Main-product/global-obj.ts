@@ -16,7 +16,7 @@ export const pageStatus: IpageStatus = {
   'Xiaomi': false,
   'Lenovo': false,
   'Huawei': false,
-  'Xiaomi Poco': false,
+  'XiaomiPoco': false,
   'cardViewMore': false,
   'cardViewLess': false,
 }
