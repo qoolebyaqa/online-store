@@ -1,4 +1,8 @@
 import { IProduct } from "./components/goods";
+const getParam = localStorage.getItem('cards')
+const localCards = JSON.parse(getParam || "{}")
+
+console.log(localCards.length)
 
 function RenderWrapperCardShop() {
   const main = document.querySelector('.main');
@@ -18,6 +22,8 @@ function RenderWrapperCardShop() {
 RenderWrapperCardShop()
 
 function RenderCardShop() {
+  const headerCartPrice = document.querySelector('.header__cart-price')
+
   const mainCardShop = document.querySelector('.main__card-shop');
 
   const cardShop = document.createElement('div');
@@ -137,10 +143,10 @@ function RenderCardShop() {
   
   shopSummProduct.append(summProductText, summProductValue)
   summProductText.innerHTML = 'Kол-во:'
-  summProductValue.innerHTML = '2'
+  summProductValue.innerHTML = `${localCards.length}`
   shopSummTotalPrice.append(totalPriceText, totalPriceValue)
   totalPriceText.innerHTML = 'Всего:'
-  totalPriceValue.innerHTML = 'summ$'
+  totalPriceValue.innerHTML = `${headerCartPrice?.innerHTML.slice(1)}`
   shopSummPromocod.append(inputPromocodText, promocodSale10, promocodSale20, inputPromocodSpan)
   promocodSale10.innerHTML = 'скидка 10%'
   promocodSale20.innerHTML = 'скидка 20%'
@@ -177,12 +183,11 @@ if (filter === 'top') {
 }
 
 
-
-const getParam = localStorage.getItem('cards')
-const localCards = JSON.parse(getParam || "{}")
 function RenderCardItem(localCards: Array<IProduct>) {
+
+  let count = 1;
   localCards.forEach(item => {
-    const cardShopProduct = document.querySelector('.card-shop__product');
+  const cardShopProduct = document.querySelector('.card-shop__product');
 
   const cardShopProductItem = document.createElement('div');
   cardShopProductItem.classList.add('card-shop__product-item');
@@ -227,9 +232,6 @@ function RenderCardItem(localCards: Array<IProduct>) {
   const countStockValue = document.createElement('div');
   countStockValue.classList.add('count-stock__value');
 
-  countStockText.innerHTML = 'stock:'
-  countStockValue.innerHTML = '40'
-
   const productItemCountAdd = document.createElement('div');
   productItemCountAdd.classList.add('product-item__count-add');
   const countAddAdd = document.createElement('div');
@@ -247,28 +249,28 @@ function RenderCardItem(localCards: Array<IProduct>) {
   cardShopProductItem.append(productItemBox)
   productItemBox.append(productItemBoxNumber, productItemBoxInfo, productItemCount)
 
-  productItemBoxNumber.innerHTML = '1'
+  productItemBoxNumber.innerHTML = (count++).toString()
 
   productItemBoxInfo.append(boxInfoImg, boxInfoAll)
   boxInfoImg.append(boxInfoImgImg)
   boxInfoAll.append(boxInfoAllTitle, boxInfoAllDescription, boxInfoAllRaitDisc)
-  boxInfoAllTitle.innerHTML =  'Airpods 2'
-  boxInfoAllDescription.innerHTML = '2022. Гаджет вызвал большой интерес благодаря безупречным характеристикам. Эти параметры сочетаются с выгодными условиями продажи'
+  boxInfoAllTitle.innerHTML =  `${item.brand}`
+  boxInfoAllDescription.innerHTML = `${item.description}`
   
   boxInfoAllRaitDisc.append(boxInfoAllRait, boxInfoAllDisc)
   boxInfoAllRait.append(infoAllRaitText, infoAllRaitValue)
   infoAllRaitText.innerHTML = 'Рейтинг:'
-  infoAllRaitValue.innerHTML = '4.84'
+  infoAllRaitValue.innerHTML = `${item.raiting}`
   boxInfoAllDisc.append(infoAllDiscText, infoAllDiscValue)
   infoAllDiscText.innerHTML = 'Скидка:'
-  infoAllDiscValue.innerHTML = '5'
+  infoAllDiscValue.innerHTML = `${item.discountPrecentage}%`
 
   productItemCount.append(productItemCountStock, productItemCountAdd, productItemCountStockPrice)
-  productItemCountStockPrice.innerHTML = '200$'
+  productItemCountStockPrice.innerHTML = `${item.price}$`
 
   productItemCountStock.append(countStockText, countStockValue)
-  countStockText.innerHTML = 'stock:'
-  countStockValue.innerHTML = '40'
+  countStockText.innerHTML = 'Кол-во:'
+  countStockValue.innerHTML = `${item.stock}`
 
   productItemCountAdd.append(countAddAdd, countAddValue, countAddRemove)
   countAddAdd.innerHTML = '+'
