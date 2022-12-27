@@ -4,43 +4,50 @@ import { filterRange } from './Main-product';
 import { PageStatusWithValues } from '../../components/Main-product/global-obj';
 
 export function urlChanger (e: Event) {
+  if (!window.location.href.includes('?')){
+    window.history.pushState({}, '', window.location.href+'?');
+  }
   const filterType = e.target;
   let newUrl = window.location.href;
   
-  pageStatus[(filterType as HTMLInputElement).id.toString()] = !pageStatus[(filterType as HTMLInputElement).id];
-  if (newUrl.includes(`?${(filterType as HTMLInputElement).id}`)) {
-    newUrl = newUrl.replace(`?${(filterType as HTMLInputElement).id}`, '');    
+  pageStatus[(filterType as HTMLInputElement).id] = !pageStatus[(filterType as HTMLInputElement).id];
+  if (newUrl.includes(`&${(filterType as HTMLInputElement).id}`)) {
+    newUrl = newUrl.replace(`&${(filterType as HTMLInputElement).id}`, '');    
   }
   else {
-    newUrl = `${window.location.href}?${(filterType as HTMLInputElement).id}`;
+    newUrl = `${window.location.href}&${(filterType as HTMLInputElement).id}`;
   }
   window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
 export function urlChanger4range (e: Event) {
   const filterType = e.target;
-  let newUrl = window.location.href;  
+  let newUrl = window.location.href;
+  if (!window.location.href.includes('?')){
+    window.history.pushState({}, '', window.location.href+'?');
+  }  
   if ((filterType as HTMLInputElement).value === '') {
     return;
   }
   PageStatusWithValues[(filterType as HTMLInputElement).id] = (filterType as HTMLInputElement).value;
   if (newUrl.includes(`${(filterType as HTMLInputElement).id}`)) {
     let str1 = ''
-    if (newUrl.indexOf('?', newUrl.indexOf((filterType as HTMLInputElement).id)) === -1) {
+    if (newUrl.indexOf('&', newUrl.indexOf((filterType as HTMLInputElement).id)) === -1) {
       str1 = newUrl.slice(newUrl.indexOf((filterType as HTMLInputElement).id)+(filterType as HTMLInputElement).id.length);
+      console.log(str1);
     }
     else {
       str1 = newUrl.slice(newUrl.indexOf((filterType as HTMLInputElement).id)+(filterType as HTMLInputElement).id.length, 
-      newUrl.indexOf('?', newUrl.indexOf((filterType as HTMLInputElement).id)));
+      newUrl.indexOf('&', newUrl.indexOf((filterType as HTMLInputElement).id)));
     }
     
-    const str2 = `:${(filterType as HTMLInputElement).value}`;
+    const str2 = `=${(filterType as HTMLInputElement).value}`;
     newUrl = newUrl.replace(str1, str2);
   }
   else {
-    newUrl = `${window.location.href}?${(filterType as HTMLInputElement).id}:${(filterType as HTMLInputElement).value}`;
+    newUrl = `${window.location.href}&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
   }
-  window.history.pushState({ path: newUrl }, '', newUrl);
+  window.history.pushState({}, '', newUrl);
 }
 
 export function askToURL() {
@@ -65,14 +72,12 @@ export function askToURL() {
   });
   Object.keys(PageStatusWithValues).forEach((item) => {
     if (window.location.search.includes(item)) {
-      if (window.location.search.indexOf('?', window.location.search.indexOf(item)+item.length) === -1) {
+      if (window.location.search.indexOf('&', window.location.search.indexOf(item)+item.length) === -1) {
         PageStatusWithValues[item] = window.location.search.slice(window.location.search.indexOf(item)+item.length);
-        console.log(PageStatusWithValues[item]);
       }
       else {
         PageStatusWithValues[item] = window.location.search.slice(window.location.search.indexOf(item)+item.length,
-        window.location.search.indexOf('?', window.location.search.indexOf(item)+item.length));
-        console.log(PageStatusWithValues[item]);
+        window.location.search.indexOf('&', window.location.search.indexOf(item)+item.length));
       }
     }
   })

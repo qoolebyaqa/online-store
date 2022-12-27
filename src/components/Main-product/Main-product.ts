@@ -63,7 +63,6 @@ export function filterRange (e?: Event){
   const stokeInputMax = document.querySelector('.stock-inputs')?.querySelector('.input-max');
   if (Number((stokeInputMin as HTMLInputElement).value) > Number((stokeInputMax as HTMLInputElement).value) || 
   Number((priceInputMin as HTMLInputElement).value) > Number((priceInputMax as HTMLInputElement).value)) {
-    console.log('gg');
     return;
   }
   const CategoryFilter: Array<string> = [];
@@ -114,28 +113,37 @@ export function filterRange (e?: Event){
     else if (BrandFilter.length === 0 && CategoryFilter.length === 0){       
       return true;
     }    
-  });
-  FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
-    if (card.price >= Number((priceInputMin as HTMLInputElement).value) && card.price <= Number((priceInputMax as HTMLInputElement).value)) {
-      if (card.stock >= Number((stokeInputMin as HTMLInputElement).value) && card.stock <= Number((stokeInputMax as HTMLInputElement).value)) {
-        return true;
-      }
-    }
-  });
+  });  
   if (e?.target !== undefined) {
     if ((e?.target as HTMLInputElement).id.includes('Price')) {
-      (stokeInputMin as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
-        return Math.min(elem1, elem2.stock);
-      }, 100).toString();
-      (stokeInputMax as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
-        return Math.max(elem1, elem2.stock);
-      }, 0).toString();
-      (inputRangeMin[1] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.price >= Number((priceInputMin as HTMLInputElement).value) && card.price <= Number((priceInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
         return Math.min(elem1, elem2.stock);
       }, Infinity).toString();
-      (inputRangeMax[1] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+      (document.getElementById('maxStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
         return Math.max(elem1, elem2.stock);
       }, 0).toString();
+      (document.getElementById('minRangeStock') as HTMLInputElement).value = (document.getElementById('minStock') as HTMLInputElement).value;
+      (document.getElementById('maxRangeStock') as HTMLInputElement).value = (document.getElementById('maxStock') as HTMLInputElement).value;      
+    }
+    else if ((e?.target as HTMLInputElement).id.includes('Stock')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.stock >= Number((stokeInputMin as HTMLInputElement).value) && card.stock <= Number((stokeInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.price);
+      }, Infinity).toString();
+      (document.getElementById('maxPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.price);
+      }, 0).toString();
+      (document.getElementById('minRangePrice') as HTMLInputElement).value = (document.getElementById('minPrice') as HTMLInputElement).value;
+      (document.getElementById('maxRangePrice') as HTMLInputElement).value = (document.getElementById('maxPrice') as HTMLInputElement).value;     
     }
   }  
   CardsRender(FiltredPRODUCTS);

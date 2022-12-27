@@ -8,7 +8,7 @@ stockInput.forEach(input => {
         const minPrice = parseInt((<HTMLInputElement>stockInput[0]).value),
         maxPrice = parseInt((<HTMLInputElement>stockInput[1]).value);
         
-        if((maxPrice - minPrice >= price) && maxPrice <= Number((rangeStockInput[1] as HTMLInputElement).max)){
+        if((maxPrice - minPrice >= priceStock) && maxPrice <= Number((rangeStockInput[1] as HTMLInputElement).max)){
             if((e.target as HTMLElement).className === "input-min"){
                 (rangeStockInput[0] as HTMLInputElement).value = minPrice.toString();
                 if (rangeStock) {
