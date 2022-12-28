@@ -2,8 +2,6 @@ import { IProduct } from "./components/goods";
 const getParam = localStorage.getItem('cards')
 const localCards = JSON.parse(getParam || "{}")
 
-console.log(localCards.length)
-
 function RenderWrapperCardShop() {
   const main = document.querySelector('.main');
 
@@ -182,9 +180,8 @@ if (filter === 'top') {
 }
 }
 
-
+//---------------блок с товаром-----------------------------------------------------
 function RenderCardItem(localCards: Array<IProduct>) {
-
   let count = 1;
   localCards.forEach(item => {
   const cardShopProduct = document.querySelector('.card-shop__product');
@@ -234,12 +231,15 @@ function RenderCardItem(localCards: Array<IProduct>) {
 
   const productItemCountAdd = document.createElement('div');
   productItemCountAdd.classList.add('product-item__count-add');
+  productItemCountAdd.setAttribute('id', `${item.id}`)
   const countAddAdd = document.createElement('div');
-  countAddAdd.classList.add('count-add-add');
+    countAddAdd.classList.add('count-add-add', 'plus');
+    countAddAdd.setAttribute('id', `${item.id}`)
   const countAddValue = document.createElement('div');
   countAddValue.classList.add('count-add-value');
   const countAddRemove = document.createElement('div');
-  countAddRemove.classList.add('count-add-remove');
+    countAddRemove.classList.add('count-add-remove', 'minus');
+    countAddRemove.setAttribute('id', `${item.id}`)
 
   const productItemCountStockPrice = document.createElement('div');
   productItemCountStockPrice.classList.add('product-item__count-stock-price');
@@ -274,16 +274,56 @@ function RenderCardItem(localCards: Array<IProduct>) {
 
   productItemCountAdd.append(countAddAdd, countAddValue, countAddRemove)
   countAddAdd.innerHTML = '+'
-  countAddValue.innerHTML = '1'
+  countAddValue.innerHTML = `1`
   countAddRemove.innerHTML = '-'
     
-  boxInfoImgImg.src = `${item.previewImg}`
-  } )
+    boxInfoImgImg.src = `${item.previewImg}`
+    
+    countAddAdd.addEventListener('click', (event) => {
+      // const headerCartPrice = document.querySelector('.header__cart-price')
+      // const total = Number(headerCartPrice?.innerHTML.slice(1))
+
+      if ( (<HTMLElement>event.target).classList.contains('plus')) {
+        let count = Number(countAddValue.innerHTML)
+        const stock = Number(countStockValue.innerHTML)
+        count++
+        if (count > stock) {
+          return
+        }
+        countAddValue.innerHTML = count.toString()
+        productItemCountStockPrice.innerHTML = `${item.price * count}$`
+
+      }
+    })
+
+    countAddRemove.addEventListener('click', (event) => {
+      if ((<HTMLElement>event.target).classList.contains('minus')) {
+        let count = Number(countAddValue.innerHTML)
+        const num = Number(productItemCountStockPrice.innerHTML.slice(0, -1))
+        productItemCountStockPrice.innerHTML = `${num - item.price}$`
+        count--
+
+        if (count < 0) {
+          localCards = localCards.filter(elem => elem.id != item.id)
+          localStorage.setItem('cards', JSON.stringify(localCards));
+          // cardShopProductItem.forEach(item => item.innerHTML = '')
+          location.reload()
+          RenderCardItem(localCards)
+        }
+        countAddValue.innerHTML = count.toString()
+      }
+    })
+
+  })
+
+
+
 
 }
 RenderCardItem(localCards)
 
 
+//---------------кнопки для добавления удаления скидки------------------------------
 function clickSale10() {
   const promocodSale10Add = document.querySelector('.promocod-sale10-add')
   const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
@@ -354,7 +394,6 @@ function clickSaleRemove10() {
 
   
 }
-
 clickSaleRemove10()
 
 function clickSaleRemove20() {
@@ -388,5 +427,8 @@ function clickSaleRemove20() {
 
   
 }
-
 clickSaleRemove20()
+
+//-------------------------------------------------------------------------------
+
+
