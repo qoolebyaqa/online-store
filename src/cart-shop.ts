@@ -129,7 +129,7 @@ function RenderCardShop() {
   cardShopSumm.append(shopSummText, shopSummProduct, shopSummTotalPrice, shopSummTotalPriceSales, promocodAppliedSale10, promocodAppliedSale20, shopSummPromocod, cardShopSummBtn)
   shopSummTotalPriceSales.append(totalPriceTextSales, totalPriceValueSales)
   totalPriceTextSales.innerHTML = 'Всего:'
-  totalPriceValueSales.innerHTML = 'со скидкой$'
+  totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
   promocodAppliedSale10.append(promocodSaleRem10Text, promocodSaleRem10)
   promocodSaleRem10Text.innerHTML = 'скидка 10%'
   promocodSaleRem10.innerHTML = '-'
@@ -146,7 +146,7 @@ function RenderCardShop() {
   summProductValue.innerHTML = `${localCards.length}`
   shopSummTotalPrice.append(totalPriceText, totalPriceValue)
   totalPriceText.innerHTML = 'Всего:'
-  totalPriceValue.innerHTML = `${headerCartPrice?.innerHTML.slice(1)}`
+  totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
   shopSummPromocod.append(inputPromocodText, promocodSale10, promocodSale20, inputPromocodSpan)
   promocodSale10.innerHTML = 'скидка 10%'
   promocodSale20.innerHTML = 'скидка 20%'
@@ -276,8 +276,117 @@ function RenderCardItem(localCards: Array<IProduct>) {
   countAddAdd.innerHTML = '+'
   countAddValue.innerHTML = '1'
   countAddRemove.innerHTML = '-'
+    
+  boxInfoImgImg.src = `${item.previewImg}`
   } )
+
+}
+RenderCardItem(localCards)
+
+
+function clickSale10() {
+  const promocodSale10Add = document.querySelector('.promocod-sale10-add')
+  const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
+  const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
+  const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
+  const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
+
+  promocodSale10Add?.addEventListener('click', () => {
+    promocodAppliedSale10?.classList.add('active')
+    shopSummTotalPriceSales?.classList.add('active')
+    shopSummTotalPrice?.classList.add('active')
+    promocodSale10Add.classList.add('active')
+
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
+    totalPriceValueSales.innerHTML = '$'+(Math.round(price - (price/100))).toString()
+  })
+} 
+clickSale10()
+
+function clickSale20() {
+  const promocodSale20Add = document.querySelector('.promocod-sale20-add')
+  const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
+  const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
+  const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
+  const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
+  
+  promocodSale20Add?.addEventListener('click', () => {
+    promocodAppliedSale20?.classList.add('active')
+    shopSummTotalPriceSales?.classList.add('active')
+    shopSummTotalPrice?.classList.add('active')
+    promocodSale20Add.classList.add('active')
+
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
+    totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 2))).toString()
+
+  })
+} 
+clickSale20()
+
+function clickSaleRemove10() {
+  const promocodSaleRem10 = document.querySelector('.promocod-sale-rem10')
+  const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
+  const promocodSale10Add = document.querySelector('.promocod-sale10-add') as HTMLButtonElement
+  const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+  const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
+  const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
+  const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
+  const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
+  const headerCartPrice = document.querySelector('.header__cart-price')
+
+  promocodSaleRem10?.addEventListener('click', () => {
+    promocodAppliedSale10?.classList.remove('active')
+    promocodSale10Add.classList.remove('active')
+
+    const price = Number(totalPriceValue.innerHTML.slice(1))
+    const newPrice = price - Math.ceil(price - (price/100))
+    totalPriceValueSales.innerHTML = '$' + (Number(totalPriceValueSales.innerHTML.slice(1)) + newPrice).toString()
+    
+    if (!promocodAppliedSale20?.classList.contains('active')) {
+      shopSummTotalPrice?.classList.remove('active')
+    }
+
+    if (!promocodAppliedSale10?.classList.contains('active') && !promocodAppliedSale20?.classList.contains('active')) {
+      shopSummTotalPriceSales?.classList.remove('active')
+      totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
+    }
+  })
 
   
 }
-RenderCardItem(localCards)
+
+clickSaleRemove10()
+
+function clickSaleRemove20() {
+  const promocodSaleRem20 = document.querySelector('.promocod-sale-rem20')
+  const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
+  const promocodSale20Add = document.querySelector('.promocod-sale20-add') as HTMLButtonElement
+  const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+  const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
+  const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
+  const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
+  const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
+  const headerCartPrice = document.querySelector('.header__cart-price')
+
+  promocodSaleRem20?.addEventListener('click', () => {
+    promocodAppliedSale20?.classList.remove('active')
+    promocodSale20Add.classList.remove('active')
+
+    const price = Number(totalPriceValue.innerHTML.slice(1))
+    const newPrice = price - Math.ceil(price - ((price/100)*2))
+    totalPriceValueSales.innerHTML = '$' + (Number(totalPriceValueSales.innerHTML.slice(1)) + newPrice).toString()
+    
+    if (!promocodAppliedSale10?.classList.contains('active')) {
+      shopSummTotalPrice?.classList.remove('active')
+    }
+
+    if (!promocodAppliedSale10?.classList.contains('active') && !promocodAppliedSale20?.classList.contains('active')) {
+      shopSummTotalPriceSales?.classList.remove('active')
+      totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
+    }
+  })
+
+  
+}
+
+clickSaleRemove20()

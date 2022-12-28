@@ -68,8 +68,14 @@ width: 100%;
 }
 
 .shop__summ-product,
-.shop__summ-total-price{
+.total-price-text{
   display: flex;
+}
+
+.summ-product-text,
+.total-price-text,
+.total-price-text-sales{
+margin-right: 5px;
 }
 
 .input-promocod-text{
@@ -162,24 +168,44 @@ background: rgb(238, 143, 143);
   background: rgb(169, 201, 143);
 }
 
-/* .shop__summ-total-price-sales,
+.shop__summ-total-price{
+  display: flex;
+}
+
+.shop__summ-total-price.active{
+  text-decoration: line-through;
+  background: none;
+}
+
+/*-----------------блок для скрытия---------------------------------------*/
+
+.shop__summ-total-price-sales,
 .promocod-applied-sale-10,
 .promocod-applied-sale-20{
 display: none;
-} */
+}
 
 .shop__summ-total-price-sales.active{
   display: block;
+  background: none;
 }
 .promocod-applied-sale-10.active{
-  display: block;
+  display: flex;
+  background: none;
 }
 .promocod-applied-sale-20.active{
-  display: block;
+  display: flex;
+  background: none;
 }
 
 .promocod-sale-rem20{
   display: block;
+  background: none;
+}
+
+.promocod-sale20-add.active,
+.promocod-sale10-add.active{
+  display: none;
 }
 
 /*---------------------card-shop-all----------------------------*/
@@ -207,13 +233,25 @@ display: none;
 .product-item__box-info{
   display: flex;
   width: 85%;
-
+  align-items: center;
 }
 
 .box-info__img{
   width: 15%;
-  background: rgb(194, 175, 175);
+  background: rgb(255, 255, 255);
   margin-right: 5px;
+  position: relative;
+  height: 90px;
+}
+
+.box-info__img-img{
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .box-info__all{
@@ -231,6 +269,7 @@ display: none;
 .box-info__all-description{
   text-align: center;
   margin-top: 3px;
+  font-size: 12px;
 }
 
 .info__all-rait-text,
@@ -303,3 +342,4 @@ display: none;
 .count-add-value{
   margin: 0 7px;
 }
+
