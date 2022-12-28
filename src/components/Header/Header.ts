@@ -11,11 +11,11 @@ export function PriceAndCart () {
     if (Cart?.innerHTML) {
       CurrentQuantity = Number(Cart.innerHTML);
     }
-    if ((target as HTMLButtonElement).innerHTML === 'Add to Cart') {
+    if ((target as HTMLButtonElement).innerHTML === 'Добавить в корзину') {
       CurrentQuantity++;
       if (target instanceof HTMLElement) {
         CurrentPrice = CurrentPrice + Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
-        (target as HTMLButtonElement).innerHTML = 'Drop from Cart';
+        (target as HTMLButtonElement).innerHTML = 'Убрать из корзины';
         target.classList.remove('cards__button');
         target.classList.add('cards__button-active');
         let arrToStorage = [];
@@ -37,7 +37,7 @@ export function PriceAndCart () {
       CurrentQuantity--;
       if (target instanceof HTMLElement) {
         CurrentPrice = CurrentPrice - Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
-        (target as HTMLButtonElement).innerHTML = 'Add to Cart';
+        (target as HTMLButtonElement).innerHTML = 'Добавить в корзину';
         target.classList.remove('cards__button-active');
         target.classList.add('cards__button');
         const arrToStorage: Array<IProduct> = JSON.parse(localStorage.cards);
@@ -79,7 +79,7 @@ export function cartStorage() {
         if(value.children[3].innerHTML === product.title) {
           value.children[5].classList.remove('cards__button');
           value.children[5].classList.add('cards__button-active');
-          (value.children[5] as HTMLButtonElement).innerHTML = 'Drop from Cart';
+          (value.children[5] as HTMLButtonElement).innerHTML = 'Убрать из корзины';
         }
       }
       )

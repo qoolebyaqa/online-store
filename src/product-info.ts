@@ -1,5 +1,6 @@
 import { PRODUCTS } from "./components/goods";
-import { RenderModal } from './modal'
+import { RenderModal } from './modal';
+import { IProduct } from "./components/goods";
 
 function RenderInfoProduct() {
   const main = document.querySelector('.main');
@@ -72,7 +73,7 @@ function RenderInfoProduct() {
   const detalisWrapperPricePrice = document.createElement('div');
   detalisWrapperPricePrice.classList.add('detalis-wrapper__price-price');
   const detalisWrapperPriceBtrAdd = document.createElement('button');
-  detalisWrapperPriceBtrAdd.classList.add('detalis-wrapper__price-btr-add');
+  detalisWrapperPriceBtrAdd.classList.add('cards__button');
   const detalisWrapperPriceBtrRemove = document.createElement('button');
   detalisWrapperPriceBtrRemove.classList.add('detalis-wrapper__price-btr-remove');
 
@@ -150,7 +151,7 @@ function RenderInfoProduct() {
   // detalisDescriptionText.innerHTML = 'Новые беспроводные наушники от Samsung Galaxy Buds 2, наряду со смартфонами, смогли также быстро завоевать доверие среди своих пользователей. Ничего сверхсложного - только стильный дизайн, качественный звук и при этом доступная цена в совокупности дают нам успех. Наушники Samsung Galaxy Buds 2 подключаются через Bluetooth 5.2 и легко синхронизируются с любыми новейшими устройствами - как версии Android, так и iOS. С помощью '
 
   // detalisWrapperPricePrice.innerHTML = '150%'
-  detalisWrapperPriceBtrAdd.innerHTML = 'Добавить в козрзину'
+  detalisWrapperPriceBtrAdd.innerHTML = 'Добавить в корзину'
   detalisWrapperPriceBtrRemove.innerHTML = 'Купить сейчас'
 
 
@@ -159,8 +160,9 @@ function RenderInfoProduct() {
 
   mainright?.classList.add('active')
   mainLeft?.classList.add('active')
-
+  
   detalisWrapperPriceBtrRemove.addEventListener('click', RenderModal);
+  detalisWrapperPriceBtrAdd.addEventListener('click', calculationInfo);
 }
 
 
@@ -171,7 +173,6 @@ export function CardInfo() {
     RenderInfoProduct();
     const t = e.target as HTMLElement
     t.getAttribute('id')
-
     PRODUCTS.forEach(item => {
       if (item.id === Number(t.getAttribute('id'))) {
         const productInfoAllTitle = document.querySelector('.product-info__all-title') as HTMLElement
@@ -192,7 +193,7 @@ export function CardInfo() {
         detalisRaitingText.innerHTML = item.raiting.toString()
         detalisStockText.innerHTML = item.stock.toString()
         detalisCategoryText.innerHTML = item.category
-        detalisWrapperPricePrice.innerHTML = item.price.toString()
+        detalisWrapperPricePrice.innerHTML = item.price.toString() + '$'
         elementImgBigImg.src = item.previewImg
         detalisBrandText.innerHTML = item.brand
         
@@ -211,8 +212,9 @@ export function CardInfo() {
           small1Img.src = item;
         })
       }
-    })
+    });
     
+    cartStorageInfo();
     const clickSmallimg = document.querySelectorAll('.small-1-img')
     clickSmallimg.forEach(item => {
       item.addEventListener('mouseenter', (e: Event) => {
@@ -223,3 +225,87 @@ export function CardInfo() {
   }))
 }
 
+
+function calculationInfo (e: Event) {
+  const Cart = document.querySelector('.header__cart-counter');
+  const totalPrice = document.querySelector('.header__cart-price');
+  const priceField = document.querySelector('.detalis-wrapper__price-price');
+  const titleField = document.querySelector('.product-info__all-title');
+  const target: EventTarget | null = e.target;
+  let CurrentQuantity = 0;
+  let CurrentPrice = Number(totalPrice?.innerHTML.slice(1, totalPrice.innerHTML.length));
+  if (Cart?.innerHTML) {
+    CurrentQuantity = Number(Cart.innerHTML);
+  }
+  if ((target as HTMLButtonElement).innerHTML === 'Добавить в корзину') {
+    CurrentQuantity++;
+    if (target instanceof HTMLElement) {
+      CurrentPrice = CurrentPrice + Number(priceField?.innerHTML.slice(0, priceField?.innerHTML.length-1));
+      (target as HTMLButtonElement).innerHTML = 'Убрать из корзины';
+      target.classList.remove('cards__button');
+      target.classList.add('cards__button-active');
+      let arrToStorage = [];
+      if (localStorage.cards) {
+        arrToStorage = JSON.parse(localStorage.cards);
+        PRODUCTS.forEach((value) => {if(value.title === titleField?.innerHTML) {
+          arrToStorage.push(value);
+        }})
+      }
+      else {
+        PRODUCTS.forEach((value) => {if(value.title === titleField?.innerHTML) {
+          arrToStorage.push(value);
+        }})
+      }
+      localStorage.setItem('cards', JSON.stringify(arrToStorage));
+    }
+  }
+  else {
+    CurrentQuantity--;
+    if (target instanceof HTMLElement) {
+      CurrentPrice = CurrentPrice - Number(priceField?.innerHTML.slice(0, priceField.innerHTML.length-1));
+      (target as HTMLButtonElement).innerHTML = 'Добавить в корзину';
+      target.classList.remove('cards__button-active');
+      target.classList.add('cards__button');
+      const arrToStorage: Array<IProduct> = JSON.parse(localStorage.cards);
+      let index = 0;
+      arrToStorage.forEach((value, i) => {
+        if (value.title === titleField?.innerHTML){
+          index = i;
+        }
+      })
+      arrToStorage.splice(index, 1);
+      
+      localStorage.setItem('cards', JSON.stringify(arrToStorage));
+    }
+  }
+  
+  if (Cart?.innerHTML) {
+    Cart.innerHTML = CurrentQuantity.toString();
+  }
+  if (totalPrice?.innerHTML) {
+    totalPrice.innerHTML = '$' + CurrentPrice.toString();
+  }
+}
+
+function cartStorageInfo () {
+  const titleField = document.querySelector('.product-info__all-title');
+  const button = document.querySelector('.detalis-wrapper__price')?.querySelector('.cards__button');
+  const Cart = document.querySelector('.header__cart-counter');
+  const totalPrice = document.querySelector('.header__cart-price');
+  if (localStorage.cards) {
+    const arrFromStorage:Array<IProduct> = JSON.parse(localStorage.cards);
+    arrFromStorage.forEach((product) =>{
+      if(titleField?.innerHTML === product.title) {
+        button?.classList.remove('cards__button');
+        button?.classList.add('cards__button-active');
+        (button as HTMLButtonElement).innerHTML = 'Убрать из корзины';
+      }
+    })
+    if (Cart?.innerHTML && totalPrice?.innerHTML) {
+      Cart.innerHTML = arrFromStorage.length.toString();
+      totalPrice.innerHTML = '$' + arrFromStorage.reduce(function(a, b: IProduct): number {
+        return a + b.price
+      }, 0).toString();
+    }
+  }
+}

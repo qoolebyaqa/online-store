@@ -35,7 +35,7 @@ export function CardsRender (sources: Array<IProduct>) {
     cardHover.setAttribute('id', `${value.id}`)
     if (cardButton) {
       cardButton?.classList.add('cards__button');
-      cardButton.innerHTML = 'Add to Cart';
+      cardButton.innerHTML = 'Добавить в корзину';
     }
     cardImg.src = value.previewImg;    
     Imgcontainer.append(cardImg, cardHover);
