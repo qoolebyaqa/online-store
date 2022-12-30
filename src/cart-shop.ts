@@ -1,6 +1,7 @@
 import { IProduct } from "./components/goods";
 const getParam = localStorage.getItem('cards')
 const localCards = JSON.parse(getParam || "{}")
+import { cartStorage } from './components/Header/Header';
 
 function RenderWrapperCardShop() {
   const main = document.querySelector('.main');
@@ -297,17 +298,19 @@ function RenderCardItem(localCards: Array<IProduct>) {
     })
 
     countAddRemove.addEventListener('click', (event) => {
+      const cardShopProductItem = document.querySelectorAll('.card-shop__product-item');
       if ((<HTMLElement>event.target).classList.contains('minus')) {
         let count = Number(countAddValue.innerHTML)
         const num = Number(productItemCountStockPrice.innerHTML.slice(0, -1))
         productItemCountStockPrice.innerHTML = `${num - item.price}$`
         count--
 
-        if (count < 0) {
+        if (count === 0) {
           localCards = localCards.filter(elem => elem.id != item.id)
           localStorage.setItem('cards', JSON.stringify(localCards));
-          // cardShopProductItem.forEach(item => item.innerHTML = '')
-          location.reload()
+          cardShopProductItem.forEach(item => item.innerHTML = '')
+          // location.reload()
+          cartStorage()
           RenderCardItem(localCards)
         }
         countAddValue.innerHTML = count.toString()
