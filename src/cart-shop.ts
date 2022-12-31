@@ -2,6 +2,7 @@ import { IProduct } from "./components/goods";
 const getParam = localStorage.getItem('cards')
 const localCards = JSON.parse(getParam || "{}")
 import { cartStorage } from './components/Header/Header';
+import { PRODUCTS } from './components/goods'
 
 function RenderWrapperCardShop() {
   const main = document.querySelector('.main');
@@ -182,8 +183,10 @@ if (filter === 'top') {
 }
 
 //---------------блок с товаром-----------------------------------------------------
+
 function RenderCardItem(localCards: Array<IProduct>) {
   let count = 1;
+  
   localCards.forEach(item => {
   const cardShopProduct = document.querySelector('.card-shop__product');
 
@@ -275,15 +278,17 @@ function RenderCardItem(localCards: Array<IProduct>) {
 
   productItemCountAdd.append(countAddAdd, countAddValue, countAddRemove)
   countAddAdd.innerHTML = '+'
-  countAddValue.innerHTML = `1`
+  countAddValue.innerHTML = `${item.count}`
   countAddRemove.innerHTML = '-'
     
     boxInfoImgImg.src = `${item.previewImg}`
     
     countAddAdd.addEventListener('click', (event) => {
-      // const headerCartPrice = document.querySelector('.header__cart-price')
+      // const headerCartPrice = document.querySelector('.header__cart-price') as HTMLElement
       // const total = Number(headerCartPrice?.innerHTML.slice(1))
-
+      // const totalPriceValue = document.querySelector('.total-price-value') as HTMLDivElement
+      
+      
       if ( (<HTMLElement>event.target).classList.contains('plus')) {
         let count = Number(countAddValue.innerHTML)
         const stock = Number(countStockValue.innerHTML)
@@ -291,26 +296,43 @@ function RenderCardItem(localCards: Array<IProduct>) {
         if (count > stock) {
           return
         }
+        PRODUCTS.forEach(value => {
+          if (value.id === item.id) {
+            productItemCountStockPrice.innerHTML = `${value.price * count}$`
+            item.count = count
+            localCards.push(item)
+            localStorage.setItem('cards', JSON.stringify(localCards));
+            cartStorage()
+            RenderCardShop()
+          }
+        })
         countAddValue.innerHTML = count.toString()
-        productItemCountStockPrice.innerHTML = `${item.price * count}$`
-
+        // headerCartPrice.innerHTML = ('$' + (total + Number(`${item.price}`))).toString()
       }
+      
     })
 
     countAddRemove.addEventListener('click', (event) => {
       const cardShopProductItem = document.querySelectorAll('.card-shop__product-item');
       if ((<HTMLElement>event.target).classList.contains('minus')) {
         let count = Number(countAddValue.innerHTML)
-        const num = Number(productItemCountStockPrice.innerHTML.slice(0, -1))
-        productItemCountStockPrice.innerHTML = `${num - item.price}$`
-        count--
+        PRODUCTS.forEach(value => {
+          if (value.id === item.id) {
+            const num = Number(productItemCountStockPrice.innerHTML.slice(0, -1))
+            productItemCountStockPrice.innerHTML = `${num - value.price}$`
+            count--
+            const index = localCards.findIndex(e => e.id === item.id);
+            localCards.splice(index, 1);
+            localStorage.setItem('cards', JSON.stringify(localCards));
+            cartStorage()
+          }
+        })
+
 
         if (count === 0) {
           localCards = localCards.filter(elem => elem.id != item.id)
           localStorage.setItem('cards', JSON.stringify(localCards));
           cardShopProductItem.forEach(item => item.innerHTML = '')
-          // location.reload()
-          cartStorage()
           RenderCardItem(localCards)
         }
         countAddValue.innerHTML = count.toString()

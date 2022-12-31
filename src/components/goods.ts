@@ -10,6 +10,7 @@ export interface IProduct {
   category: string;
   previewImg: string;
   images: Array<string>;
+  count: number;
 }
 
 export const PRODUCTS: Array<IProduct> = [
@@ -26,7 +27,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: '/catalog-img/headphones/apple/Airpods 2/Airpods 2-1.jpg',
     images: ['./catalog-img/headphones/apple/Airpods 2/Airpods 2-1.jpg', 
     './catalog-img/headphones/apple/Airpods 2/Airpods 2-2.jpg', 
-    './catalog-img/headphones/apple/Airpods 2/Airpods 2-3.jpg'],
+      './catalog-img/headphones/apple/Airpods 2/Airpods 2-3.jpg'],
+      count: 1,
   },
   {
     id: 2,
@@ -41,7 +43,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/headphones/apple/Apple AirPods 3/Apple AirPods 3-1.jpg',
     images: ['./catalog-img/headphones/apple/Apple AirPods 3/Apple AirPods 3-1.jpg', 
     './catalog-img/headphones/apple/Apple AirPods 3/Apple AirPods 3-2.jpg', 
-    './catalog-img/headphones/apple/Apple AirPods 3/Apple AirPods 3-3.jpg'],
+      './catalog-img/headphones/apple/Apple AirPods 3/Apple AirPods 3-3.jpg'],
+      count: 1,
   },
   {
     id: 3,
@@ -56,7 +59,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/headphones/samsung/Samsung Galaxy Buds 2/Samsung Galaxy Buds 2-1.jpg',
     images: ['./catalog-img/headphones/samsung/Samsung Galaxy Buds 2/Samsung Galaxy Buds 2-1.jpg', 
     './catalog-img/headphones/samsung/Samsung Galaxy Buds 2/Samsung Galaxy Buds 2-2.jpg', 
-    './catalog-img/headphones/samsung/Samsung Galaxy Buds 2/Samsung Galaxy Buds 2-3.jpg'],
+      './catalog-img/headphones/samsung/Samsung Galaxy Buds 2/Samsung Galaxy Buds 2-3.jpg'],
+      count: 1,
   },
   {
     id: 4,
@@ -71,7 +75,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/headphones/samsung/Samsung Galaxy Buds Pro/Samsung Galaxy Buds Pro-1.jpg',
     images: ['./catalog-img/headphones/samsung/Samsung Galaxy Buds Pro/Samsung Galaxy Buds Pro-1.jpg', 
     './catalog-img/headphones/samsung/Samsung Galaxy Buds Pro/Samsung Galaxy Buds Pro-2.jpg', 
-    './catalog-img/headphones/samsung/Samsung Galaxy Buds Pro/Samsung Galaxy Buds Pro-3.jpg'],
+      './catalog-img/headphones/samsung/Samsung Galaxy Buds Pro/Samsung Galaxy Buds Pro-3.jpg'],
+      count: 1,
   },
   {
     id: 5,
@@ -86,7 +91,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/headphones/xiaomi/F9/F9-1.jpg',
     images: ['./catalog-img/headphones/xiaomi/F9/F9-1.jpg', 
     './catalog-img/headphones/xiaomi/F9/F9-2.jpg', 
-    './catalog-img/headphones/xiaomi/F9/F9-3.jpg'],
+      './catalog-img/headphones/xiaomi/F9/F9-3.jpg'],
+      count: 1,
   },
   {
     id: 6,
@@ -101,7 +107,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/headphones/xiaomi/i100/i100-1.jpg',
     images: ['./catalog-img/headphones/xiaomi/i100/i100-1.jpg', 
     './catalog-img/headphones/xiaomi/i100/i100-2.jpg', 
-    './catalog-img/headphones/xiaomi/i100/i100-3.jpg'],
+      './catalog-img/headphones/xiaomi/i100/i100-3.jpg'],
+      count: 1,
   },
   {
     id: 7,
@@ -117,7 +124,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/laptop/apple/Apple MacBook Pro 13/Apple MacBook Pro 13-1.png', 
     './catalog-img/laptop/apple/Apple MacBook Pro 13/Apple MacBook Pro 13-2.png', 
     './catalog-img/laptop/apple/Apple MacBook Pro 13/Apple MacBook Pro 13-3.png',
-    './catalog-img/laptop/apple/Apple MacBook Pro 13/Apple MacBook Pro 13-4.png'],
+      './catalog-img/laptop/apple/Apple MacBook Pro 13/Apple MacBook Pro 13-4.png'],
+      count: 1,
   },
   {
     id: 8,
@@ -133,7 +141,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/laptop/apple/Apple Macbook Pro 14/Apple Macbook Pro 14-1.png', 
     './catalog-img/laptop/apple/Apple Macbook Pro 14/Apple Macbook Pro 14-2.png', 
     './catalog-img/laptop/apple/Apple Macbook Pro 14/Apple Macbook Pro 14-3.png',
-    './catalog-img/laptop/apple/Apple Macbook Pro 14/Apple Macbook Pro 14-4.png'],
+      './catalog-img/laptop/apple/Apple Macbook Pro 14/Apple Macbook Pro 14-4.png'],
+      count: 1,
   },
   {
     id: 9,
@@ -149,7 +158,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/laptop/apple/Apple Macbook Pro 16/Apple Macbook Pro 16-1.png', 
     './catalog-img/laptop/apple/Apple Macbook Pro 16/Apple Macbook Pro 16-2.png', 
     './catalog-img/laptop/apple/Apple Macbook Pro 16/Apple Macbook Pro 16-3.png',
-    './catalog-img/laptop/apple/Apple Macbook Pro 16/Apple Macbook Pro 16-4.png'],
+      './catalog-img/laptop/apple/Apple Macbook Pro 16/Apple Macbook Pro 16-4.png'],
+      count: 1,
   },
   {
     id: 10,
@@ -164,7 +174,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/laptop/huawei/Huawei MateBook D 15/Huawei MateBook D 15-1.jpg',
     images: ['./catalog-img/laptop/huawei/Huawei MateBook D 15/Huawei MateBook D 15-1.jpg',
     './catalog-img/laptop/huawei/Huawei MateBook D 15/Huawei MateBook D 15-2.jpg',
-    './catalog-img/laptop/huawei/Huawei MateBook D 15/Huawei MateBook D 15-3.jpg'],
+      './catalog-img/laptop/huawei/Huawei MateBook D 15/Huawei MateBook D 15-3.jpg'],
+      count: 1,
   },
   {
     id: 11,
@@ -179,7 +190,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/laptop/huawei/Huawei MateBook D 16/Huawei MateBook D 16-1.jpg',
     images: ['./catalog-img/laptop/huawei/Huawei MateBook D 16/Huawei MateBook D 16-1.jpg',
     './catalog-img/laptop/huawei/Huawei MateBook D 16/Huawei MateBook D 16-2.jpg',
-    './catalog-img/laptop/huawei/Huawei MateBook D 16/Huawei MateBook D 16-3.jpg'],
+      './catalog-img/laptop/huawei/Huawei MateBook D 16/Huawei MateBook D 16-3.jpg'],
+      count: 1,
   },
   {
     id: 12,
@@ -195,7 +207,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/laptop/lenovo/Lenovo IdeaPad 1 14ADA05/Lenovo IdeaPad 1 14ADA05-1.jpg',
     './catalog-img/laptop/lenovo/Lenovo IdeaPad 1 14ADA05/Lenovo IdeaPad 1 14ADA05-2.jpg',
     './catalog-img/laptop/lenovo/Lenovo IdeaPad 1 14ADA05/Lenovo IdeaPad 1 14ADA05-3.jpg',
-    './catalog-img/laptop/lenovo/Lenovo IdeaPad 1 14ADA05/Lenovo IdeaPad 1 14ADA05-4.jpg',],
+      './catalog-img/laptop/lenovo/Lenovo IdeaPad 1 14ADA05/Lenovo IdeaPad 1 14ADA05-4.jpg',],
+      count: 1,
   },
   {
     id: 13,
@@ -211,7 +224,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/laptop/lenovo/Lenovo IdeaPad 5 Pro/Lenovo IdeaPad 5 Pro-1.jpg',
     './catalog-img/laptop/lenovo/Lenovo IdeaPad 5 Pro/Lenovo IdeaPad 5 Pro-2.jpg',
     './catalog-img/laptop/lenovo/Lenovo IdeaPad 5 Pro/Lenovo IdeaPad 5 Pro-3.jpg',
-    './catalog-img/laptop/lenovo/Lenovo IdeaPad 5 Pro/Lenovo IdeaPad 5 Pro-4.jpg',],
+      './catalog-img/laptop/lenovo/Lenovo IdeaPad 5 Pro/Lenovo IdeaPad 5 Pro-4.jpg',],
+      count: 1,
   },
   {
     id: 14,
@@ -226,7 +240,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/laptop/lenovo/Lenovo V14-ADA/Lenovo V14-ADA-1.jpg',
     images: ['./catalog-img/laptop/lenovo/Lenovo V14-ADA/Lenovo V14-ADA-1.jpg',
     './catalog-img/laptop/lenovo/Lenovo V14-ADA/Lenovo V14-ADA-2.jpg',
-    './catalog-img/laptop/lenovo/Lenovo V14-ADA/Lenovo V14-ADA-3.jpg'],
+      './catalog-img/laptop/lenovo/Lenovo V14-ADA/Lenovo V14-ADA-3.jpg'],
+      count: 1,
   },
   {
     id: 15,
@@ -243,7 +258,8 @@ export const PRODUCTS: Array<IProduct> = [
     './catalog-img/phones/apple/iphone13/13blue2.jpg',
     './catalog-img/phones/apple/iphone13/13blue3.jpg',
     './catalog-img/phones/apple/iphone13/13blue4.jpg',
-    './catalog-img/phones/apple/iphone13/13blue5.jpg'],
+      './catalog-img/phones/apple/iphone13/13blue5.jpg'],
+      count: 1,
   },
   {
     id: 16,
@@ -259,7 +275,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/apple/iphone13pro/iphone13pro-1.jpg',
     './catalog-img/phones/apple/iphone13pro/iphone13pro-2.jpg',
     './catalog-img/phones/apple/iphone13pro/iphone13pro-3.jpg',
-    './catalog-img/phones/apple/iphone13pro/iphone13pro-4.jpg',],
+      './catalog-img/phones/apple/iphone13pro/iphone13pro-4.jpg',],
+      count: 1,
   },
   {
     id: 17,
@@ -276,7 +293,8 @@ export const PRODUCTS: Array<IProduct> = [
     './catalog-img/phones/apple/iphone14pro/iphone14pro-2.jpg',
     './catalog-img/phones/apple/iphone14pro/iphone14pro-3.jpg',
     './catalog-img/phones/apple/iphone14pro/iphone14pro-4.jpg',
-    './catalog-img/phones/apple/iphone14pro/iphone14pro-5.jpg'],
+      './catalog-img/phones/apple/iphone14pro/iphone14pro-5.jpg'],
+      count: 1,
   },
   {
     id: 18,
@@ -292,7 +310,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/huawei/huaweiP20/huaweiP20-1.jpg',
     './catalog-img/phones/huawei/huaweiP20/huaweiP20-2.jpg',
     './catalog-img/phones/huawei/huaweiP20/huaweiP20-3.jpg',
-    './catalog-img/phones/huawei/huaweiP20/huaweiP20-4.jpg'],
+      './catalog-img/phones/huawei/huaweiP20/huaweiP20-4.jpg'],
+      count: 1,
   },
   {
     id: 19,
@@ -308,7 +327,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/huawei/huaweiP30/huaweiP30-1.jpg',
     './catalog-img/phones/huawei/huaweiP30/huaweiP30-2.jpg',
     './catalog-img/phones/huawei/huaweiP30/huaweiP30-3.jpg',
-    './catalog-img/phones/huawei/huaweiP30/huaweiP30-4.jpg'],
+      './catalog-img/phones/huawei/huaweiP30/huaweiP30-4.jpg'],
+      count: 1,
   },
   {
     id: 20,
@@ -325,7 +345,8 @@ export const PRODUCTS: Array<IProduct> = [
     './catalog-img/phones/huawei/huaweiP40/huaweiP40-2.jpg',
     './catalog-img/phones/huawei/huaweiP40/huaweiP40-3.jpg',
     './catalog-img/phones/huawei/huaweiP40/huaweiP40-4.jpg',
-    './catalog-img/phones/huawei/huaweiP40/huaweiP40-5.jpg'],
+      './catalog-img/phones/huawei/huaweiP40/huaweiP40-5.jpg'],
+      count: 1,
   },
   {
     id: 21,
@@ -340,7 +361,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/phones/poco/pocoF3/pocoF3-1.jpg',
     images: ['./catalog-img/phones/poco/pocoF3/pocoF3-1.jpg',
     './catalog-img/phones/poco/pocoF3/pocoF3-2.jpg',
-    './catalog-img/phones/poco/pocoF3/pocoF3-3.jpg'],
+      './catalog-img/phones/poco/pocoF3/pocoF3-3.jpg'],
+      count: 1,
   },
   {
     id: 22,
@@ -356,7 +378,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/poco/pocoX4pro/pocoX4pro-1.jpg',
     './catalog-img/phones/poco/pocoX4pro/pocoX4pro-2.jpg',
     './catalog-img/phones/poco/pocoX4pro/pocoX4pro-3.jpg',
-    './catalog-img/phones/poco/pocoX4pro/pocoX4pro-4.jpg'],
+      './catalog-img/phones/poco/pocoX4pro/pocoX4pro-4.jpg'],
+      count: 1,
   },
   {
     id: 23,
@@ -370,7 +393,8 @@ export const PRODUCTS: Array<IProduct> = [
     category: "Phone",
     previewImg: './catalog-img/phones/samsung/Galaxy A23/Galaxy A23-1.jpeg',
     images: ['./catalog-img/phones/samsung/Galaxy A23/Galaxy A23-1.jpeg',
-    './catalog-img/phones/samsung/Galaxy A23/Galaxy A23-2.jpeg'],
+      './catalog-img/phones/samsung/Galaxy A23/Galaxy A23-2.jpeg'],
+      count: 1,
   },
   {
     id: 24,
@@ -385,7 +409,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/phones/samsung/Galaxy A52/Galaxy A52-1.jpeg',
     images: ['./catalog-img/phones/samsung/Galaxy A52/Galaxy A52-1.jpeg',
     './catalog-img/phones/samsung/Galaxy A52/Galaxy A52-2.jpeg',
-    './catalog-img/phones/samsung/Galaxy A52/Galaxy A52-3.jpeg'],
+      './catalog-img/phones/samsung/Galaxy A52/Galaxy A52-3.jpeg'],
+      count: 1,
   },
   {
     id: 25,
@@ -401,7 +426,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/xiaomi/Xiaomi11TPro/Xiaomi11TPro-1.jpg',
     './catalog-img/phones/xiaomi/Xiaomi11TPro/Xiaomi11TPro-2.jpg',
     './catalog-img/phones/xiaomi/Xiaomi11TPro/Xiaomi11TPro-3.jpg',
-    './catalog-img/phones/xiaomi/Xiaomi11TPro/Xiaomi11TPro-4.jpg'],
+      './catalog-img/phones/xiaomi/Xiaomi11TPro/Xiaomi11TPro-4.jpg'],
+      count: 1,
   },
   {
     id: 26,
@@ -417,7 +443,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/xiaomi/Xiaomi12Lite/Xiaomi12Lite-1.jpg',
     './catalog-img/phones/xiaomi/Xiaomi12Lite/Xiaomi12Lite-2.jpg',
     './catalog-img/phones/xiaomi/Xiaomi12Lite/Xiaomi12Lite-3.jpg',
-    './catalog-img/phones/xiaomi/Xiaomi12Lite/Xiaomi12Lite-4.jpg'],
+      './catalog-img/phones/xiaomi/Xiaomi12Lite/Xiaomi12Lite-4.jpg'],
+      count: 1,
   },
   {
     id: 27,
@@ -433,7 +460,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/phones/xiaomi/XiaomiRedmi9A/XiaomiRedmi9A-1.jpg',
     './catalog-img/phones/xiaomi/XiaomiRedmi9A/XiaomiRedmi9A-2.jpg',
     './catalog-img/phones/xiaomi/XiaomiRedmi9A/XiaomiRedmi9A-3.jpg',
-    './catalog-img/phones/xiaomi/XiaomiRedmi9A/XiaomiRedmi9A-4.jpg'],
+      './catalog-img/phones/xiaomi/XiaomiRedmi9A/XiaomiRedmi9A-4.jpg'],
+      count: 1,
   },
   {
     id: 28,
@@ -447,7 +475,8 @@ export const PRODUCTS: Array<IProduct> = [
     category: "Tablet",
     previewImg: './catalog-img/tablets/apple/Apple iPad 10,9/pad_10-1.png',
     images: ['./catalog-img/tablets/apple/Apple iPad 10,9/pad_10-1.png',
-    './catalog-img/tablets/apple/Apple iPad 10,9/pad_10-2.png'],
+      './catalog-img/tablets/apple/Apple iPad 10,9/pad_10-2.png'],
+      count: 1,
   },
   {
     id: 29,
@@ -463,7 +492,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/tablets/apple/Apple iPad mini 2021/miniPad-1.png',
     './catalog-img/tablets/apple/Apple iPad mini 2021/miniPad-2.png',
     './catalog-img/tablets/apple/Apple iPad mini 2021/miniPad-3.png',
-    './catalog-img/tablets/apple/Apple iPad mini 2021/miniPad-4.png'],
+      './catalog-img/tablets/apple/Apple iPad mini 2021/miniPad-4.png'],
+      count: 1,
   },
   {
     id: 30,
@@ -477,7 +507,8 @@ export const PRODUCTS: Array<IProduct> = [
     category: "Tablet",
     previewImg: './catalog-img/tablets/apple/Apple iPad Pro 12/ipad_pro_2022-1.png',
     images: ['./catalog-img/tablets/apple/Apple iPad Pro 12/ipad_pro_2022-1.png',
-    './catalog-img/tablets/apple/Apple iPad Pro 12/ipad_pro_2022-2.png'],
+      './catalog-img/tablets/apple/Apple iPad Pro 12/ipad_pro_2022-2.png'],
+      count: 1,
   },
   {
     id: 31,
@@ -493,7 +524,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/tablets/huawei/MatePad 11/huawei_matepad_11_1-460x460.jpg',
     './catalog-img/tablets/huawei/MatePad 11/huawei_matepad_11_2-460x460.jpg',
     './catalog-img/tablets/huawei/MatePad 11/huawei_matepad_11_3-460x460 (1).jpg',
-    './catalog-img/tablets/huawei/MatePad 11/huawei_matepad_11_4-460x460.jpg'],
+      './catalog-img/tablets/huawei/MatePad 11/huawei_matepad_11_4-460x460.jpg'],
+      count: 1,
   },
   {
     id: 32,
@@ -509,7 +541,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/tablets/huawei/MatePad LTE/huawei_matepad_harmony_1-460x460.jpg',
     './catalog-img/tablets/huawei/MatePad LTE/huawei_matepad_harmony_2-460x460.jpg',
     './catalog-img/tablets/huawei/MatePad LTE/huawei_matepad_harmony_3-460x460.jpg',
-    './catalog-img/tablets/huawei/MatePad LTE/huawei_matepad_harmony_4-460x460.jpg'],
+      './catalog-img/tablets/huawei/MatePad LTE/huawei_matepad_harmony_4-460x460.jpg'],
+      count: 1,
   },
   {
     id: 33,
@@ -525,7 +558,8 @@ export const PRODUCTS: Array<IProduct> = [
     images: ['./catalog-img/tablets/huawei/MatePad T10s/huawei_t10s_1-460x460.jpg',
     './catalog-img/tablets/huawei/MatePad T10s/huawei_t10s_2-460x460.jpg',
     './catalog-img/tablets/huawei/MatePad T10s/huawei_t10s_3-460x460.jpg',
-    './catalog-img/tablets/huawei/MatePad T10s/huawei_t10s_4-460x460.jpg'],
+      './catalog-img/tablets/huawei/MatePad T10s/huawei_t10s_4-460x460.jpg'],
+      count: 1,
   },
   {
     id: 34,
@@ -540,7 +574,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/apple/Apple Watch Series 7/S7-1.png',
     images: ['./catalog-img/watches/apple/Apple Watch Series 7/S7-1.png',
     './catalog-img/watches/apple/Apple Watch Series 7/S7-2.png',
-    './catalog-img/watches/apple/Apple Watch Series 7/S7-3.png'],
+      './catalog-img/watches/apple/Apple Watch Series 7/S7-3.png'],
+      count: 1,
   },
   {
     id: 35,
@@ -555,7 +590,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/apple/Apple Watch Series 8/S8-1.jpeg',
     images: ['./catalog-img/watches/apple/Apple Watch Series 8/S8-1.jpeg',
     './catalog-img/watches/apple/Apple Watch Series 8/S8-2.jpeg',
-    './catalog-img/watches/apple/Apple Watch Series 8/S8-3.jpeg'],
+      './catalog-img/watches/apple/Apple Watch Series 8/S8-3.jpeg'],
+      count: 1,
   },
   {
     id: 36,
@@ -570,7 +606,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/apple/Apple Watch Ultra/Ultra-1.jpeg',
     images: ['./catalog-img/watches/apple/Apple Watch Ultra/Ultra-1.jpeg',
     './catalog-img/watches/apple/Apple Watch Ultra/Ultra-2.jpeg',
-    './catalog-img/watches/apple/Apple Watch Ultra/Ultra-3.jpeg'],
+      './catalog-img/watches/apple/Apple Watch Ultra/Ultra-3.jpeg'],
+      count: 1,
   },
   {
     id: 37,
@@ -585,7 +622,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/huawei/Huawei Watch Fit TIA-B09/Fit-1.jpg',
     images: ['./catalog-img/watches/huawei/Huawei Watch Fit TIA-B09/Fit-1.jpg',
     './catalog-img/watches/huawei/Huawei Watch Fit TIA-B09/Fit-2.jpg',
-    './catalog-img/watches/huawei/Huawei Watch Fit TIA-B09/Fit-3.jpg'],
+      './catalog-img/watches/huawei/Huawei Watch Fit TIA-B09/Fit-3.jpg'],
+      count: 1,
   },
   {
     id: 38,
@@ -600,7 +638,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/huawei/Huawei Watch GT Runner/gt-1.jpg',
     images: ['./catalog-img/watches/huawei/Huawei Watch GT Runner/gt-1.jpg',
     './catalog-img/watches/huawei/Huawei Watch GT Runner/gt-2.jpg',
-    './catalog-img/watches/huawei/Huawei Watch GT Runner/gt-3.jpg'],
+      './catalog-img/watches/huawei/Huawei Watch GT Runner/gt-3.jpg'],
+      count: 1,
   },
   {
     id: 39,
@@ -615,7 +654,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/huawei/Huawei Watch GT Runner RUN-B19/run-1.jpg',
     images: ['./catalog-img/watches/huawei/Huawei Watch GT Runner RUN-B19/run-1.jpg',
     './catalog-img/watches/huawei/Huawei Watch GT Runner RUN-B19/run-2.jpg',
-    './catalog-img/watches/huawei/Huawei Watch GT Runner RUN-B19/run-3.jpg'],
+      './catalog-img/watches/huawei/Huawei Watch GT Runner RUN-B19/run-3.jpg'],
+      count: 1,
   },
   {
     id: 40,
@@ -630,7 +670,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/samsung/Samsung Galaxy Watch4/1.jpg',
     images: ['./catalog-img/watches/samsung/Samsung Galaxy Watch4/1.jpg',
     './catalog-img/watches/samsung/Samsung Galaxy Watch4/2.jpg',
-    './catalog-img/watches/samsung/Samsung Galaxy Watch4/3.jpg'],
+      './catalog-img/watches/samsung/Samsung Galaxy Watch4/3.jpg'],
+      count: 1,
   },
   {
     id: 41,
@@ -645,7 +686,8 @@ export const PRODUCTS: Array<IProduct> = [
     previewImg: './catalog-img/watches/samsung/Samsung Galaxy Watch5/1.jpg',
     images: ['./catalog-img/watches/samsung/Samsung Galaxy Watch5/1.jpg',
     './catalog-img/watches/samsung/Samsung Galaxy Watch5/2.jpg',
-    './catalog-img/watches/samsung/Samsung Galaxy Watch5/3.jpg'],
+      './catalog-img/watches/samsung/Samsung Galaxy Watch5/3.jpg'],
+      count: 1,
   },
 
 ];
