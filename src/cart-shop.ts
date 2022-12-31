@@ -109,6 +109,8 @@ function RenderCardShop() {
   const cardShopSummBtn = document.createElement('button');
   cardShopSummBtn.classList.add('card-shop__summ-btn');
 
+  const headerCartCounter = document.querySelector('.header__cart-counter') as HTMLElement
+
 
   mainCardShop?.append(cardShop)
   cardShop.append(cardShopProduct, cardShopSumm)
@@ -136,14 +138,13 @@ function RenderCardShop() {
   promocodAppliedSale20.append(promocodSaleRem20Text, promocodSaleRem20)
   promocodSaleRem20Text.innerHTML = 'скидка 20%'
   promocodSaleRem20.innerHTML = '-'
- 
 
   shopSummText.innerHTML = 'Итого'
   cardShopSummBtn.innerHTML = 'Оформить'
   
   shopSummProduct.append(summProductText, summProductValue)
   summProductText.innerHTML = 'Kол-во:'
-  summProductValue.innerHTML = `${localCards.length}`
+  summProductValue.innerHTML = (headerCartCounter.innerHTML)?.toString()
   shopSummTotalPrice.append(totalPriceText, totalPriceValue)
   totalPriceText.innerHTML = 'Всего:'
   totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
@@ -282,17 +283,21 @@ function RenderCardItem(localCards: Array<IProduct>) {
   countAddRemove.innerHTML = '-'
     
     boxInfoImgImg.src = `${item.previewImg}`
-    
+
     countAddAdd.addEventListener('click', (event) => {
-      // const headerCartPrice = document.querySelector('.header__cart-price') as HTMLElement
-      // const total = Number(headerCartPrice?.innerHTML.slice(1))
-      // const totalPriceValue = document.querySelector('.total-price-value') as HTMLDivElement
+      const summProductValue = document.querySelector('.summ-product-value') as HTMLElement
+      const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+      const headerCartPrice = document.querySelector('.header__cart-price')
+      const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
       
       
       if ( (<HTMLElement>event.target).classList.contains('plus')) {
         let count = Number(countAddValue.innerHTML)
         const stock = Number(countStockValue.innerHTML)
         count++
+        summProductValue.innerHTML = localCards.reduce(function(a, b: IProduct): number {
+          return a + b.count
+        }, 1).toString();
         if (count > stock) {
           return
         }
@@ -300,20 +305,26 @@ function RenderCardItem(localCards: Array<IProduct>) {
           if (value.id === item.id) {
             productItemCountStockPrice.innerHTML = `${value.price * count}$`
             item.count = count
-            localCards.push(item)
+            item.price = value.price * count
             localStorage.setItem('cards', JSON.stringify(localCards));
             cartStorage()
-            RenderCardShop()
           }
         })
         countAddValue.innerHTML = count.toString()
+        totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
+        totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
         // headerCartPrice.innerHTML = ('$' + (total + Number(`${item.price}`))).toString()
       }
-      
     })
 
     countAddRemove.addEventListener('click', (event) => {
       const cardShopProductItem = document.querySelectorAll('.card-shop__product-item');
+      const summProductValue = document.querySelector('.summ-product-value') as HTMLElement
+      const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+      const headerCartPrice = document.querySelector('.header__cart-price')
+      const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
+      // const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+      // const headerCartPrice = document.querySelector('.header__cart-price')
       if ((<HTMLElement>event.target).classList.contains('minus')) {
         let count = Number(countAddValue.innerHTML)
         PRODUCTS.forEach(value => {
@@ -321,13 +332,16 @@ function RenderCardItem(localCards: Array<IProduct>) {
             const num = Number(productItemCountStockPrice.innerHTML.slice(0, -1))
             productItemCountStockPrice.innerHTML = `${num - value.price}$`
             count--
-            const index = localCards.findIndex(e => e.id === item.id);
-            localCards.splice(index, 1);
+            item.count = count
+            summProductValue.innerHTML = localCards.reduce(function(a, b: IProduct): number {
+              return a + b.count
+            }, 0).toString();
+            item.price = num - value.price
             localStorage.setItem('cards', JSON.stringify(localCards));
             cartStorage()
           }
-        })
 
+        })
 
         if (count === 0) {
           localCards = localCards.filter(elem => elem.id != item.id)
@@ -336,6 +350,9 @@ function RenderCardItem(localCards: Array<IProduct>) {
           RenderCardItem(localCards)
         }
         countAddValue.innerHTML = count.toString()
+        totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
+        totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
+        // totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
       }
     })
 
