@@ -95,3 +95,20 @@
   transform: translateY(0);
   cursor: pointer;
 }
+.cards__container5x {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 20%;
+  height: 300px;
+  margin-bottom: 15px;
+}
+
+.cards__container2x {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 40%;
+  height: 300px;
+  margin-bottom: 15px;
+}

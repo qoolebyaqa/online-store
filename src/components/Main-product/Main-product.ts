@@ -6,6 +6,7 @@ import { urlChanger } from "./location-funcs";
 import { cartStorage } from "../Header/Header";
 import { CardInfo } from "../../product-info";
 import { urlChanger4range } from "./location-funcs";
+import { widthChanger } from "./product-top-sort";
 
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
@@ -48,8 +49,12 @@ export function CardsRender (sources: Array<IProduct>) {
   })
   if (counter?.innerHTML) {
     counter.innerHTML = sources.length.toString();
+    if (sources.length === 0) {
+      (wrapper as HTMLElement).innerHTML = `К сожалению по Вешму запросу ничего не найдено`;
+    }
   }
   PriceAndCart();
+  widthChanger();
   cartStorage();
   CardInfo();
 }
@@ -275,5 +280,7 @@ inputs.forEach((input) => {
 })
 
 document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
+document.querySelector('.search__ico')?.addEventListener('click', () => console.log('nice'));
 
 CardsRender(PRODUCTS);
+widthChanger();

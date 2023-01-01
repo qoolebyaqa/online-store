@@ -105,4 +105,30 @@ function searchFilter() {
   }
 }
 
+
+
 document.querySelector('.product-top__search-input')?.addEventListener('input', searchFilter);
+
+export function widthChanger () {
+  const cards = document.querySelectorAll('.cards__container');
+  for (const card of cards) {
+    card.classList.remove('cards__container2x');
+    card.classList.remove('cards__container5x');
+  }
+  document.querySelector('.view-cards__left')?.addEventListener('click', () => { 
+      for (const card of cards) {
+      if (card.matches('.cards__container2x')) {
+        card.classList.remove('cards__container2x');
+      }
+      card.classList.toggle('cards__container5x');
+    }
+  });
+  document.querySelector('.view-cards__right')?.addEventListener('click', () => { 
+    for (const card of cards) {
+      if (card.matches('.cards__container5x')) {
+        card.classList.remove('cards__container5x');
+      }
+      card.classList.toggle('cards__container2x');
+    }
+  });
+}

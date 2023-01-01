@@ -139,3 +139,10 @@ position: relative;
   left: 4px;
   top: 4px;
 }
+.product-top__search-submit {
+  border: 1px solid green;
+  transition: all 0.4s ease;
+  width: 18%;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 14px;
+}
