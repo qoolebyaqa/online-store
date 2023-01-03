@@ -185,7 +185,7 @@ export function CardInfo() {
         const detalisWrapperPricePrice = document.querySelector('.detalis-wrapper__price-price') as HTMLElement
       
         const elementImgBigImg = document.querySelector('.element-img__big-img') as HTMLImageElement
-
+        (document.querySelector('.product-info__add') as HTMLElement).innerHTML = `Techno-Store -> ${item.category} -> ${item.brand} -> ${item.title}`;
         detalisDescriptionText.innerHTML = item.description
         productInfoAllTitle.innerHTML = item.title 
         
