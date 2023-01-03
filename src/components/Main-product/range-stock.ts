@@ -1,6 +1,6 @@
 const rangeStockInput = document.querySelectorAll(".range-input-stock input");
 const stockInput = document.querySelectorAll(".stock-input input");
-const rangeStock = document.querySelector(".slider-stock .progress-stock");
+/* const rangeStock = document.querySelector(".slider-stock .progress-stock"); */
 const priceStock = 0;
 
 stockInput.forEach(input => {
@@ -11,14 +11,14 @@ stockInput.forEach(input => {
         if((maxPrice - minPrice >= priceStock) && maxPrice <= Number((rangeStockInput[1] as HTMLInputElement).max)){
             if((e.target as HTMLElement).className === "input-min"){
                 (rangeStockInput[0] as HTMLInputElement).value = minPrice.toString();
-                if (rangeStock) {
+                /* if (rangeStock) {
                     (rangeStock as HTMLElement).style.left = ((minPrice / Number((rangeStockInput[0] as HTMLInputElement).max)) * 100) + "%";
-                }
+                } */
             }else{
                 (rangeStockInput[1] as HTMLInputElement).value = maxPrice.toString();
-                if (rangeStock) {
+                /* if (rangeStock) {
                     (rangeStock as HTMLElement).style.right = 100 - (maxPrice / Number((rangeStockInput[1] as HTMLInputElement).max)) * 100 + "%";                    
-                }
+                } */
             }
         }
     });
@@ -38,8 +38,8 @@ rangeStockInput.forEach(input =>{
         }else{
             (stockInput[0] as HTMLInputElement).value = minVal.toString();
             (stockInput[1] as HTMLInputElement).value = maxVal.toString();
-            (rangeStock as HTMLElement).style.right = 100 - (maxVal / Number((rangeStockInput[1] as HTMLInputElement).max)) * 100 + "%";
-            (rangeStock as HTMLElement).style.left = ((minVal / Number((rangeStockInput[0] as HTMLInputElement).max) * 100) + "%");
+            /* (rangeStock as HTMLElement).style.right = 100 - (maxVal / Number((rangeStockInput[1] as HTMLInputElement).max)) * 100 + "%";
+            (rangeStock as HTMLElement).style.left = ((minVal / Number((rangeStockInput[0] as HTMLInputElement).max) * 100) + "%"); */
         }
     });
 });

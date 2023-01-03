@@ -150,7 +150,40 @@ export function filterRange (e?: Event){
       (document.getElementById('minRangePrice') as HTMLInputElement).value = (document.getElementById('minPrice') as HTMLInputElement).value;
       (document.getElementById('maxRangePrice') as HTMLInputElement).value = (document.getElementById('maxPrice') as HTMLInputElement).value;     
     }
-  }  
+  }
+
+  if (e?.target === undefined) {
+    if (window.location.search.includes('Price')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.price >= Number((priceInputMin as HTMLInputElement).value) && card.price <= Number((priceInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.stock);
+      }, Infinity).toString();
+      (document.getElementById('maxStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.stock);
+      }, 0).toString();
+      (document.getElementById('minRangeStock') as HTMLInputElement).value = (document.getElementById('minStock') as HTMLInputElement).value;
+      (document.getElementById('maxRangeStock') as HTMLInputElement).value = (document.getElementById('maxStock') as HTMLInputElement).value;
+    }
+    if (window.location.search.includes('Stock')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.stock >= Number((stokeInputMin as HTMLInputElement).value) && card.stock <= Number((stokeInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.price);
+      }, Infinity).toString();
+      (document.getElementById('maxPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.price);
+      }, 0).toString();
+      (document.getElementById('minRangePrice') as HTMLInputElement).value = (document.getElementById('minPrice') as HTMLInputElement).value;
+      (document.getElementById('maxRangePrice') as HTMLInputElement).value = (document.getElementById('maxPrice') as HTMLInputElement).value;
+    }
+  } 
   CardsRender(FiltredPRODUCTS);
 }
 
