@@ -29,6 +29,8 @@ function RenderCardShop() {
   const headerCartPrice = document.querySelector('.header__cart-price')
   const main = document.querySelector('.main') as HTMLElement;
 
+  main.innerHTML = '';
+
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
   const mainCardShop = document.createElement('div');
@@ -166,12 +168,8 @@ function RenderCardShop() {
   promocodSale20Add.innerHTML = '+'
   inputPromocodSpan.innerHTML = "код 'top' 'low'"
 
-}
-RenderCardShop()
 
-const inputPromocodText = document.querySelector('.input-promocod-text') as HTMLElement
 inputPromocodText.addEventListener('input', filterList)
-
 function filterList() {
 const searchInput = document.querySelector('.input-promocod-text')
 const promocodSale10 = document.querySelector('.promocod-sale-10')
@@ -193,7 +191,6 @@ if (filter === 'top') {
 }
 
 //---блок с товаром---
-
 function RenderCardItem(localCards: Array<IProduct>) {
   let count = 1;
   
@@ -382,12 +379,10 @@ function RenderCardItem(localCards: Array<IProduct>) {
       }
     })
   })
-
-
-
-
 }
 RenderCardItem(localCards)
+}
+// RenderCardShop()
 //==================================================================
 
 //---------------кнопки для добавления удаления скидки------------------------------
@@ -547,5 +542,3 @@ function saleLocalStor() {
 }
 saleLocalStor()
 //-------------------------------------------------------------------------------
-
-
