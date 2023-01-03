@@ -312,10 +312,10 @@ function RenderCardItem(localCards: Array<IProduct>) {
           }
         })
         countAddValue.innerHTML = count.toString()
-        if (promocodAppliedSale10.classList.contains('active')) {
+        if (promocodAppliedSale10.classList.contains('active') && !promocodAppliedSale20.classList.contains('active')) {
           const price = Number(totalPriceValue.innerHTML.slice(1))
           totalPriceValueSales.innerHTML = '$'+(Math.round(price - ((price/100)*10))).toString()
-        } else if (promocodAppliedSale20.classList.contains('active')) {
+        } else if (promocodAppliedSale20.classList.contains('active') && !promocodAppliedSale10.classList.contains('active')) {
           const price = Number(totalPriceValue.innerHTML.slice(1))
           totalPriceValueSales.innerHTML = '$'+(Math.round(price - ((price/100)*20))).toString()
         } else if ((<HTMLElement>promocodAppliedSale10).classList.contains('active') && (<HTMLElement>promocodAppliedSale20).classList.contains('active')) {
@@ -392,7 +392,7 @@ function clickSale10() {
   const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
   const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
   const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
-  const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+  // const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
   const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
 
   promocodSale10Add?.addEventListener('click', () => {
@@ -401,8 +401,10 @@ function clickSale10() {
     shopSummTotalPrice?.classList.add('active')
     promocodSale10Add.classList.add('active')
 
-    const price = Number(totalPriceValue.innerHTML.slice(1))
-    totalPriceValueSales.innerHTML = '$'+(Math.round(price - ((price/100)*10))).toString()
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
+    totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 10))).toString()
+    
+    localStorage.setItem("sale10", 'true');
   })
 } 
 clickSale10()
@@ -412,7 +414,7 @@ function clickSale20() {
   const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
   const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
   const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
-  const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
+  // const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
   const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
   
   promocodSale20Add?.addEventListener('click', () => {
@@ -421,9 +423,10 @@ function clickSale20() {
     shopSummTotalPrice?.classList.add('active')
     promocodSale20Add.classList.add('active')
 
-    const price = Number(totalPriceValue.innerHTML.slice(1))
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
     totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 20))).toString()
 
+    localStorage.setItem("sale20", 'true');
   })
 } 
 clickSale20()
@@ -455,6 +458,8 @@ function clickSaleRemove10() {
       shopSummTotalPriceSales?.classList.remove('active')
       totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
     }
+
+    localStorage.removeItem("sale10");
   })
 
   
@@ -488,12 +493,55 @@ function clickSaleRemove20() {
       shopSummTotalPriceSales?.classList.remove('active')
       totalPriceValueSales.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
     }
+
+    localStorage.removeItem("sale20");
   })
 
   
 }
 clickSaleRemove20()
 
+//-------------------Ф-ция для добавления скидки в ls---------------------------------------
+function saleLocalStor() {
+  const promocodSale10Add = document.querySelector('.promocod-sale10-add') as HTMLElement
+  const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
+  const shopSummTotalPriceSales = document.querySelector('.shop__summ-total-price-sales')
+  const shopSummTotalPrice = document.querySelector('.shop__summ-total-price')
+  const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
+  const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
+  const promocodSale20Add = document.querySelector('.promocod-sale20-add') as HTMLElement
+  const sale10 = localStorage.getItem('sale10')
+  const sale20 = localStorage.getItem('sale20')
+  if (sale10 && !sale20) {
+    promocodAppliedSale10?.classList.add('active')
+    shopSummTotalPriceSales?.classList.add('active')
+    shopSummTotalPrice?.classList.add('active')
+    promocodSale10Add.classList.add('active')
+
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
+    totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 10))).toString()
+  }else if (sale20 && !sale10) {
+    promocodAppliedSale20?.classList.add('active')
+    shopSummTotalPriceSales?.classList.add('active')
+    shopSummTotalPrice?.classList.add('active')
+    promocodSale20Add.classList.add('active')
+
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
+    totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 20))).toString()
+  } else if(sale10 && sale20) {
+    promocodAppliedSale10?.classList.add('active')
+    shopSummTotalPriceSales?.classList.add('active')
+    shopSummTotalPrice?.classList.add('active')
+    promocodSale10Add.classList.add('active')
+    promocodAppliedSale20?.classList.add('active')
+    shopSummTotalPriceSales?.classList.add('active')
+    shopSummTotalPrice?.classList.add('active')
+    promocodSale20Add.classList.add('active')
+    const price = Number(totalPriceValueSales.innerHTML.slice(1))
+    totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 30))).toString()
+  }
+}
+saleLocalStor()
 //-------------------------------------------------------------------------------
 
 
