@@ -57,6 +57,7 @@ export function CardsRender (sources: Array<IProduct>) {
   widthChanger();
   cartStorage();
   CardInfo();
+  restQuant();
 }
 
 export function filterRange (e?: Event){
@@ -311,6 +312,37 @@ inputs.forEach((input) => {
   input?.addEventListener('input', filterRange);
   input?.addEventListener('input', urlChanger4range);
 })
+
+function restQuant() {
+  const restQuantCol = document.querySelectorAll('.availability');
+  restQuantCol.forEach((value) => value.innerHTML = '0 / 0');
+  const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
+  const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
+  const categoryCol = document.querySelectorAll('.cards__category');
+  const brandCol = document.querySelectorAll('.cards__brand');
+
+  for (const input of inputsCategoryCollection as HTMLCollection) {
+    let counter = 0;
+    categoryCol.forEach((value) => {
+      if (value.innerHTML === (input as HTMLInputElement).id) {
+        counter ++;        
+      }
+    });
+    (input?.nextElementSibling?.nextElementSibling as HTMLSpanElement).innerHTML = 
+    `${counter} / ${PRODUCTS.filter((elem) => elem.category === (input as HTMLInputElement).id).length}`;
+  }
+  for (const input of inputsBrandCollection as HTMLCollection) {
+    let counter = 0;
+    brandCol.forEach((value) => {
+      if (value.innerHTML === (input as HTMLInputElement).id) {
+        counter ++;        
+      }
+    });
+    (input?.nextElementSibling?.nextElementSibling as HTMLSpanElement).innerHTML = 
+    `${counter} / ${PRODUCTS.filter((elem) => elem.brand === (input as HTMLInputElement).id).length}`;
+  }
+
+}
 
 document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
 document.querySelector('.search__ico')?.addEventListener('click', () => console.log('nice'));
