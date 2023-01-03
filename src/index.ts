@@ -13,6 +13,7 @@ import './product-info.css';
 import './product-info.ts';
 import './modal.css';
 import './modal.ts';
-import './cart-shop.ts';
 import './cart-shop.css';
+import './cart-shop.ts';
+
 

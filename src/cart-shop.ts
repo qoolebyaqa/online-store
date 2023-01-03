@@ -4,8 +4,10 @@ const localCards = JSON.parse(getParam || "{}")
 import { cartStorage } from './components/Header/Header';
 import { PRODUCTS } from './components/goods'
 
+
+//----- Ф-ия если корзина пуста --------
 function RenderWrapperCardShop() {
-  const main = document.querySelector('.main');
+  const main = document.querySelector('.main') as HTMLElement;
 
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
@@ -13,18 +15,24 @@ function RenderWrapperCardShop() {
   mainCardShop.classList.add('main__card-shop');
   const cardShopH1 = document.createElement('h1');
   cardShopH1.classList.add('card-shop__h1');
-
   main?.append(mainWrapperCardShop)
   mainWrapperCardShop.append(mainCardShop)
   mainCardShop.append(cardShopH1)
   cardShopH1.innerHTML = 'Корзина пуста'
 }
-RenderWrapperCardShop()
+// RenderWrapperCardShop()
 
+
+//========================= отображение корзины====================
+//--блок скидок---
 function RenderCardShop() {
   const headerCartPrice = document.querySelector('.header__cart-price')
+  const main = document.querySelector('.main') as HTMLElement;
 
-  const mainCardShop = document.querySelector('.main__card-shop');
+  const mainWrapperCardShop = document.createElement('section');
+  mainWrapperCardShop.classList.add('main-wrapper__card-shop');
+  const mainCardShop = document.createElement('div');
+  mainCardShop.classList.add('main__card-shop');
 
   const cardShop = document.createElement('div');
   cardShop.classList.add('card-shop');
@@ -111,7 +119,8 @@ function RenderCardShop() {
 
   const headerCartCounter = document.querySelector('.header__cart-counter') as HTMLElement
 
-
+  main.append(mainWrapperCardShop)
+  mainWrapperCardShop.append(mainCardShop)
   mainCardShop?.append(cardShop)
   cardShop.append(cardShopProduct, cardShopSumm)
 
@@ -183,7 +192,7 @@ if (filter === 'top') {
 }
 }
 
-//---------------блок с товаром-----------------------------------------------------
+//---блок с товаром---
 
 function RenderCardItem(localCards: Array<IProduct>) {
   let count = 1;
@@ -379,7 +388,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
 
 }
 RenderCardItem(localCards)
-
+//==================================================================
 
 //---------------кнопки для добавления удаления скидки------------------------------
 function clickSale10() {
