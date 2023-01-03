@@ -312,6 +312,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
           }
         })
         countAddValue.innerHTML = count.toString()
+        totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
         if (promocodAppliedSale10.classList.contains('active') && !promocodAppliedSale20.classList.contains('active')) {
           const price = Number(totalPriceValue.innerHTML.slice(1))
           totalPriceValueSales.innerHTML = '$'+(Math.round(price - ((price/100)*10))).toString()
@@ -321,8 +322,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
         } else if ((<HTMLElement>promocodAppliedSale10).classList.contains('active') && (<HTMLElement>promocodAppliedSale20).classList.contains('active')) {
           const price = Number(totalPriceValue.innerHTML.slice(1))
           totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 30))).toString()
-        }totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
-        // headerCartPrice.innerHTML = ('$' + (total + Number(`${item.price}`))).toString()
+        }
       }
     })
 
@@ -334,8 +334,6 @@ function RenderCardItem(localCards: Array<IProduct>) {
       const totalPriceValueSales = document.querySelector('.total-price-value-sales') as HTMLElement
       const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10') as HTMLElement
       const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20') as HTMLElement
-      // const totalPriceValue = document.querySelector('.total-price-value') as HTMLElement
-      // const headerCartPrice = document.querySelector('.header__cart-price')
       if ((<HTMLElement>event.target).classList.contains('minus')) {
         let count = Number(countAddValue.innerHTML)
         PRODUCTS.forEach(value => {
@@ -361,7 +359,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
           RenderCardItem(localCards)
         }
         countAddValue.innerHTML = count.toString()
-         totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
+        totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
         if ((<HTMLElement>promocodAppliedSale10).classList.contains('active') && !(<HTMLElement>promocodAppliedSale20).classList.contains('active')) {
           const price = Number(totalPriceValue.innerHTML.slice(1))
           totalPriceValueSales.innerHTML = '$'+(Math.round(price - ((price/100)*10))).toString()
@@ -372,11 +370,8 @@ function RenderCardItem(localCards: Array<IProduct>) {
           const price = Number(totalPriceValue.innerHTML.slice(1))
           totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 30))).toString()
         }
-        // totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
-        // totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
       }
     })
-
   })
 
 
