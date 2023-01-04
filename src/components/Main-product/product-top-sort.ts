@@ -28,7 +28,7 @@ productTopSort.forEach(e => {
       
       options.forEach(e => {
         e.classList.remove('active');
-        liNames.push(e.innerHTML.split(' ').join(''));
+        liNames.push(e.id);
       });
       e.classList.add('active');
 
@@ -36,26 +36,27 @@ productTopSort.forEach(e => {
         newUrl = newUrl.replace('&'+value, '');
       })
       if (!newUrl.includes('?')) {
-        newUrl = `${newUrl}?&${e.innerHTML.split(' ').join('')}`;
+        newUrl = `${newUrl}?&${e.id}`;
       } else {
-        newUrl = `${newUrl}&${e.innerHTML.split(' ').join('')}`;
+        newUrl = `${newUrl}&${e.id}`;
       }
       window.history.pushState({}, '', newUrl);
     })
   })
 });
 
-/* function sortChecker () {
+function sortChecker () {
   const options = document.querySelector('.menu')?.children;
   if (options) {
     for (const li of options) {
       if (window.location.href.includes(li.id)){
         (document.querySelector('.selected') as HTMLElement).innerHTML = li.innerHTML;
+        console.log(li.id);
         return CardsRender(sort());
       }
     }
   }
-} */
+}
 
 function sort () {
   const cards = document.querySelectorAll('.cards__container');
@@ -134,7 +135,7 @@ function searchFilter() {
 
 
 document.querySelector('.product-top__search-input')?.addEventListener('input', searchFilter);
-/* window.addEventListener('load', sortChecker); */
+window.addEventListener('load', sortChecker);
 
 export function widthChanger () {
   document.querySelector('.view-cards__left')?.removeEventListener('click', v5);
