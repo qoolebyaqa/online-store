@@ -15,6 +15,7 @@ export function restartFilters() {
   (maxInputsCollection[2] as HTMLInputElement).value = '4500';
   (maxInputsCollection[3] as HTMLInputElement).value = '100';
   
+  window.history.pushState({}, '', window.location.origin);
   if (inputsCategoryCollection && inputsBrandCollection) {
     Array.from(inputsCategoryCollection).forEach((value) => {
       value.checked = false;
