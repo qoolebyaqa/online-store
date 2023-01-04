@@ -9,6 +9,8 @@ productTopSort.forEach(e => {
   const menu = e.querySelector('.menu');
   const options = e.querySelectorAll('.menu li');
   const selected = e.querySelector('.selected');
+  const liNames: Array<string> = [];
+  let newUrl = window.location.href;
 
   (select as HTMLElement).addEventListener('click', () => {
     (select as HTMLElement).classList.toggle('select-clicked');
@@ -23,13 +25,38 @@ productTopSort.forEach(e => {
       (select as HTMLElement).classList.remove('select-clicked');
       (caret as HTMLElement).classList.remove('caret-rotate');
       (menu as HTMLElement).classList.remove('menu-open');
+      
       options.forEach(e => {
         e.classList.remove('active');
+        liNames.push(e.id);
       });
       e.classList.add('active');
+
+      liNames.forEach((value) => {
+        newUrl = newUrl.replace('&'+value, '');
+      })
+      if (!newUrl.includes('?')) {
+        newUrl = `${newUrl}?&${e.id}`;
+      } else {
+        newUrl = `${newUrl}&${e.id}`;
+      }
+      window.history.pushState({}, '', newUrl);
     })
   })
 });
+
+function sortChecker () {
+  const options = document.querySelector('.menu')?.children;
+  if (options) {
+    for (const li of options) {
+      if (window.location.href.includes(li.id)){
+        (document.querySelector('.selected') as HTMLElement).innerHTML = li.innerHTML;
+        console.log(li.id);
+        return CardsRender(sort());
+      }
+    }
+  }
+}
 
 function sort () {
   const cards = document.querySelectorAll('.cards__container');
@@ -105,4 +132,49 @@ function searchFilter() {
   }
 }
 
+
+
 document.querySelector('.product-top__search-input')?.addEventListener('input', searchFilter);
+window.addEventListener('load', sortChecker);
+
+export function widthChanger () {
+  document.querySelector('.view-cards__left')?.removeEventListener('click', v5);
+  document.querySelector('.view-cards__right')?.removeEventListener('click', v2);
+  const cards = document.querySelectorAll('.cards__container');
+  const view5x = document.querySelector('.view-cards__left');
+  const view2x = document.querySelector('.view-cards__right');
+  view5x?.classList.remove('view-cards__left-active');
+  view2x?.classList.remove('view-cards__right-active');
+  for (const card of cards) {
+    card.classList.remove('cards__container2x');
+    card.classList.remove('cards__container5x');
+  }
+  function v5(e: Event) {
+    if (e.target === view5x) {  
+      e.stopPropagation();    
+      view5x?.classList.toggle('view-cards__left-active');
+      view2x?.classList.remove('view-cards__right-active');
+      for (const card of cards) {
+      if (card.matches('.cards__container2x')) {
+        card.classList.remove('cards__container2x');
+      }
+      card.classList.toggle('cards__container5x');
+      }
+    }
+  }
+  function v2 (e: Event) {
+    if (e.target === view2x) {
+      e.stopPropagation();
+      view2x?.classList.toggle('view-cards__right-active');
+      view5x?.classList.remove('view-cards__left-active');
+      for (const card of cards) {
+        if (card.matches('.cards__container5x')) {
+          card.classList.remove('cards__container5x');
+        }
+        card.classList.toggle('cards__container2x');
+      }
+    }
+  }
+  view5x?.addEventListener('click', v5);
+  view2x?.addEventListener('click', v2);
+}

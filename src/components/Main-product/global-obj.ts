@@ -16,7 +16,7 @@ export const pageStatus: IpageStatus = {
   'Xiaomi': false,
   'Lenovo': false,
   'Huawei': false,
-  'Xiaomi Poco': false,
+  'XiaomiPoco': false,
   'cardViewMore': false,
   'cardViewLess': false,
 }
@@ -24,12 +24,12 @@ export const pageStatus: IpageStatus = {
 export const PageStatusWithValues: IPageStatusWithValues = {  
   'minPrice': 0,
   'maxPrice': 4500,
-  'minPriceRange': 0,
-  'maxPriceRange': 4500,
+  'minRangePrice': 0,
+  'maxRangePrice': 4500,
   'minStock': 1,
   'maxStock': 100,
-  'minStockRang': 1,
-  'maxStockRang': 100,
+  'minRangeStock': 1,
+  'maxRangeStock': 100,
   'sortType': 'Сортировать по',
   'searchValue': '',
 }

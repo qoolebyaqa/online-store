@@ -115,10 +115,36 @@ position: relative;
   align-items: center;
 }
 
-.detalis-wrapper__price-btr-add,
+.cards__button,
 .detalis-wrapper__price-btr-remove{
-  padding: 5px;
-  width: 45%;
-  margin: 5px;
+  border-radius: 50px;
+  height: 40px;
+  width: 80%;
+  margin: 5px auto;
+  border: 1px solid green;
+  transition: all 0.4s ease;
+}
+
+.cards__button:hover,
+.detalis-wrapper__price-btr-remove:hover {
+  background-color: green;
   cursor: pointer;
+  transform: scale(0.95);
+}
+.cards__button-active {
+  border-radius: 50px;
+  height: 40px;
+  width: 80%;
+  margin: 5px auto;
+  border: 1px solid red;
+  background-color: green;
+  transition: all 0.4s ease;
+}
+.cards__button-active:hover {
+  background-color: rgb(116, 5, 5);
+  cursor: pointer;
+  transform: scale(0.95);
+}
+.product-info__add {
+  margin: 20px auto;
 }

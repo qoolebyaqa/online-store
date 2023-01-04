@@ -10,7 +10,7 @@
 <body>
   <header class="header">
     <nav class="header__nav">
-      <a href="./index.html" class="header__link">
+      <a href="/" class="header__link">
         <h1 class="header__title">
           <p class="header__text">Techno-Store</p>
           <svg class="header__svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
@@ -121,8 +121,8 @@
         </div>
 
         <div class="list-category__checkbox">
-          <input class="list-category__checkbox-input" type="checkbox" id="Xiaomi Poco">
-          <label for="Xiaomi Poco">Poco</label>
+          <input class="list-category__checkbox-input" type="checkbox" id="XiaomiPoco">
+          <label for="XiaomiPoco">Poco</label>
           <span class="availability">(10)</span>
         </div>
       </div>
@@ -135,7 +135,7 @@
           <div class="price-input">
               <label class="filter-price__label">
                 <span>от</span>
-                <input type="number" id="minPrice" class="input-min" value="0" placeholder="0">
+                <input type="number" id="minPrice" class="input-min" value="50" placeholder="50">
                 <span>$</span>
               </label>
           </div>
@@ -143,7 +143,7 @@
           <div class="price-input">
               <label class="filter-price__label">
                 <span>до</span>
-                <input type="number" id="maxPrice" class="input-max" value="4500" placeholder="4500">
+                <input type="number" id="maxPrice" class="input-max" value="4000" placeholder="4000">
                 <span>$</span>
               </label>
           </div>
@@ -153,8 +153,8 @@
           <div class="progress"></div>
         </div>
         <div class="range-input">
-          <input type="range" id="minPriceRange" class="range-min" min="0" max="4500" value="0" step="1">
-          <input type="range" id="maxPriceRange" class="range-max" min="0" max="4500" value="4500" step="1">
+          <input type="range" id="minRangePrice" class="range-min" min="50" max="4000" value="50" step="1">
+          <input type="range" id="maxRangePrice" class="range-max" min="50" max="4000" value="4000" step="1">
         </div>
 
       </div>
@@ -168,7 +168,7 @@
         <div class="stock-inputs">
           <div class="stock-input">
               <label class="filter-stock__label">
-                <input type="number" id="minStock" class="input-min" value="1" placeholder="1">
+                <input type="number" id="minStock" class="input-min" value="8" placeholder="8">
                 <span>шт</span>
               </label>
           </div>
@@ -185,8 +185,8 @@
           <div class="progress-stock"></div>
         </div>
         <div class="range-input-stock">
-          <input type="range" id="minStockRang" class="range-min" min="1" max="100" value="0" step="1">
-          <input type="range" id="maxStockRang" class="range-max" min="1" max="100" value="100" step="1">
+          <input type="range" id="minRangeStock" class="range-min" min="8" max="100" value="8" step="1">
+          <input type="range" id="maxRangeStock" class="range-max" min="8" max="100" value="100" step="1">
         </div>
 
       </div>
@@ -204,10 +204,10 @@
             <div class="caret"></div>
           </div>
           <ul class="menu">
-            <li>Рейтингу</li>
-            <li>Цене от мин</li>
-            <li>Цене от макс</li>
-            <li>Скидке</li>
+            <li id="Rate">Рейтингу</li>
+            <li id="Pricefrommin">Цене от мин</li>
+            <li id="Pricefrommax">Цене от макс</li>
+            <li id="Discount">Скидке</li>
           </ul>
         </div>
 
