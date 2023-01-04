@@ -8,6 +8,10 @@ import { PRODUCTS } from './components/goods'
 //----- Ф-ия если корзина пуста --------
 function RenderWrapperCardShop() {
   const main = document.querySelector('.main') as HTMLElement;
+  const mainLeft = document.querySelector('.main__left-section') as HTMLElement;
+  const mainRight = document.querySelector('.main__right-product') as HTMLElement;
+  mainLeft.style.display = 'none'
+  mainRight.style.display = 'none'
 
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
@@ -29,7 +33,10 @@ function RenderCardShop() {
   const headerCartPrice = document.querySelector('.header__cart-price')
   const main = document.querySelector('.main') as HTMLElement;
 
-  main.innerHTML = '';
+  const mainLeft = document.querySelector('.main__left-section') as HTMLElement;
+  const mainRight = document.querySelector('.main__right-product') as HTMLElement;
+  mainLeft.style.display = 'none'
+  mainRight.style.display = 'none'
 
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
@@ -380,12 +387,14 @@ function RenderCardItem(localCards: Array<IProduct>) {
     })
   })
 }
-RenderCardItem(localCards)
+  RenderCardItem(localCards)
+  
+  
 }
 // RenderCardShop()
 //==================================================================
 
-//---------------кнопки для добавления удаления скидки------------------------------
+//---------------кнопки для добавления удаления скидки---------------------------
 function clickSale10() {
   const promocodSale10Add = document.querySelector('.promocod-sale10-add')
   const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
@@ -406,8 +415,6 @@ function clickSale10() {
     localStorage.setItem("sale10", 'true');
   })
 } 
-clickSale10()
-
 function clickSale20() {
   const promocodSale20Add = document.querySelector('.promocod-sale20-add')
   const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
@@ -428,8 +435,6 @@ function clickSale20() {
     localStorage.setItem("sale20", 'true');
   })
 } 
-clickSale20()
-
 function clickSaleRemove10() {
   const promocodSaleRem10 = document.querySelector('.promocod-sale-rem10')
   const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
@@ -463,8 +468,6 @@ function clickSaleRemove10() {
 
   
 }
-clickSaleRemove10()
-
 function clickSaleRemove20() {
   const promocodSaleRem20 = document.querySelector('.promocod-sale-rem20')
   const promocodAppliedSale20 = document.querySelector('.promocod-applied-sale-20')
@@ -498,9 +501,7 @@ function clickSaleRemove20() {
 
   
 }
-clickSaleRemove20()
-
-//-------------------Ф-ция для добавления скидки в ls---------------------------------------
+//-------------------Ф-ция для добавления скидки в ls-----------------------------
 function saleLocalStor() {
   const promocodSale10Add = document.querySelector('.promocod-sale10-add') as HTMLElement
   const promocodAppliedSale10 = document.querySelector('.promocod-applied-sale-10')
@@ -540,5 +541,24 @@ function saleLocalStor() {
     totalPriceValueSales.innerHTML = '$' + (Math.round(price - ((price / 100) * 30))).toString()
   }
 }
-saleLocalStor()
 //-------------------------------------------------------------------------------
+
+
+function clickBasket() {
+  const basket = document.querySelector('.nav-item-basket')
+  const headerCartCounter = document.querySelector('.header__cart-counter')
+
+basket?.addEventListener('click', () => {
+  if (Number(headerCartCounter?.innerHTML) === 0) {
+    RenderWrapperCardShop()
+  } else {
+    RenderCardShop()
+    clickSale10()
+    clickSale20()
+    clickSaleRemove10()
+    clickSaleRemove20()
+    saleLocalStor()
+  }
+  })
+}
+clickBasket()
