@@ -10,8 +10,10 @@ function RenderWrapperCardShop() {
   const main = document.querySelector('.main') as HTMLElement;
   const mainLeft = document.querySelector('.main__left-section') as HTMLElement;
   const mainRight = document.querySelector('.main__right-product') as HTMLElement;
-  mainLeft.style.display = 'none'
-  mainRight.style.display = 'none'
+  const infoWindow = document.querySelector('.main__product-info') as HTMLElement;
+  mainLeft.style.display = 'none';
+  mainRight.style.display = 'none';
+  if (infoWindow) { infoWindow.style.display = 'none'; }
 
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
@@ -35,8 +37,10 @@ function RenderCardShop() {
 
   const mainLeft = document.querySelector('.main__left-section') as HTMLElement;
   const mainRight = document.querySelector('.main__right-product') as HTMLElement;
-  mainLeft.style.display = 'none'
-  mainRight.style.display = 'none'
+  const infoWindow = document.querySelector('.main__product-info') as HTMLElement;
+  mainLeft.style.display = 'none';
+  mainRight.style.display = 'none';
+  if (infoWindow) { infoWindow.style.display = 'none'; }
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
   const mainCardShop = document.createElement('div');
@@ -271,7 +275,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
   productItemBoxInfo.append(boxInfoImg, boxInfoAll)
   boxInfoImg.append(boxInfoImgImg)
   boxInfoAll.append(boxInfoAllTitle, boxInfoAllDescription, boxInfoAllRaitDisc)
-  boxInfoAllTitle.innerHTML =  `${item.brand}`
+  boxInfoAllTitle.innerHTML =  `${item.title}`
   boxInfoAllDescription.innerHTML = `${item.description}`
   
   boxInfoAllRaitDisc.append(boxInfoAllRait, boxInfoAllDisc)
