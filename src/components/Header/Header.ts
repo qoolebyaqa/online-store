@@ -34,9 +34,16 @@ export function PriceAndCart () {
       }
     }
     else {
-      CurrentQuantity--;
-      if (target instanceof HTMLElement) {
-        CurrentPrice = CurrentPrice - Number(target.parentElement?.children[4].innerHTML.slice(0, target.parentElement.children[4].innerHTML.length-1));
+      const localCards = JSON.parse(localStorage.cards);
+      localCards.forEach((value: IProduct) => {
+        if (value.title === (target as HTMLButtonElement).parentElement?.children[3].innerHTML) {
+          const dif = (target as HTMLButtonElement).parentElement?.children[4].innerHTML.length;
+          CurrentQuantity = CurrentQuantity - value.count;
+          CurrentPrice = CurrentPrice - Number((target as HTMLButtonElement).parentElement?.children[4].innerHTML.slice(0, 
+            dif as number - 1)) * value.count;
+        }
+      });
+      if (target instanceof HTMLElement) {        
         (target as HTMLButtonElement).innerHTML = 'Добавить в корзину';
         target.classList.remove('cards__button-active');
         target.classList.add('cards__button');
