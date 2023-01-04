@@ -348,4 +348,3 @@ document.querySelector('.block-category__reset-copy-reset')?.addEventListener('c
 document.querySelector('.search__ico')?.addEventListener('click', () => console.log('nice'));
 
 CardsRender(PRODUCTS);
-widthChanger();

@@ -6,7 +6,7 @@
 }
 
 .select{
-  width: 125%;
+  width: 155%;
   margin-left: 5px;
   background: #2a2f3b;
   color: #fff;
@@ -52,7 +52,7 @@
   color: #fff;
   position: absolute;
   top: 27px;
-  left: 50%;
+  left: 80%;
   width: 100%;
   transform: translateX(-50%);
   opacity: 0;
@@ -64,6 +64,7 @@
 .menu-open{
   display: block;
   opacity: 1;
+  width: 150%;
 }
 
 .menu li{
