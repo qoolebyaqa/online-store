@@ -351,6 +351,4 @@ function finishOrder() {
 }
 
 
-
-
 export {RenderModal} 

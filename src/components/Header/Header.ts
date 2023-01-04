@@ -85,7 +85,9 @@ export function cartStorage() {
       )
     })
     if (Cart?.innerHTML && totalPrice?.innerHTML) {
-      Cart.innerHTML = arrFromStorage.length.toString();
+      Cart.innerHTML = arrFromStorage.reduce(function(a, b: IProduct): number {
+        return a + b.count
+      }, 0).toString();
       totalPrice.innerHTML = '$' + arrFromStorage.reduce(function(a, b: IProduct): number {
         return a + b.price
       }, 0).toString();

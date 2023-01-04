@@ -12,4 +12,9 @@ import './components/Main-product/Main-product.css';
 import './product-info.css';
 import './product-info.ts';
 import './modal.css';
-import './modal.ts'
+import './modal.ts';
+import './cart-shop.css';
+import './cart-shop.ts';
+
+
+
