@@ -1,6 +1,6 @@
 import { IProduct } from "./components/goods";
-const getParam = localStorage.getItem('cards')
-const localCards = JSON.parse(getParam || "{}")
+/* const getParam = localStorage.getItem('cards')
+const localCards = JSON.parse(getParam || "{}") */
 import { cartStorage } from './components/Header/Header';
 import { PRODUCTS } from './components/goods'
 
@@ -37,7 +37,6 @@ function RenderCardShop() {
   const mainRight = document.querySelector('.main__right-product') as HTMLElement;
   mainLeft.style.display = 'none'
   mainRight.style.display = 'none'
-
   const mainWrapperCardShop = document.createElement('section');
   mainWrapperCardShop.classList.add('main-wrapper__card-shop');
   const mainCardShop = document.createElement('div');
@@ -387,7 +386,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
     })
   })
 }
-  RenderCardItem(localCards)
+  RenderCardItem(JSON.parse(localStorage.cards));
   
   
 }
@@ -548,17 +547,19 @@ function clickBasket() {
   const basket = document.querySelector('.nav-item-basket')
   const headerCartCounter = document.querySelector('.header__cart-counter')
 
-basket?.addEventListener('click', () => {
-  if (Number(headerCartCounter?.innerHTML) === 0) {
-    RenderWrapperCardShop()
-  } else {
-    RenderCardShop()
-    clickSale10()
-    clickSale20()
-    clickSaleRemove10()
-    clickSaleRemove20()
-    saleLocalStor()
+  function cartOptions () {
+    if (Number(headerCartCounter?.innerHTML) === 0) {
+      RenderWrapperCardShop()
+    } else {
+      RenderCardShop()
+      clickSale10()
+      clickSale20()
+      clickSaleRemove10()
+      clickSaleRemove20()
+      saleLocalStor()
+    }
+    basket?.removeEventListener('click', cartOptions);
   }
-  })
+basket?.addEventListener('click', cartOptions);
 }
 clickBasket()
