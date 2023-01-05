@@ -265,9 +265,16 @@ function calculationInfo (e: Event) {
     }
   }
   else {
-    CurrentQuantity--;
+    const localCards = JSON.parse(localStorage.cards);
+      localCards.forEach((value: IProduct) => {
+        if (value.title === titleField?.innerHTML) {
+          const dif = (priceField as HTMLElement).innerHTML.length;
+          CurrentQuantity = CurrentQuantity - value.count;
+          CurrentPrice = CurrentPrice - Number(priceField?.innerHTML.slice(0, 
+            dif as number - 1)) * value.count;
+        }
+      });
     if (target instanceof HTMLElement) {
-      CurrentPrice = CurrentPrice - Number(priceField?.innerHTML.slice(0, priceField.innerHTML.length-1));
       (target as HTMLButtonElement).innerHTML = 'Добавить в корзину';
       target.classList.remove('cards__button-active');
       target.classList.add('cards__button');
@@ -307,7 +314,9 @@ function cartStorageInfo () {
       }
     })
     if (Cart?.innerHTML && totalPrice?.innerHTML) {
-      Cart.innerHTML = arrFromStorage.length.toString();
+      Cart.innerHTML = arrFromStorage.reduce(function(a, b: IProduct): number {
+        return a + b.count
+      }, 0).toString();
       totalPrice.innerHTML = '$' + arrFromStorage.reduce(function(a, b: IProduct): number {
         return a + b.price
       }, 0).toString();

@@ -150,8 +150,7 @@ export function widthChanger () {
     card.classList.remove('cards__container5x');
   }
   function v5(e: Event) {
-    if (e.target === view5x) {  
-      e.stopPropagation();    
+    if (e.target === view5x) { 
       view5x?.classList.toggle('view-cards__left-active');
       view2x?.classList.remove('view-cards__right-active');
       for (const card of cards) {
@@ -164,7 +163,6 @@ export function widthChanger () {
   }
   function v2 (e: Event) {
     if (e.target === view2x) {
-      e.stopPropagation();
       view2x?.classList.toggle('view-cards__right-active');
       view5x?.classList.remove('view-cards__left-active');
       for (const card of cards) {
