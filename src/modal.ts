@@ -129,6 +129,12 @@ function RenderModal() {
   cvvSvvSpan.innerHTML = 'CVV:';
   modalDetailsBtn.innerHTML = 'Подтвердить';
   validation();
+
+wrapperModal.addEventListener('click', (event) => {
+  if ((<HTMLElement>event.target).classList.contains('wrapper-modal')) {
+  wrapperModal.outerHTML='';
+  }
+})
 }
 
 
