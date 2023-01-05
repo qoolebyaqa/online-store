@@ -132,7 +132,7 @@ function RenderModal() {
 
 wrapperModal.addEventListener('click', (event) => {
   if ((<HTMLElement>event.target).classList.contains('wrapper-modal')) {
-  wrapperModal.outerHTML='';
+    wrapperModal.outerHTML = '';
   }
 })
 }
@@ -349,7 +349,9 @@ function finishOrder() {
     count--;
     if (count <= 0){
       clearInterval(counter);
-      alert("дописать переход на главную страницу, очистка корзины") // дописать переход на главную страницу, очистка корзины
+      const strUrl = (location.href.slice(0, location.href.lastIndexOf("/")))
+      location.href = strUrl;
+      localStorage.removeItem("cards");
     }
     wrapperModalFinishSpan.innerHTML = count.toString()
   }

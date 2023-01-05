@@ -3,7 +3,7 @@ import { IProduct } from "./components/goods";
 const localCards = JSON.parse(getParam || "{}") */
 import { cartStorage } from './components/Header/Header';
 import { PRODUCTS } from './components/goods'
-
+import { RenderModal } from './modal';
 
 //----- Ф-ия если корзина пуста --------
 function RenderWrapperCardShop() {
@@ -410,7 +410,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
 }
   RenderCardItem(JSON.parse(localStorage.cards));
   
-  
+  cardShopSummBtn.addEventListener('click', RenderModal)
 }
 // RenderCardShop()
 //==================================================================
