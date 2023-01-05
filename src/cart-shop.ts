@@ -565,8 +565,14 @@ function clickBasket() {
       saleLocalStor()
       document.querySelector('.title__page-btn-right')?.addEventListener('click', switcher);
       document.querySelector('.title__page-btn-left')?.addEventListener('click', switcher);
-      document.querySelector('.items-box-number')?.addEventListener('input', () => PaginationRenderer(inpuPage()));
-    }
+      document.querySelector('.items-box-number')?.addEventListener('input', (e) => {
+        if ((e.target as HTMLInputElement).value === undefined) {
+          return;
+        }
+        PaginationRenderer(inputPage())});
+
+      }
+    
     basket?.removeEventListener('click', cartOptions);
   }
 basket?.addEventListener('click', cartOptions);
@@ -617,15 +623,36 @@ function PaginationRenderer (arr: Element[][]) {
   for (const item of itemsCollection) {
     item.remove();
   }
-  arr[Number(pageNumber.innerHTML) - 1].forEach((value) => {
-    title.after(value);
-  });
+  if (arr[Number(pageNumber.innerHTML) - 1] === undefined) {
+    if (Number(pageNumber.innerHTML) - 1 < 2) {
+      pageNumber.innerHTML = '1';
+      arr[0].reverse().forEach((value) => {
+        title.after(value);
+      });
+    }
+    if (Number(pageNumber.innerHTML) - 1 > arr.length) {
+      pageNumber.innerHTML = arr.length.toString();
+      arr[arr.length - 1].reverse().forEach((value) => {
+        title.after(value);
+      });
+    }
+  } else {
+    arr[Number(pageNumber.innerHTML) - 1].reverse().forEach((value) => {
+      title.after(value);
+    });
+  }
 
   if (pageNumber.innerHTML === '1') {
     btnPrevious.disabled = true;
   }
+  else {
+    btnPrevious.disabled = false;
+  }
   if (pageNumber.innerHTML === arr.length.toString()) {
     btnNext.disabled = true;
+  }
+  else {
+    btnNext.disabled = false;
   }
   return arr;
 }
@@ -663,7 +690,7 @@ function switcher (e?: Event) {
   }
 }
 
-function inpuPage () {
+function inputPage () {
   const goodsArr = gl.sourceArr;
   const goodsPerPage = document.querySelector('.items-box-number') as HTMLInputElement;
   const itemArrByPages: Element[][] = [];  
