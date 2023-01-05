@@ -1,6 +1,8 @@
 import { CardsRender } from "./Main-product";
 import { PRODUCTS } from "../goods";
 import { IProduct } from "../goods";
+import { cartOptions } from "../../cart-shop";
+
 const productTopSort = document.querySelectorAll('.product-top__sort');
 
 productTopSort.forEach(e => {
@@ -55,6 +57,11 @@ function sortChecker () {
         return CardsRender(sort());
       }
     }
+  }
+  if (window.location.href.includes('cartpage')) {
+    document.querySelector('.nav-item-basket')?.removeEventListener('click', cartOptions);
+    document.querySelector('.header__cart-counter')?.removeEventListener('click', cartOptions);
+    cartOptions();
   }
 }
 

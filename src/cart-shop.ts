@@ -24,7 +24,16 @@ function RenderWrapperCardShop() {
   main?.append(mainWrapperCardShop)
   mainWrapperCardShop.append(mainCardShop)
   mainCardShop.append(cardShopH1)
-  cardShopH1.innerHTML = 'Корзина пуста'
+  cardShopH1.innerHTML = 'Корзина пуста';
+
+  let newUrl = window.location.origin;
+
+  if (!newUrl.includes('?')) {
+    newUrl = `${newUrl}?&cartpage`;
+  } else {
+    newUrl = `${newUrl}&cartpage`;
+  }
+  window.history.pushState({}, '', newUrl);
 }
 // RenderWrapperCardShop()
 
@@ -32,6 +41,14 @@ function RenderWrapperCardShop() {
 //========================= отображение корзины====================
 //--блок скидок---
 function RenderCardShop() {
+  let newUrl = window.location.origin;
+
+  if (!newUrl.includes('?')) {
+    newUrl = `${newUrl}?&cartpage`;
+  } else {
+    newUrl = `${newUrl}&cartpage`;
+  }
+  window.history.pushState({}, '', newUrl);
   const headerCartPrice = document.querySelector('.header__cart-price')
   const main = document.querySelector('.main') as HTMLElement;
 
@@ -547,31 +564,61 @@ function saleLocalStor() {
 }
 //-------------------------------------------------------------------------------
 
+export function cartOptions () {
+  const basket = document.querySelector('.nav-item-basket')
+  const headerCartCounter = document.querySelector('.header__cart-counter')
+  if (Number(headerCartCounter?.innerHTML) === 0) {
+    RenderWrapperCardShop()
+  } else {
+    RenderCardShop()
+    PaginationRenderer(PagesDivider());
+    clickSale10()
+    clickSale20()
+    clickSaleRemove10()
+    clickSaleRemove20()
+    saleLocalStor()
+    document.querySelector('.title__page-btn-right')?.addEventListener('click', switcher);
+    document.querySelector('.title__page-btn-left')?.addEventListener('click', switcher);
+    document.querySelector('.items-box-number')?.addEventListener('input', (e) => {
+      if ((e.target as HTMLInputElement).value === undefined) {
+        return;
+      }
+      PaginationRenderer(inputPage())});
+
+    }
+  
+  basket?.removeEventListener('click', cartOptions);
+}
 
 function clickBasket() {
   const basket = document.querySelector('.nav-item-basket')
   const headerCartCounter = document.querySelector('.header__cart-counter')
 
   function cartOptions () {
-    if (Number(headerCartCounter?.innerHTML) === 0) {
-      RenderWrapperCardShop()
-    } else {
-      RenderCardShop()
-      PaginationRenderer(PagesDivider());
-      clickSale10()
-      clickSale20()
-      clickSaleRemove10()
-      clickSaleRemove20()
-      saleLocalStor()
-      document.querySelector('.title__page-btn-right')?.addEventListener('click', switcher);
-      document.querySelector('.title__page-btn-left')?.addEventListener('click', switcher);
-      document.querySelector('.items-box-number')?.addEventListener('input', (e) => {
-        if ((e.target as HTMLInputElement).value === undefined) {
-          return;
-        }
-        PaginationRenderer(inputPage())});
+    if (document.querySelector('.card-shop')) {
+      basket?.removeEventListener('click', cartOptions);
+    }
+    else {      
+      if (Number(headerCartCounter?.innerHTML) === 0) {
+        RenderWrapperCardShop()
+      } else {
+        RenderCardShop()
+        PaginationRenderer(PagesDivider());
+        clickSale10()
+        clickSale20()
+        clickSaleRemove10()
+        clickSaleRemove20()
+        saleLocalStor()
+        document.querySelector('.title__page-btn-right')?.addEventListener('click', switcher);
+        document.querySelector('.title__page-btn-left')?.addEventListener('click', switcher);
+        document.querySelector('.items-box-number')?.addEventListener('input', (e) => {
+          if ((e.target as HTMLInputElement).value === undefined) {
+            return;
+          }
+          PaginationRenderer(inputPage())});
 
-      }
+        }
+    }
     
     basket?.removeEventListener('click', cartOptions);
   }
