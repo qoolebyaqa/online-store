@@ -10,7 +10,6 @@ productTopSort.forEach(e => {
   const options = e.querySelectorAll('.menu li');
   const selected = e.querySelector('.selected');
   const liNames: Array<string> = [];
-  let newUrl = window.location.href;
 
   (select as HTMLElement).addEventListener('click', () => {
     (select as HTMLElement).classList.toggle('select-clicked');
@@ -25,15 +24,17 @@ productTopSort.forEach(e => {
       (select as HTMLElement).classList.remove('select-clicked');
       (caret as HTMLElement).classList.remove('caret-rotate');
       (menu as HTMLElement).classList.remove('menu-open');
+      let newUrl = window.location.href;
       
       options.forEach(e => {
         e.classList.remove('active');
         liNames.push(e.id);
       });
       e.classList.add('active');
-
       liNames.forEach((value) => {
-        newUrl = newUrl.replace('&'+value, '');
+        if (newUrl.includes(`&${value}`)) {
+          newUrl = newUrl.replace(`&${value}`, '');
+        }
       })
       if (!newUrl.includes('?')) {
         newUrl = `${newUrl}?&${e.id}`;
@@ -51,7 +52,6 @@ function sortChecker () {
     for (const li of options) {
       if (window.location.href.includes(li.id)){
         (document.querySelector('.selected') as HTMLElement).innerHTML = li.innerHTML;
-        console.log(li.id);
         return CardsRender(sort());
       }
     }
