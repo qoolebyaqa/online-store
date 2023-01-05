@@ -62,16 +62,17 @@ function RenderCardShop() {
   itemsBoxText.classList.add('items-box-text');
   const itemsBoxNumber = document.createElement('input');
   itemsBoxNumber.classList.add('items-box-number');
+  itemsBoxNumber.value = '3';
   itemsBoxNumber.setAttribute('type', 'number')
   const productTitlePage = document.createElement('div');
   productTitlePage.classList.add('product-title__page');
   const titlePageText = document.createElement('div');
   titlePageText.classList.add('title__page-text');
-  const titlePageBtnLeft = document.createElement('div');
+  const titlePageBtnLeft = document.createElement('button');
   titlePageBtnLeft.classList.add('title__page-btn-left');
   const titlePageNumber = document.createElement('div');
   titlePageNumber.classList.add('title__page-number');
-  const titlePageBtnRight = document.createElement('div');
+  const titlePageBtnRight = document.createElement('button');
   titlePageBtnRight.classList.add('title__page-btn-right');
 
   const cardShopSumm = document.createElement('div');
@@ -556,14 +557,131 @@ function clickBasket() {
       RenderWrapperCardShop()
     } else {
       RenderCardShop()
+      PaginationRenderer(PagesDivider());
       clickSale10()
       clickSale20()
       clickSaleRemove10()
       clickSaleRemove20()
       saleLocalStor()
+      document.querySelector('.title__page-btn-right')?.addEventListener('click', switcher);
+      document.querySelector('.title__page-btn-left')?.addEventListener('click', switcher);
+      document.querySelector('.items-box-number')?.addEventListener('input', () => PaginationRenderer(inpuPage()));
     }
     basket?.removeEventListener('click', cartOptions);
   }
 basket?.addEventListener('click', cartOptions);
 }
 clickBasket()
+
+type gl = {
+  pages: string,
+  glArr: Element[][],
+  sourceArr: Element[],
+}
+const gl: gl = {
+  pages: '0',
+  glArr: [],
+  sourceArr: Array.from(document.querySelectorAll('.card-shop__product-item'))
+}
+function PagesDivider() {
+  const goodsArr = Array.from(document.querySelectorAll('.card-shop__product-item'));
+  const goodsPerPage = document.querySelector('.items-box-number') as HTMLInputElement;
+  const itemArrByPages: Element[][] = [];  
+  let arr: Array<Element> = [];
+  goodsArr.forEach((value, index, array) => {
+    index += 1;
+    if ((index) % Number(goodsPerPage.value) !== 0) {
+      arr.push(value);
+      if (index === array.length) {
+        itemArrByPages.push(arr);
+      } 
+    } else {
+      arr.push(value);
+      itemArrByPages.push(arr);
+      arr = [];
+    }
+  })
+  gl.pages = itemArrByPages.length.toString();
+  gl.glArr = itemArrByPages;
+  gl.sourceArr = goodsArr;
+  return itemArrByPages;
+}
+
+function PaginationRenderer (arr: Element[][]) {
+  const pageNumber = document.querySelector('.title__page-number') as HTMLElement;
+  const itemsCollection = document.querySelectorAll('.card-shop__product-item');
+  const title = document.querySelector('.card-shop__product-title') as HTMLElement;
+  const btnPrevious = document.querySelector('.title__page-btn-left') as HTMLButtonElement;
+  const btnNext = document.querySelector('.title__page-btn-right') as HTMLButtonElement; 
+
+  for (const item of itemsCollection) {
+    item.remove();
+  }
+  arr[Number(pageNumber.innerHTML) - 1].forEach((value) => {
+    title.after(value);
+  });
+
+  if (pageNumber.innerHTML === '1') {
+    btnPrevious.disabled = true;
+  }
+  if (pageNumber.innerHTML === arr.length.toString()) {
+    btnNext.disabled = true;
+  }
+  return arr;
+}
+
+
+
+function switcher (e?: Event) {
+  const pageNumber = document.querySelector('.title__page-number') as HTMLElement;
+  const btnPrevious = document.querySelector('.title__page-btn-left') as HTMLButtonElement;
+  const btnNext = document.querySelector('.title__page-btn-right') as HTMLButtonElement;  
+  const maxPage = gl.pages;
+
+  if (e?.target === btnPrevious) {
+    pageNumber.innerHTML = (Number(pageNumber.innerHTML) - 1).toString();
+    PaginationRenderer(gl.glArr);
+    if (pageNumber.innerHTML === '1') {
+      btnPrevious.disabled = true;
+      btnNext.disabled = false;
+    } else {
+      btnPrevious.disabled = false;
+      btnNext.disabled = false;
+    }
+
+  }
+  if (e?.target === btnNext) {
+    pageNumber.innerHTML = (Number(pageNumber.innerHTML) + 1).toString();
+    PaginationRenderer(gl.glArr);
+    if (pageNumber.innerHTML === maxPage.toString()) {
+      btnNext.disabled = true;
+      btnPrevious.disabled = false;
+    } else {
+      btnNext.disabled = false;
+      btnPrevious.disabled = false;
+    }
+  }
+}
+
+function inpuPage () {
+  const goodsArr = gl.sourceArr;
+  const goodsPerPage = document.querySelector('.items-box-number') as HTMLInputElement;
+  const itemArrByPages: Element[][] = [];  
+  let arr: Array<Element> = [];
+  goodsArr.forEach((value, index, array) => {
+    index += 1;
+    if ((index) % Number(goodsPerPage.value) !== 0) {
+      arr.push(value);
+      if (index === array.length) {
+        itemArrByPages.push(arr);
+      } 
+    } else {
+      arr.push(value);
+      itemArrByPages.push(arr);
+      arr = [];
+    }
+  })
+  gl.pages = itemArrByPages.length.toString();
+  gl.glArr = itemArrByPages;
+  return itemArrByPages;
+}
