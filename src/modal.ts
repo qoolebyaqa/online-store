@@ -43,22 +43,27 @@ function RenderModal() {
   inputName.classList.add('input', 'input-details', 'input-details-name');
   inputName.setAttribute('type', 'text')
   inputName.setAttribute('placeholder', 'Имя и фамилия')
+  inputName.setAttribute('title', 'Введите не менее двух слов, длина каждого не менее 3 символов')
   const inputPhone = document.createElement('input');
   inputPhone.classList.add('input', 'input-details', 'input-details-phone');
   inputPhone.setAttribute('type', 'text')
   inputPhone.setAttribute('placeholder', 'Телефон')
   inputPhone.setAttribute('name', "phone")
+  inputPhone.setAttribute('title', "Введите начинаться с '+', содержать только цифры и быть не короче 9 цифр")
   const inputAddress = document.createElement('input');
   inputAddress.classList.add('input', 'input-details', 'input-details-address');
   inputAddress.setAttribute('type', 'text')
   inputAddress.setAttribute('placeholder', 'Адресс')
+  inputAddress.setAttribute('title', 'Введите не менее трех слов, длина каждого не менее 5 символов')
   const inputEmail = document.createElement('input');
   inputEmail.classList.add('input', 'input-details', 'input-details-email');
   inputEmail.setAttribute('type', 'email')
   inputEmail.setAttribute('placeholder', 'Email')
   inputEmail.setAttribute('name', "email")
+  inputEmail.setAttribute('title', "Введите email stepa@mail.ru")
   const modalDetailsCards = document.createElement('div');
   modalDetailsCards.classList.add('modal__details-cards');
+  
   const detailsCardsText = document.createElement('div');
   detailsCardsText.classList.add('details-cards__text');
   const detailsCardsInfo = document.createElement('div');
@@ -72,6 +77,7 @@ function RenderModal() {
   const cardNumberNumber = document.createElement('input');
   cardNumberNumber.classList.add('input', 'card-number__number');
   cardNumberNumber.setAttribute('type', 'text')
+  cardNumberNumber.setAttribute('title', 'Введите код из 12 цифр')
   const infoCvv = document.createElement('div');
   infoCvv.classList.add('info__cvv');
   const infoCvvValid = document.createElement('label');
@@ -79,12 +85,14 @@ function RenderModal() {
   const cvvValidInput = document.createElement('input');
   cvvValidInput.classList.add('input', 'cvv-valid__input');
   cvvValidInput.setAttribute('type', 'text')
+  cvvValidInput.setAttribute('title', 'Введите месяц год (01/12 23/29)')
   const infoCvvCvv = document.createElement('label');
   infoCvvCvv.classList.add('info__cvv-cvv');
   infoCvvCvv.setAttribute('type', 'number')
   const cvvCvvInput = document.createElement('input');
   cvvCvvInput.classList.add('input', 'cvv-cvv__input');
   cvvCvvInput.setAttribute('type', 'number')
+  cvvCvvInput.setAttribute('title', 'Введите 3-и цифры')
   const cvvValidSpan = document.createElement('span');
   cvvValidSpan.classList.add('cvv-valid__span');
   const cvvSvvSpan = document.createElement('span');
@@ -129,6 +137,12 @@ function RenderModal() {
   cvvSvvSpan.innerHTML = 'CVV:';
   modalDetailsBtn.innerHTML = 'Подтвердить';
   validation();
+
+wrapperModal.addEventListener('click', (event) => {
+  if ((<HTMLElement>event.target).classList.contains('wrapper-modal')) {
+    wrapperModal.outerHTML = '';
+  }
+})
 }
 
 
@@ -182,12 +196,13 @@ cvvCvvInput.oninput = function () {
 }
 
 
-const nameFullReg = /^(([a-zA-Z]|[а-я]){3,})*\s(([a-zA-Z]|[а-я]){3,})*$/;
-const phoneReg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
-const addressReg = /^(([a-zA-Z]|[а-я]){5,})*\s(([a-zA-Z]|[а-я]){5,})*\s(([a-zA-Z]|[а-я]){5,})*$/;
+const nameFullReg = /^(([a-zA-Z]|[а-яА-Я]){3,})*\s(([a-zA-Z]|[а-яА-Я]){3,})*$/;
+const phoneReg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{3,})/;
+const addressReg = /^(([a-zA-Z]|[а-яА-Я]){5,})*\s(([a-zA-Z]|[а-яА-Я]){5,})*\s(([a-zA-Z]|[а-яА-Я]){5,})*$/;
 const emailReg = /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/;
 const cardNumberReg = /(?:\d[ -]?){15,20}\d/;
-const cvvValidReg = /^(?!0.*$)([1-2]{1})+(?!0.*$)([0-9]{1})*\s(?!0.*$)([0-2]{1})+(?!0.*$)([0-9]{1})$/;
+// const cvvValidReg = /^(?!0.*$)([0-1]{1})+(?!0.*$)([0-2]{1})*\s(?!0.*$)([0-2]{1})+(?!0.*$)([0-9]{1})$/;
+const cvvValidReg = /^(0[1-9]|1[0-2])\s(2[3-9])$/;
 const cvvReg = /^[0-9]{3}$/;
 
 form.addEventListener('submit', (e: Event) => {
@@ -343,7 +358,9 @@ function finishOrder() {
     count--;
     if (count <= 0){
       clearInterval(counter);
-      alert("дописать переход на главную страницу, очистка корзины") // дописать переход на главную страницу, очистка корзины
+      const strUrl = (location.href.slice(0, location.href.lastIndexOf("/")))
+      location.href = strUrl;
+      localStorage.removeItem("cards");
     }
     wrapperModalFinishSpan.innerHTML = count.toString()
   }
