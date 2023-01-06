@@ -53,6 +53,18 @@ export function CardsRender (sources: Array<IProduct>) {
       (wrapper as HTMLElement).innerHTML = `К сожалению по Вешму запросу ничего не найдено`;
     }
   }
+  if (document.querySelector('.view-cards__left')?.matches('.view-cards__left-active')) {
+    const cards = document.querySelectorAll('.cards__container');
+    for (const card of cards) {      
+      card.classList.add('cards__container5x');
+    }
+  }
+  if (document.querySelector('.view-cards__right')?.matches('.view-cards__left-active')) {
+    const cards = document.querySelectorAll('.cards__container');
+    for (const card of cards) {      
+      card.classList.add('cards__container2x');
+    }
+  }
   PriceAndCart();
   widthChanger();
   cartStorage();

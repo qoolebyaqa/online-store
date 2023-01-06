@@ -153,31 +153,36 @@ export function widthChanger () {
   const cards = document.querySelectorAll('.cards__container');
   const view5x = document.querySelector('.view-cards__left');
   const view2x = document.querySelector('.view-cards__right');
-  for (const card of cards) {
-    card.classList.remove('cards__container2x');
-    card.classList.remove('cards__container5x');
-  }
+ 
   function v5(e: Event) {
     if (e.target === view5x) { 
-      view5x?.classList.toggle('view-cards__left-active');
-      view2x?.classList.remove('view-cards__right-active');
+      view2x?.classList.remove('view-cards__left-active');
       for (const card of cards) {
         if (card.matches('.cards__container2x')) {
           card.classList.remove('cards__container2x');
         }
       card.classList.toggle('cards__container5x');
       }
+      if (cards[1].matches('.cards__container5x')) {
+        view5x?.classList.add('view-cards__left-active');
+      } else {
+        view5x?.classList.remove('view-cards__left-active');
+      }
     }
   }
   function v2 (e: Event) {
     if (e.target === view2x) {
-      view2x?.classList.toggle('view-cards__right-active');
       view5x?.classList.remove('view-cards__left-active');
       for (const card of cards) {
         if (card.matches('.cards__container5x')) {
           card.classList.remove('cards__container5x');
         }
         card.classList.toggle('cards__container2x');
+      }
+      if (cards[1].matches('.cards__container2x')) {
+        view2x?.classList.add('view-cards__left-active');
+      } else {
+        view2x?.classList.remove('view-cards__left-active');
       }
     }
   }
