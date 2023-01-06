@@ -41,6 +41,7 @@ function RenderWrapperCardShop() {
 //========================= отображение корзины====================
 //--блок скидок---
 function RenderCardShop() {
+  const longUrl = window.location.href;
   let newUrl = window.location.origin;
 
   if (!newUrl.includes('?')) {
@@ -49,6 +50,9 @@ function RenderCardShop() {
     newUrl = `${newUrl}&cartpage`;
   }
   window.history.pushState({}, '', newUrl);
+
+  
+   
   const headerCartPrice = document.querySelector('.header__cart-price')
   const main = document.querySelector('.main') as HTMLElement;
 
@@ -195,6 +199,25 @@ function RenderCardShop() {
   promocodSale20.append(promocodSale20Add)
   promocodSale20Add.innerHTML = '+'
   inputPromocodSpan.innerHTML = "код 'top' 'low'"
+
+  if (longUrl.includes('items')) {
+    if (longUrl.indexOf('&', longUrl.indexOf('items')) === -1) {
+      (document.querySelector('.items-box-number') as HTMLInputElement).value = longUrl.slice(longUrl.indexOf('items') + 6)
+    } else {
+      (document.querySelector('.items-box-number') as HTMLInputElement).value = longUrl.slice(longUrl.indexOf('items') + 6, 
+      longUrl.indexOf('&', longUrl.indexOf('items')));
+    } 
+    window.history.pushState({}, '', longUrl);
+  }
+  if (longUrl.includes('list')) {
+    if (longUrl.indexOf('&', longUrl.indexOf('list')) === -1) {
+      (document.querySelector('.title__page-number') as HTMLElement).innerHTML = longUrl.slice(longUrl.indexOf('list')+5)
+    } else {
+      (document.querySelector('.title__page-number') as HTMLElement).innerHTML = longUrl.slice(longUrl.indexOf('list')+5, 
+      longUrl.indexOf('&', longUrl.indexOf('list')));
+    }
+    window.history.pushState({}, '', longUrl);
+  }
 
 
 inputPromocodText.addEventListener('input', filterList)
@@ -712,6 +735,7 @@ function switcher (e?: Event) {
   const btnPrevious = document.querySelector('.title__page-btn-left') as HTMLButtonElement;
   const btnNext = document.querySelector('.title__page-btn-right') as HTMLButtonElement;  
   const maxPage = gl.pages;
+  let newUrl = window.location.href;
 
   if (e?.target === btnPrevious) {
     pageNumber.innerHTML = (Number(pageNumber.innerHTML) - 1).toString();
@@ -736,12 +760,23 @@ function switcher (e?: Event) {
       btnPrevious.disabled = false;
     }
   }
+
+  if (newUrl.includes('&list')) {
+    if (newUrl.indexOf('&', newUrl.indexOf('list')) === -1) {
+      newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&list')), '');
+    } else {
+      newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&list'), newUrl.indexOf('&', newUrl.indexOf('list'))), '');
+    }
+  }
+  newUrl = `${newUrl}&list=${pageNumber.innerHTML}`;
+  window.history.pushState({}, '', newUrl);
 }
 
 function inputPage () {
   const goodsArr = gl.sourceArr;
   const goodsPerPage = document.querySelector('.items-box-number') as HTMLInputElement;
-  const itemArrByPages: Element[][] = [];  
+  const itemArrByPages: Element[][] = [];
+  let newUrl = window.location.href;
   let arr: Array<Element> = [];
   goodsArr.forEach((value, index, array) => {
     index += 1;
@@ -758,5 +793,16 @@ function inputPage () {
   })
   gl.pages = itemArrByPages.length.toString();
   gl.glArr = itemArrByPages;
+
+  if (newUrl.includes('&items')) {
+    if (newUrl.indexOf('&', newUrl.indexOf('items')) === -1) {
+      newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&items')), '');
+    } else {
+      newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&items'), newUrl.indexOf('&', newUrl.indexOf('items'))), '');
+    }
+  }
+  newUrl = `${newUrl}&items=${goodsPerPage.value}`;
+  window.history.pushState({}, '', newUrl);
+
   return itemArrByPages;
 }
