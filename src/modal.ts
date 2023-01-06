@@ -85,7 +85,7 @@ function RenderModal() {
   const cvvValidInput = document.createElement('input');
   cvvValidInput.classList.add('input', 'cvv-valid__input');
   cvvValidInput.setAttribute('type', 'text')
-  cvvValidInput.setAttribute('title', 'Введите месяц год (12 25)')
+  cvvValidInput.setAttribute('title', 'Введите месяц год (01/12 23/29)')
   const infoCvvCvv = document.createElement('label');
   infoCvvCvv.classList.add('info__cvv-cvv');
   infoCvvCvv.setAttribute('type', 'number')
@@ -201,7 +201,8 @@ const phoneReg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{3,})/;
 const addressReg = /^(([a-zA-Z]|[а-яА-Я]){5,})*\s(([a-zA-Z]|[а-яА-Я]){5,})*\s(([a-zA-Z]|[а-яА-Я]){5,})*$/;
 const emailReg = /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/;
 const cardNumberReg = /(?:\d[ -]?){15,20}\d/;
-const cvvValidReg = /^(?!0.*$)([1-2]{1})+(?!0.*$)([0-9]{1})*\s(?!0.*$)([0-2]{1})+(?!0.*$)([0-9]{1})$/;
+// const cvvValidReg = /^(?!0.*$)([0-1]{1})+(?!0.*$)([0-2]{1})*\s(?!0.*$)([0-2]{1})+(?!0.*$)([0-9]{1})$/;
+const cvvValidReg = /^(0[1-9]|1[0-2])\s(2[3-9])$/;
 const cvvReg = /^[0-9]{3}$/;
 
 form.addEventListener('submit', (e: Event) => {
