@@ -153,8 +153,25 @@ export function widthChanger () {
   const cards = document.querySelectorAll('.cards__container');
   const view5x = document.querySelector('.view-cards__left');
   const view2x = document.querySelector('.view-cards__right');
+  
  
   function v5(e: Event) {
+    let newUrl = window.location.href;
+    if (newUrl.includes('2x-vision')) {
+      newUrl = newUrl.replace('&2x-vision', '');
+    }
+    if (!newUrl.includes('5x-vision')) {
+      if (!newUrl.includes('?')) {
+        newUrl = `${newUrl}?&5x-vision`;
+      } else {
+        newUrl = `${newUrl}&5x-vision`;
+      }
+      window.history.pushState({}, '', newUrl);
+    }
+    if (cards[1].matches('.cards__container5x')){
+      newUrl = newUrl.replace('&5x-vision', '');
+      window.history.pushState({}, '', newUrl);
+    }
     if (e.target === view5x) { 
       view2x?.classList.remove('view-cards__left-active');
       for (const card of cards) {
@@ -171,6 +188,22 @@ export function widthChanger () {
     }
   }
   function v2 (e: Event) {
+    let newUrl = window.location.href;
+    if (newUrl.includes('5x-vision')) {
+      newUrl = newUrl.replace('&5x-vision', '');
+    }
+    if (!newUrl.includes('2x-vision')) {
+      if (!newUrl.includes('?')) {
+        newUrl = `${newUrl}?&2x-vision`;
+      } else {
+        newUrl = `${newUrl}&2x-vision`;
+      }
+      window.history.pushState({}, '', newUrl);
+    }
+    if (cards[1].matches('.cards__container2x')){
+      newUrl = newUrl.replace('&2x-vision', '');
+      window.history.pushState({}, '', newUrl);
+    }
     if (e.target === view2x) {
       view5x?.classList.remove('view-cards__left-active');
       for (const card of cards) {

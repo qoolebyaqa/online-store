@@ -53,6 +53,12 @@ export function CardsRender (sources: Array<IProduct>) {
       (wrapper as HTMLElement).innerHTML = `К сожалению по Вешму запросу ничего не найдено`;
     }
   }
+  if (window.location.href.includes('5x-vision')) {
+    document.querySelector('.view-cards__left')?.classList.add('view-cards__left-active');
+  }
+  if (window.location.href.includes('2x-vision')) {
+    document.querySelector('.view-cards__right')?.classList.add('view-cards__left-active');
+  }
   if (document.querySelector('.view-cards__left')?.matches('.view-cards__left-active')) {
     const cards = document.querySelectorAll('.cards__container');
     for (const card of cards) {      
