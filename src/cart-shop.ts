@@ -663,9 +663,9 @@ function PagesDivider() {
 function PaginationRenderer (arr: Element[][]) {
   const pageNumber = document.querySelector('.title__page-number') as HTMLElement;
   const itemsCollection = document.querySelectorAll('.card-shop__product-item');
-  const title = document.querySelector('.card-shop__product-title') as HTMLElement;
   const btnPrevious = document.querySelector('.title__page-btn-left') as HTMLButtonElement;
-  const btnNext = document.querySelector('.title__page-btn-right') as HTMLButtonElement; 
+  const btnNext = document.querySelector('.title__page-btn-right') as HTMLButtonElement;
+  const wrapper = document.querySelector('.card-shop__product') as HTMLElement;
 
   for (const item of itemsCollection) {
     item.remove();
@@ -673,19 +673,20 @@ function PaginationRenderer (arr: Element[][]) {
   if (arr[Number(pageNumber.innerHTML) - 1] === undefined) {
     if (Number(pageNumber.innerHTML) - 1 < 2) {
       pageNumber.innerHTML = '1';
-      arr[0].reverse().forEach((value) => {
-        title.after(value);
+      arr[0].forEach((value) => {
+        
+        wrapper.append(value);
       });
     }
     if (Number(pageNumber.innerHTML) - 1 > arr.length) {
       pageNumber.innerHTML = arr.length.toString();
-      arr[arr.length - 1].reverse().forEach((value) => {
-        title.after(value);
+      arr[arr.length - 1].forEach((value) => {
+        wrapper.append(value);
       });
     }
   } else {
-    arr[Number(pageNumber.innerHTML) - 1].reverse().forEach((value) => {
-      title.after(value);
+    arr[Number(pageNumber.innerHTML) - 1].forEach((value) => {
+      wrapper.append(value);
     });
   }
 

@@ -150,8 +150,6 @@ export function widthChanger () {
   const cards = document.querySelectorAll('.cards__container');
   const view5x = document.querySelector('.view-cards__left');
   const view2x = document.querySelector('.view-cards__right');
-  view5x?.classList.remove('view-cards__left-active');
-  view2x?.classList.remove('view-cards__right-active');
   for (const card of cards) {
     card.classList.remove('cards__container2x');
     card.classList.remove('cards__container5x');
@@ -161,9 +159,9 @@ export function widthChanger () {
       view5x?.classList.toggle('view-cards__left-active');
       view2x?.classList.remove('view-cards__right-active');
       for (const card of cards) {
-      if (card.matches('.cards__container2x')) {
-        card.classList.remove('cards__container2x');
-      }
+        if (card.matches('.cards__container2x')) {
+          card.classList.remove('cards__container2x');
+        }
       card.classList.toggle('cards__container5x');
       }
     }
