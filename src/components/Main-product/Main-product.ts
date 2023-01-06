@@ -362,6 +362,17 @@ function restQuant() {
 
 }
 
+function Copier () {
+  const btn = document.querySelector('.block-category__reset-copy-copy');
+  btn?.classList.add('btn-active');
+  window.navigator.clipboard.writeText(window.location.href);
+  setTimeout(() => {
+    btn?.classList.remove('btn-active');
+  }, 1200);
+}
+
+
+document.querySelector('.block-category__reset-copy-copy')?.addEventListener('click', Copier);
 document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
 document.querySelector('.search__ico')?.addEventListener('click', () => console.log('nice'));
 
