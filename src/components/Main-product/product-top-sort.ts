@@ -2,6 +2,7 @@ import { CardsRender } from "./Main-product";
 import { PRODUCTS } from "../goods";
 import { IProduct } from "../goods";
 import { cartOptions } from "../../cart-shop";
+import { askToURL } from "./location-funcs";
 
 const productTopSort = document.querySelectorAll('.product-top__sort');
 
@@ -106,6 +107,7 @@ function sort () {
 }
 
 function searchFilter() {
+  askToURL();
   const cards = document.querySelectorAll('.cards__container');
   const wrapper = document.querySelector('.cards__wrapper');
   const searcher = document.querySelector('.product-top__search-input');
@@ -123,9 +125,10 @@ function searchFilter() {
     }
   })
 
-  arrToCollect.forEach((value) => {
-    if (Object.values(value).join('').includes((searcher as HTMLInputElement).value)){
-      serachedfield.push(value);
+  arrToCollect.forEach((item) => {
+    const [, a, , b, c, d, e, f, g] = Object.values(item);
+    if (Object.values([a, b, c, d, e, f, g]).join('').toUpperCase().includes((searcher as HTMLInputElement).value.toUpperCase())){
+      serachedfield.push(item);
     }
   })
   if (wrapper?.innerHTML) {
@@ -150,33 +153,69 @@ export function widthChanger () {
   const cards = document.querySelectorAll('.cards__container');
   const view5x = document.querySelector('.view-cards__left');
   const view2x = document.querySelector('.view-cards__right');
-  view5x?.classList.remove('view-cards__left-active');
-  view2x?.classList.remove('view-cards__right-active');
-  for (const card of cards) {
-    card.classList.remove('cards__container2x');
-    card.classList.remove('cards__container5x');
-  }
+  
+ 
   function v5(e: Event) {
-    if (e.target === view5x) { 
-      view5x?.classList.toggle('view-cards__left-active');
-      view2x?.classList.remove('view-cards__right-active');
-      for (const card of cards) {
-      if (card.matches('.cards__container2x')) {
-        card.classList.remove('cards__container2x');
+    let newUrl = window.location.href;
+    if (newUrl.includes('2x-vision')) {
+      newUrl = newUrl.replace('&2x-vision', '');
+    }
+    if (!newUrl.includes('5x-vision')) {
+      if (!newUrl.includes('?')) {
+        newUrl = `${newUrl}?&5x-vision`;
+      } else {
+        newUrl = `${newUrl}&5x-vision`;
       }
+      window.history.pushState({}, '', newUrl);
+    }
+    if (cards[1].matches('.cards__container5x')){
+      newUrl = newUrl.replace('&5x-vision', '');
+      window.history.pushState({}, '', newUrl);
+    }
+    if (e.target === view5x) { 
+      view2x?.classList.remove('view-cards__left-active');
+      for (const card of cards) {
+        if (card.matches('.cards__container2x')) {
+          card.classList.remove('cards__container2x');
+        }
       card.classList.toggle('cards__container5x');
+      }
+      if (cards[1].matches('.cards__container5x')) {
+        view5x?.classList.add('view-cards__left-active');
+      } else {
+        view5x?.classList.remove('view-cards__left-active');
       }
     }
   }
   function v2 (e: Event) {
+    let newUrl = window.location.href;
+    if (newUrl.includes('5x-vision')) {
+      newUrl = newUrl.replace('&5x-vision', '');
+    }
+    if (!newUrl.includes('2x-vision')) {
+      if (!newUrl.includes('?')) {
+        newUrl = `${newUrl}?&2x-vision`;
+      } else {
+        newUrl = `${newUrl}&2x-vision`;
+      }
+      window.history.pushState({}, '', newUrl);
+    }
+    if (cards[1].matches('.cards__container2x')){
+      newUrl = newUrl.replace('&2x-vision', '');
+      window.history.pushState({}, '', newUrl);
+    }
     if (e.target === view2x) {
-      view2x?.classList.toggle('view-cards__right-active');
       view5x?.classList.remove('view-cards__left-active');
       for (const card of cards) {
         if (card.matches('.cards__container5x')) {
           card.classList.remove('cards__container5x');
         }
         card.classList.toggle('cards__container2x');
+      }
+      if (cards[1].matches('.cards__container2x')) {
+        view2x?.classList.add('view-cards__left-active');
+      } else {
+        view2x?.classList.remove('view-cards__left-active');
       }
     }
   }
