@@ -2,6 +2,7 @@ import { CardsRender } from "./Main-product";
 import { PRODUCTS } from "../goods";
 import { IProduct } from "../goods";
 import { cartOptions } from "../../cart-shop";
+import { askToURL } from "./location-funcs";
 
 const productTopSort = document.querySelectorAll('.product-top__sort');
 
@@ -106,6 +107,7 @@ function sort () {
 }
 
 function searchFilter() {
+  askToURL();
   const cards = document.querySelectorAll('.cards__container');
   const wrapper = document.querySelector('.cards__wrapper');
   const searcher = document.querySelector('.product-top__search-input');
@@ -123,9 +125,10 @@ function searchFilter() {
     }
   })
 
-  arrToCollect.forEach((value) => {
-    if (Object.values(value).join('').includes((searcher as HTMLInputElement).value)){
-      serachedfield.push(value);
+  arrToCollect.forEach((item) => {
+    const [, a, , b, c, d, e, f, g] = Object.values(item);
+    if (Object.values([a, b, c, d, e, f, g]).join('').toUpperCase().includes((searcher as HTMLInputElement).value.toUpperCase())){
+      serachedfield.push(item);
     }
   })
   if (wrapper?.innerHTML) {
