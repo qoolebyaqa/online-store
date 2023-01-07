@@ -140,11 +140,27 @@ function searchFilter() {
   else {
     CardsRender(serachedfield);
   }
+  
 }
 
 
+type internalFunc = () => void;
+const debounce = function (fn: internalFunc, ms: number) {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  return function () {
+    const fncall = (...args: []) => {
+      fn.apply(fn, args)
+    }
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(fncall, ms)
+  };
+}
 
-document.querySelector('.product-top__search-input')?.addEventListener('input', searchFilter);
+const gg = debounce(searchFilter, 1500);
+
+document.querySelector('.product-top__search-input')?.addEventListener('input', gg);
 window.addEventListener('load', sortChecker);
 
 export function widthChanger () {
