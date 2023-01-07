@@ -1,5 +1,5 @@
 import { PRODUCTS } from "./components/goods";
-import { RenderModal } from './modal';
+// import { RenderModal } from './modal';
 import { IProduct } from "./components/goods";
 
 function RenderInfoProduct() {
@@ -161,7 +161,27 @@ function RenderInfoProduct() {
   mainright?.classList.add('active')
   mainLeft?.classList.add('active')
   
-  detalisWrapperPriceBtrRemove.addEventListener('click', RenderModal);
+  detalisWrapperPriceBtrRemove.addEventListener('click', () => {
+    buyNow()
+    // const urlStart = (location.href.slice(0, location.href.lastIndexOf("/"))) + '/?&cartpage'
+    // location.href = urlStart;
+    //---
+    // let newUrl = window.location.origin;
+    // newUrl = `${newUrl}?cartpage&checkout=1`;
+    
+  
+    // window.history.pushState({}, '', newUrl);
+    // window.location.href = newUrl
+    //---
+    window.location.assign(`${window.location.origin}/?&cartpage`)
+    const cardShopSummBtn = document.querySelector('.card-shop__summ-btn') as HTMLElement
+    setTimeout(() => {
+      cardShopSummBtn.click()
+    },0)
+    console.log('hi')
+  })
+  
+
   detalisWrapperPriceBtrAdd.addEventListener('click', calculationInfo);
 }
 
@@ -296,6 +316,40 @@ function calculationInfo (e: Event) {
   }
   if (totalPrice?.innerHTML) {
     totalPrice.innerHTML = '$' + CurrentPrice.toString();
+  }
+}
+
+function buyNow() {
+  const Cart = document.querySelector('.header__cart-counter') as HTMLElement;
+  const headerCartPrice = document.querySelector('.header__cart-price') as HTMLElement;
+  const priceField = document.querySelector('.detalis-wrapper__price-price');
+  const titleField = document.querySelector('.product-info__all-title');
+  let CurrentQuantity = 0;
+  let arrToStorage: Array<IProduct> = [];
+  if (localStorage.cards) {
+    arrToStorage = JSON.parse(localStorage.cards);
+    const arrItem = arrToStorage.find(item => item.title === titleField?.innerHTML)
+    if (arrItem === undefined) {
+      PRODUCTS.forEach((value) => {if(value.title === titleField?.innerHTML) {
+        arrToStorage.push(value);
+      }
+      })
+      CurrentQuantity = Number(Cart?.innerHTML)
+      CurrentQuantity++
+      Cart.innerHTML = CurrentQuantity.toString()
+      headerCartPrice.innerHTML = '$' + (Number(headerCartPrice?.innerHTML.slice(1)) + Number(priceField?.innerHTML.slice(0,-1))).toString()
+      localStorage.setItem('cards', JSON.stringify(arrToStorage));
+    }
+  } else {
+    PRODUCTS.forEach((value) => {if(value.title === titleField?.innerHTML) {
+      arrToStorage.push(value);
+    }
+    })
+    CurrentQuantity = Number(Cart?.innerHTML)
+    CurrentQuantity++
+    Cart.innerHTML = CurrentQuantity.toString()
+    headerCartPrice.innerHTML = '$' + (Number(headerCartPrice?.innerHTML.slice(1)) + Number(priceField?.innerHTML.slice(0,-1))).toString()
+    localStorage.setItem('cards', JSON.stringify(arrToStorage));
   }
 }
 

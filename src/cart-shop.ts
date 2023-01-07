@@ -52,7 +52,6 @@ function RenderCardShop() {
   window.history.pushState({}, '', newUrl);
 
   
-   
   const headerCartPrice = document.querySelector('.header__cart-price')
   const main = document.querySelector('.main') as HTMLElement;
 
