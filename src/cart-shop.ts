@@ -412,7 +412,8 @@ function RenderCardItem(localCards: Array<IProduct>) {
           localCards = localCards.filter(elem => elem.id != item.id)
           localStorage.setItem('cards', JSON.stringify(localCards));
           cardShopProductItem.forEach(item => item.innerHTML = '')
-          RenderCardItem(localCards)
+          RenderCardItem(localCards);
+          PaginationRenderer(PagesDividerAfterRemoval());
         }
         countAddValue.innerHTML = count.toString()
         totalPriceValue.innerHTML = `$${headerCartPrice?.innerHTML.slice(1)}`
@@ -689,6 +690,11 @@ function PaginationRenderer (arr: Element[][]) {
   const btnNext = document.querySelector('.title__page-btn-right') as HTMLButtonElement;
   const wrapper = document.querySelector('.card-shop__product') as HTMLElement;
 
+  if (arr[0] === undefined) {
+    (document.querySelector('.main-wrapper__card-shop') as HTMLElement).remove();
+    return RenderWrapperCardShop();
+  }
+
   for (const item of itemsCollection) {
     item.remove();
   }
@@ -700,7 +706,7 @@ function PaginationRenderer (arr: Element[][]) {
         wrapper.append(value);
       });
     }
-    if (Number(pageNumber.innerHTML) - 1 > arr.length) {
+    if (Number(pageNumber.innerHTML) - 1 >= arr.length) {
       pageNumber.innerHTML = arr.length.toString();
       arr[arr.length - 1].forEach((value) => {
         wrapper.append(value);
@@ -805,3 +811,33 @@ function inputPage () {
 
   return itemArrByPages;
 }
+
+
+
+function PagesDividerAfterRemoval() {
+  let goodsArr = Array.from(document.querySelectorAll('.card-shop__product-item'));
+  const goodsPerPage = document.querySelector('.items-box-number') as HTMLInputElement;
+  const itemArrByPages: Element[][] = [];  
+  let arr: Array<Element> = [];
+  goodsArr = goodsArr.filter((value) => value.innerHTML !== '');
+  goodsArr.forEach((value, index, array) => {
+    index += 1;
+    if ((index) % Number(goodsPerPage.value) !== 0) {
+      arr.push(value);
+      if (index === array.length) {
+        itemArrByPages.push(arr);
+      } 
+    } else {
+      arr.push(value);
+      itemArrByPages.push(arr);
+      arr = [];
+    }
+  })
+  gl.pages = itemArrByPages.length.toString();
+  gl.glArr = itemArrByPages;
+  gl.sourceArr = goodsArr;
+
+  return itemArrByPages;
+}
+
+

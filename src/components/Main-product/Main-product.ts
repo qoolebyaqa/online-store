@@ -8,6 +8,56 @@ import { CardInfo } from "../../product-info";
 import { urlChanger4range } from "./location-funcs";
 import { widthChanger } from "./product-top-sort";
 
+function searchFilter() {  
+  const cards = document.querySelectorAll('.cards__container');
+  const wrapper = document.querySelector('.cards__wrapper');
+  const searcher = document.querySelector('.product-top__search-input');
+  const serachedfield: Array<IProduct> = [];
+  const arrToCollect: Array<IProduct> = [];
+  const currentNamesArr: Array<string> = [];
+  if ((searcher as HTMLInputElement).value !== '') {
+    cards.forEach((card) => {
+      currentNamesArr.push(card.children[3].innerHTML);
+    })
+
+    PRODUCTS.forEach((value) => {
+      if (currentNamesArr.includes(value.title)) {
+        arrToCollect.push(value);
+      }
+    })
+
+    arrToCollect.forEach((item) => {
+      const [, a, , b, c, d, e, f, g] = Object.values(item);
+      if (Object.values([a, b, c, d, e, f, g]).join('').toUpperCase().includes((searcher as HTMLInputElement).value.toUpperCase())){
+        serachedfield.push(item);
+      }
+    })
+    if (wrapper?.innerHTML) {
+      wrapper.innerHTML = '';
+    }
+    if ((searcher as HTMLInputElement).value === '') {
+      CardsRender(arrToCollect)
+    }
+    else {
+      CardsRender(serachedfield);
+    }
+    let newUrl = window.location.href;
+    if (newUrl.includes('search')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('search')) === -1) {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search')), '');
+      } else {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search'), newUrl.indexOf('&', newUrl.indexOf('search'))), '')
+      }
+    }
+    if (!newUrl.includes('?')) {
+      newUrl = `${newUrl}?&search=${(searcher as HTMLInputElement).value}`;
+    } else {
+      newUrl = `${newUrl}&search=${(searcher as HTMLInputElement).value}`;
+    }
+    window.history.pushState({}, '', newUrl);
+  }  
+}
+
 export function CardsRender (sources: Array<IProduct>) {
   const wrapper = document.querySelector('.cards__wrapper');
   const counter = document.querySelector('.counter');
@@ -204,6 +254,7 @@ export function filterRange (e?: Event){
     }
   } 
   CardsRender(FiltredPRODUCTS);
+  searchFilter()
 }
 
 export function filterCheckbox (){
@@ -288,6 +339,7 @@ export function filterCheckbox (){
     return Math.max(elem1, elem2.stock);
   }, 0).toString();
   CardsRender(FiltredPRODUCTS);
+  searchFilter();
 }
 
 
