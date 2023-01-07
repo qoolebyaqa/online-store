@@ -1,6 +1,7 @@
 import { PRODUCTS } from "./components/goods";
-// import { RenderModal } from './modal';
+import { RenderModal } from './modal';
 import { IProduct } from "./components/goods";
+import { RenderCardShop } from './cart-shop'
 
 function RenderInfoProduct() {
   const main = document.querySelector('.main');
@@ -163,22 +164,8 @@ function RenderInfoProduct() {
   
   detalisWrapperPriceBtrRemove.addEventListener('click', () => {
     buyNow()
-    // const urlStart = (location.href.slice(0, location.href.lastIndexOf("/"))) + '/?&cartpage'
-    // location.href = urlStart;
-    //---
-    // let newUrl = window.location.origin;
-    // newUrl = `${newUrl}?cartpage&checkout=1`;
-    
-  
-    // window.history.pushState({}, '', newUrl);
-    // window.location.href = newUrl
-    //---
-    window.location.assign(`${window.location.origin}/?&cartpage`)
-    const cardShopSummBtn = document.querySelector('.card-shop__summ-btn') as HTMLElement
-    setTimeout(() => {
-      cardShopSummBtn.click()
-    },0)
-    console.log('hi')
+    RenderCardShop()
+    RenderModal()
   })
   
 

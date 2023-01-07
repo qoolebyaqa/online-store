@@ -40,7 +40,7 @@ function RenderWrapperCardShop() {
 
 //========================= отображение корзины====================
 //--блок скидок---
-function RenderCardShop() {
+export function RenderCardShop() {
   const longUrl = window.location.href;
   let newUrl = window.location.origin;
 
