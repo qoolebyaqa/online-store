@@ -155,6 +155,17 @@ function searchFilter() {
       newUrl = `${newUrl}&search=${(searcher as HTMLInputElement).value}`;
     }
     window.history.pushState({}, '', newUrl);
+  }
+  else {
+    let newUrl = window.location.href;
+    if (newUrl.includes('search')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('search')) === -1) {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search')), '');
+      } else {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search'), newUrl.indexOf('&', newUrl.indexOf('search'))), '')
+      }
+    }
+    window.history.pushState({}, '', newUrl);
   }  
 }
 
@@ -200,9 +211,11 @@ export function widthChanger () {
       }
       window.history.pushState({}, '', newUrl);
     }
-    if (cards[1].matches('.cards__container5x')){
-      newUrl = newUrl.replace('&5x-vision', '');
-      window.history.pushState({}, '', newUrl);
+    if (cards[0]) {
+      if (cards[0].matches('.cards__container5x')){
+        newUrl = newUrl.replace('&5x-vision', '');
+        window.history.pushState({}, '', newUrl);
+      }
     }
     if (e.target === view5x) { 
       view2x?.classList.remove('view-cards__left-active');
@@ -212,10 +225,12 @@ export function widthChanger () {
         }
       card.classList.toggle('cards__container5x');
       }
-      if (cards[1].matches('.cards__container5x')) {
-        view5x?.classList.add('view-cards__left-active');
-      } else {
-        view5x?.classList.remove('view-cards__left-active');
+      if (cards[0]) {
+        if (cards[1].matches('.cards__container5x')) {
+          view5x?.classList.add('view-cards__left-active');
+        } else {
+          view5x?.classList.remove('view-cards__left-active');
+        }
       }
     }
   }
@@ -232,10 +247,12 @@ export function widthChanger () {
       }
       window.history.pushState({}, '', newUrl);
     }
-    if (cards[1].matches('.cards__container2x')){
-      newUrl = newUrl.replace('&2x-vision', '');
-      window.history.pushState({}, '', newUrl);
-    }
+    if (cards[0]) {
+      if (cards[0].matches('.cards__container2x')){
+        newUrl = newUrl.replace('&2x-vision', '');
+        window.history.pushState({}, '', newUrl);
+      }
+    }    
     if (e.target === view2x) {
       view5x?.classList.remove('view-cards__left-active');
       for (const card of cards) {
@@ -244,10 +261,12 @@ export function widthChanger () {
         }
         card.classList.toggle('cards__container2x');
       }
-      if (cards[1].matches('.cards__container2x')) {
-        view2x?.classList.add('view-cards__left-active');
-      } else {
-        view2x?.classList.remove('view-cards__left-active');
+      if (cards[0]) {
+        if (cards[0].matches('.cards__container2x')) {
+          view2x?.classList.add('view-cards__left-active');
+        } else {
+          view2x?.classList.remove('view-cards__left-active');
+        }
       }
     }
   }
