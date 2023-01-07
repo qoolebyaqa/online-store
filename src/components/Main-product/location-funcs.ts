@@ -200,24 +200,6 @@ export function urlChanger4range (e: Event) {
     }
     window.history.pushState({}, '', newUrl);
   }, 3000); 
-  /* if (newUrl.includes(`${(filterType as HTMLInputElement).id}`)) {
-    let str1 = ''
-    if (newUrl.indexOf('&', newUrl.indexOf((filterType as HTMLInputElement).id)) === -1) {
-      str1 = newUrl.slice(newUrl.indexOf((filterType as HTMLInputElement).id)+(filterType as HTMLInputElement).id.length);
-      console.log(str1);
-    }
-    else {
-      str1 = newUrl.slice(newUrl.indexOf((filterType as HTMLInputElement).id)+(filterType as HTMLInputElement).id.length, 
-      newUrl.indexOf('&', newUrl.indexOf((filterType as HTMLInputElement).id)));
-    }
-    
-    const str2 = `=${(filterType as HTMLInputElement).value}`;
-    newUrl = newUrl.replace(str1, str2);
-  }
-  else {
-    newUrl = `${window.location.href}&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
-  }
-  window.history.pushState({}, '', newUrl); */
 }
 
 export function askToURL() {

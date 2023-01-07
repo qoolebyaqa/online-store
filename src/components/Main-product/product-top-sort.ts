@@ -108,44 +108,59 @@ function sort () {
 
 function searchFilter() {
   askToURL();
+  
   const cards = document.querySelectorAll('.cards__container');
   const wrapper = document.querySelector('.cards__wrapper');
   const searcher = document.querySelector('.product-top__search-input');
   const serachedfield: Array<IProduct> = [];
   const arrToCollect: Array<IProduct> = [];
   const currentNamesArr: Array<string> = [];
+  if ((searcher as HTMLInputElement).value !== '') {
+    cards.forEach((card) => {
+      currentNamesArr.push(card.children[3].innerHTML);
+    })
 
-  cards.forEach((card) => {
-    currentNamesArr.push(card.children[3].innerHTML);
-  })
+    PRODUCTS.forEach((value) => {
+      if (currentNamesArr.includes(value.title)) {
+        arrToCollect.push(value);
+      }
+    })
 
-  PRODUCTS.forEach((value) => {
-    if (currentNamesArr.includes(value.title)) {
-      arrToCollect.push(value);
+    arrToCollect.forEach((item) => {
+      const [, a, , b, c, d, e, f, g] = Object.values(item);
+      if (Object.values([a, b, c, d, e, f, g]).join('').toUpperCase().includes((searcher as HTMLInputElement).value.toUpperCase())){
+        serachedfield.push(item);
+      }
+    })
+    if (wrapper?.innerHTML) {
+      wrapper.innerHTML = '';
     }
-  })
-
-  arrToCollect.forEach((item) => {
-    const [, a, , b, c, d, e, f, g] = Object.values(item);
-    if (Object.values([a, b, c, d, e, f, g]).join('').toUpperCase().includes((searcher as HTMLInputElement).value.toUpperCase())){
-      serachedfield.push(item);
+    if ((searcher as HTMLInputElement).value === '') {
+      CardsRender(arrToCollect)
     }
-  })
-  if (wrapper?.innerHTML) {
-    wrapper.innerHTML = '';
-  }
-  if ((searcher as HTMLInputElement).value === '') {
-    CardsRender(arrToCollect)
-  }
-  else {
-    CardsRender(serachedfield);
-  }
-  
+    else {
+      CardsRender(serachedfield);
+    }
+    let newUrl = window.location.href;
+    if (newUrl.includes('search')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('search')) === -1) {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search')), '');
+      } else {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search'), newUrl.indexOf('&', newUrl.indexOf('search'))), '')
+      }
+    }
+    if (!newUrl.includes('?')) {
+      newUrl = `${newUrl}?&search=${(searcher as HTMLInputElement).value}`;
+    } else {
+      newUrl = `${newUrl}&search=${(searcher as HTMLInputElement).value}`;
+    }
+    window.history.pushState({}, '', newUrl);
+  }  
 }
 
 
 type internalFunc = () => void;
-const debounce = function (fn: internalFunc, ms: number) {
+export const debounce = function (fn: internalFunc, ms: number) {
   let timeout: ReturnType<typeof setTimeout> | null = null;
   return function () {
     const fncall = (...args: []) => {
@@ -162,6 +177,7 @@ const gg = debounce(searchFilter, 1500);
 
 document.querySelector('.product-top__search-input')?.addEventListener('input', gg);
 window.addEventListener('load', sortChecker);
+window.addEventListener('load', searchAfterLoad);
 
 export function widthChanger () {
   document.querySelector('.view-cards__left')?.removeEventListener('click', v5);
@@ -237,4 +253,18 @@ export function widthChanger () {
   }
   view5x?.addEventListener('click', v5);
   view2x?.addEventListener('click', v2);
+}
+
+function searchAfterLoad () {
+  const url = window.location.href;
+  if(url.includes('search')) {
+    if (url.indexOf('&', url.indexOf('search')) === -1) {
+      (document.querySelector('.product-top__search-input') as HTMLInputElement).value = 
+      `${url.slice(url.indexOf('search') + 7)}`;
+    } else {
+      (document.querySelector('.product-top__search-input') as HTMLInputElement).value = 
+      `${url.slice(url.indexOf('search') + 7, url.indexOf('&', url.indexOf('search')))}`;
+    }
+    searchFilter();
+  }
 }
