@@ -24,7 +24,7 @@ export const PRODUCTS: Array<IProduct> = [
     price: 200,
     brand: 'Apple',
     category: "Headphones",
-    previewImg: '/catalog-img/headphones/apple/Airpods 2/Airpods 2-1.jpg',
+    previewImg: './catalog-img/headphones/apple/Airpods 2/Airpods 2-1.jpg',
     images: ['./catalog-img/headphones/apple/Airpods 2/Airpods 2-1.jpg', 
     './catalog-img/headphones/apple/Airpods 2/Airpods 2-2.jpg', 
       './catalog-img/headphones/apple/Airpods 2/Airpods 2-3.jpg'],

@@ -25,8 +25,7 @@ function RenderWrapperCardShop() {
   mainWrapperCardShop.append(mainCardShop)
   mainCardShop.append(cardShopH1)
   cardShopH1.innerHTML = 'Корзина пуста';
-
-  let newUrl = window.location.origin + '/online-store/';
+  let newUrl = window.location.href.replace(window.location.search, '');
 
   if (!newUrl.includes('?')) {
     newUrl = `${newUrl}?&cartpage`;
@@ -42,7 +41,7 @@ function RenderWrapperCardShop() {
 //--блок скидок---
 export function RenderCardShop() {
   const longUrl = window.location.href;
-  let newUrl = window.location.origin;
+  let newUrl = window.location.href.replace(window.location.search, '');
 
   if (!newUrl.includes('?')) {
     newUrl = `${newUrl}?&cartpage`;
@@ -338,7 +337,7 @@ function RenderCardItem(localCards: Array<IProduct>) {
   countAddValue.innerHTML = `${item.count}`
   countAddRemove.innerHTML = '-'
     
-    boxInfoImgImg.src = `${item.previewImg}`
+    boxInfoImgImg.src = `${item.images[0]}`
 
     countAddAdd.addEventListener('click', (event) => {
       const summProductValue = document.querySelector('.summ-product-value') as HTMLElement
