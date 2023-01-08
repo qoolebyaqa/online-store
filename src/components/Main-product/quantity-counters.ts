@@ -14,8 +14,8 @@ export function restartFilters() {
   (maxInputsCollection[1] as HTMLInputElement).value = '100';
   (maxInputsCollection[2] as HTMLInputElement).value = '4500';
   (maxInputsCollection[3] as HTMLInputElement).value = '100';
-  
-  window.history.pushState({}, '', window.location.origin);
+  const newUrl = window.location.href.replace(window.location.search, '');
+  window.history.pushState({}, '', newUrl);
   if (inputsCategoryCollection && inputsBrandCollection) {
     Array.from(inputsCategoryCollection).forEach((value) => {
       value.checked = false;
