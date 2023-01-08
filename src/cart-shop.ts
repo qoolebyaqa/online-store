@@ -26,7 +26,7 @@ function RenderWrapperCardShop() {
   mainCardShop.append(cardShopH1)
   cardShopH1.innerHTML = 'Корзина пуста';
 
-  let newUrl = window.location.origin;
+  let newUrl = window.location.origin + '/online-store/';
 
   if (!newUrl.includes('?')) {
     newUrl = `${newUrl}?&cartpage`;
