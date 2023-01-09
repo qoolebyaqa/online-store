@@ -5,7 +5,6 @@ import { restartFilters } from "./quantity-counters";
 import { urlChanger } from "./location-funcs";
 import { cartStorage } from "../Header/Header";
 import { CardInfo } from "../../product-info";
-import { urlChanger4range } from "./location-funcs";
 import { widthChanger } from "./product-top-sort";
 
 function searchFilter() {  
@@ -369,19 +368,194 @@ if (inputsBrandCollection !== undefined) {
 if (inputRangeMin !== undefined) {
   for (const input of inputRangeMin) {
     input.addEventListener('input', filterRange);
-    input.addEventListener('input', urlChanger4range);
+    input?.addEventListener('mouseup', linkgenerator);
   }
 }
 if (inputRangeMax !== undefined) {
   for (const input of inputRangeMax) {
     input.addEventListener('input', filterRange);
-    input.addEventListener('input', urlChanger4range);
+    input?.addEventListener('mouseup', linkgenerator);
   }
 }
 inputs.forEach((input) => {
   input?.addEventListener('input', filterRange);
-  input?.addEventListener('input', urlChanger4range);
+  input?.addEventListener('mouseup', linkgenerator);
 })
+
+function linkgenerator (e: Event) {
+  const filterType = e.target; 
+  let newUrl = window.location.search;
+  if ((filterType as HTMLInputElement).id === 'minPrice' || (filterType as HTMLInputElement).id === 'minRangePrice') {
+    if (newUrl.includes('minPrice') || newUrl.includes('minRangePrice') || newUrl.includes('minStock') || newUrl.includes('minRangeStock') 
+    || newUrl.includes('maxStock') || newUrl.includes('maxRangeStock')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+      }
+    }   
+  }
+  if ((filterType as HTMLInputElement).id === 'maxPrice' || (filterType as HTMLInputElement).id === 'maxRangePrice') {
+    if (newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') || newUrl.includes('minStock') || newUrl.includes('minRangeStock') 
+    || newUrl.includes('maxStock') || newUrl.includes('maxRangeStock')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+      }
+    }
+  }
+  if ((filterType as HTMLInputElement).id === 'minStock' || (filterType as HTMLInputElement).id === 'minRangeStock') {
+    if (newUrl.includes('minStock') || newUrl.includes('minRangeStock') || newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') ||
+    newUrl.includes('minPrice') || newUrl.includes('minRangePrice')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+      }
+    }
+  }
+  if ((filterType as HTMLInputElement).id === 'maxStock' || (filterType as HTMLInputElement).id === 'maxRangeStock') {
+    if (newUrl.includes('maxStock') || newUrl.includes('maxRangeStock') || newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') ||
+    newUrl.includes('minPrice') || newUrl.includes('minRangePrice')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+      }
+    }
+  }
+  if (!newUrl.includes('?')) {
+    newUrl = `${newUrl}?&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
+  } else {
+    newUrl = `${newUrl}&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
+  }
+  window.history.pushState({}, '', newUrl);
+}
 
 function restQuant() {
   const restQuantCol = document.querySelectorAll('.availability');
@@ -426,6 +600,5 @@ function Copier () {
 
 document.querySelector('.block-category__reset-copy-copy')?.addEventListener('click', Copier);
 document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
-document.querySelector('.search__ico')?.addEventListener('click', () => console.log('nice'));
 
 CardsRender(PRODUCTS);

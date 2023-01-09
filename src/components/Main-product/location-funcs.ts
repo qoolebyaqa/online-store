@@ -8,199 +8,62 @@ export function urlChanger (e: Event) {
     window.history.pushState({}, '', window.location.href+'?');
   }
   const filterType = e.target;
-  let newUrl = window.location.href;
+  let newUrl = window.location.search;
   
   pageStatus[(filterType as HTMLInputElement).id] = !pageStatus[(filterType as HTMLInputElement).id];
+  if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+  }
+  if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+  }
+  if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+  }
+  if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+  }
+  if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+  }
+  if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+  }
+  if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+  }
+
   if (newUrl.includes(`&${(filterType as HTMLInputElement).id}`)) {
     newUrl = newUrl.replace(`&${(filterType as HTMLInputElement).id}`, '');    
   }
   else {
-    newUrl = `${window.location.href}&${(filterType as HTMLInputElement).id}`;
+    newUrl = `${newUrl}&${(filterType as HTMLInputElement).id}`;
   }
   window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
-export function urlChanger4range (e: Event) {
-  const filterType = e.target;
-  let newUrl = window.location.href;
-  if ((filterType as HTMLInputElement).value === '') {
-    return;
-  }
-  PageStatusWithValues[(filterType as HTMLInputElement).id] = (filterType as HTMLInputElement).value;
-  if ((filterType as HTMLInputElement).id === 'minPrice' || (filterType as HTMLInputElement).id === 'minRangePrice') {
-    if (newUrl.includes('minPrice') || newUrl.includes('minRangePrice') || newUrl.includes('minStock') || newUrl.includes('minRangeStock') 
-    || newUrl.includes('maxStock') || newUrl.includes('maxRangeStock')) {
-      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
-      }
-    }   
-  }
-  if ((filterType as HTMLInputElement).id === 'maxPrice' || (filterType as HTMLInputElement).id === 'maxRangePrice') {
-    if (newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') || newUrl.includes('minStock') || newUrl.includes('minRangeStock') 
-    || newUrl.includes('maxStock') || newUrl.includes('maxRangeStock')) {
-      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
-      }
-    }
-  }
-  if ((filterType as HTMLInputElement).id === 'minStock' || (filterType as HTMLInputElement).id === 'minRangeStock') {
-    if (newUrl.includes('minStock') || newUrl.includes('minRangeStock') || newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') ||
-    newUrl.includes('minPrice') || newUrl.includes('minRangePrice')) {
-      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
-      }
-    }
-  }
-  if ((filterType as HTMLInputElement).id === 'maxStock' || (filterType as HTMLInputElement).id === 'maxRangeStock') {
-    if (newUrl.includes('maxStock') || newUrl.includes('maxRangeStock') || newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') ||
-    newUrl.includes('minPrice') || newUrl.includes('minRangePrice')) {
-      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
-      }
-      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
-      }
-      else {
-        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
-      }
-    }
-  }
-      
-  setTimeout(() => {
-    if (!newUrl.includes('?')) {
-      newUrl = `${newUrl}?&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
-    } else {
-      newUrl = `${newUrl}&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
-    }
-    window.history.pushState({}, '', newUrl);
-  }, 3000); 
-}
+
 
 export function askToURL() {
   const Checkboxes = document.querySelectorAll('.list-category__checkbox-input');
