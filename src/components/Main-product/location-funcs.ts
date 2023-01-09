@@ -17,6 +17,12 @@ export function urlChanger (e: Event) {
   else {
     newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
   }
+  if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+  }
+  else {
+    newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+  }
   if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
     newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
   }
