@@ -4,9 +4,6 @@ import { filterRange } from './Main-product';
 import { PageStatusWithValues } from '../../components/Main-product/global-obj';
 
 export function urlChanger (e: Event) {
-  if (!window.location.href.includes('?')){
-    window.history.pushState({}, '', window.location.href+'?');
-  }
   const filterType = e.target;
   let newUrl = window.location.search;
   
@@ -64,7 +61,11 @@ export function urlChanger (e: Event) {
     newUrl = newUrl.replace(`&${(filterType as HTMLInputElement).id}`, '');    
   }
   else {
-    newUrl = `${newUrl}&${(filterType as HTMLInputElement).id}`;
+    if (newUrl.includes('?')){
+      newUrl = `${newUrl}&${(filterType as HTMLInputElement).id}`;
+    } else {
+      newUrl = `${newUrl}?&${(filterType as HTMLInputElement).id}`;
+    }
   }
   window.history.pushState({ path: newUrl }, '', newUrl);
 }
