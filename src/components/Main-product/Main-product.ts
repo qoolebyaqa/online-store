@@ -1,0 +1,604 @@
+import { PRODUCTS } from "../goods";
+import { PriceAndCart } from "../Header/Header";
+import { IProduct } from "../goods";
+import { restartFilters } from "./quantity-counters";
+import { urlChanger } from "./location-funcs";
+import { cartStorage } from "../Header/Header";
+import { CardInfo } from "../../product-info";
+import { widthChanger } from "./product-top-sort";
+
+function searchFilter() {  
+  const cards = document.querySelectorAll('.cards__container');
+  const wrapper = document.querySelector('.cards__wrapper');
+  const searcher = document.querySelector('.product-top__search-input');
+  const serachedfield: Array<IProduct> = [];
+  const arrToCollect: Array<IProduct> = [];
+  const currentNamesArr: Array<string> = [];
+  if ((searcher as HTMLInputElement).value !== '') {
+    cards.forEach((card) => {
+      currentNamesArr.push(card.children[3].innerHTML);
+    })
+
+    PRODUCTS.forEach((value) => {
+      if (currentNamesArr.includes(value.title)) {
+        arrToCollect.push(value);
+      }
+    })
+
+    arrToCollect.forEach((item) => {
+      const [, a, , b, c, d, e, f, g] = Object.values(item);
+      if (Object.values([a, b, c, d, e, f, g]).join('').toUpperCase().includes((searcher as HTMLInputElement).value.toUpperCase())){
+        serachedfield.push(item);
+      }
+    })
+    if (wrapper?.innerHTML) {
+      wrapper.innerHTML = '';
+    }
+    if ((searcher as HTMLInputElement).value === '') {
+      CardsRender(arrToCollect)
+    }
+    else {
+      CardsRender(serachedfield);
+    }
+    let newUrl = window.location.href;
+    if (newUrl.includes('search')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('search')) === -1) {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search')), '');
+      } else {
+        newUrl = newUrl.replace(newUrl.slice(newUrl.indexOf('&search'), newUrl.indexOf('&', newUrl.indexOf('search'))), '')
+      }
+    }
+    if (!newUrl.includes('?')) {
+      newUrl = `${newUrl}?&search=${(searcher as HTMLInputElement).value}`;
+    } else {
+      newUrl = `${newUrl}&search=${(searcher as HTMLInputElement).value}`;
+    }
+    window.history.pushState({}, '', newUrl);
+  }  
+}
+
+export function CardsRender (sources: Array<IProduct>) {
+  const wrapper = document.querySelector('.cards__wrapper');
+  const counter = document.querySelector('.counter');
+  if (wrapper) {
+    wrapper.innerHTML = ''
+  }
+  sources.forEach((value) => {
+    const container = document.createElement('div');
+    container.classList.add('cards__container');
+    const Imgcontainer = document.createElement('div');
+    Imgcontainer.classList.add('cards__img-wrapper');
+    const cardImg = document.createElement('img');
+    cardImg.classList.add('cards__pic');
+    const cardCategory = document.createElement('p');
+    cardCategory.classList.add('cards__category');
+    const cardBrand= document.createElement('p');
+    cardBrand.classList.add('cards__brand');
+    const cardTitle = document.createElement('p');
+    cardTitle.classList.add('cards__title');
+    const cardPrice = document.createElement('p');
+    cardPrice.classList.add('cards__price');
+    const cardButton = document.createElement('button');
+    const cardHover = document.createElement('div');
+    cardHover.classList.add('cards__hover');
+    cardHover.innerHTML = `${value.title} Только сегодня со скидкой ${value.discountPrecentage}% Поспешите осталось ${value.stock} шт.`
+    cardHover.setAttribute('id', `${value.id}`)
+    if (cardButton) {
+      cardButton?.classList.add('cards__button');
+      cardButton.innerHTML = 'Добавить в корзину';
+    }
+    cardImg.src = value.previewImg;    
+    Imgcontainer.append(cardImg, cardHover);
+    cardCategory.innerHTML = value.category;
+    cardBrand.innerHTML = value.brand;
+    cardTitle.innerHTML = value.title;
+    cardPrice.innerHTML = value.price.toString() + '$';
+    container.append(Imgcontainer, cardCategory, cardBrand, cardTitle, cardPrice, cardButton);
+    wrapper?.append(container);   
+  })
+  if (counter?.innerHTML) {
+    counter.innerHTML = sources.length.toString();
+    if (sources.length === 0) {
+      (wrapper as HTMLElement).innerHTML = `К сожалению по Вешму запросу ничего не найдено`;
+    }
+  }
+  if (window.location.href.includes('5x-vision')) {
+    document.querySelector('.view-cards__left')?.classList.add('view-cards__left-active');
+  }
+  if (window.location.href.includes('2x-vision')) {
+    document.querySelector('.view-cards__right')?.classList.add('view-cards__left-active');
+  }
+  if (document.querySelector('.view-cards__left')?.matches('.view-cards__left-active')) {
+    const cards = document.querySelectorAll('.cards__container');
+    for (const card of cards) {      
+      card.classList.add('cards__container5x');
+    }
+  }
+  if (document.querySelector('.view-cards__right')?.matches('.view-cards__left-active')) {
+    const cards = document.querySelectorAll('.cards__container');
+    for (const card of cards) {      
+      card.classList.add('cards__container2x');
+    }
+  }
+  PriceAndCart();
+  widthChanger();
+  cartStorage();
+  CardInfo();
+  restQuant();
+}
+
+export function filterRange (e?: Event){
+  const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
+  const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
+  const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
+  const priceInputMax = document.querySelector('.price-inputs')?.querySelector('.input-max');
+  const stokeInputMin = document.querySelector('.stock-inputs')?.querySelector('.input-min');
+  const stokeInputMax = document.querySelector('.stock-inputs')?.querySelector('.input-max');
+  if (Number((stokeInputMin as HTMLInputElement).value) > Number((stokeInputMax as HTMLInputElement).value) || 
+  Number((priceInputMin as HTMLInputElement).value) > Number((priceInputMax as HTMLInputElement).value)) {
+    return;
+  }
+  const CategoryFilter: Array<string> = [];
+  const BrandFilter: Array<string> = [];
+  let FiltredPRODUCTS: Array<IProduct> = [];
+  PRODUCTS.forEach((value) => {
+    FiltredPRODUCTS.push(value);
+  })
+  if (inputsCategoryCollection !== undefined) {
+    for (const input of inputsCategoryCollection) {
+      if (input.checked === true) {
+        CategoryFilter.push(input.id);
+      }
+    }
+  }
+  if (inputsBrandCollection !== undefined) {
+    for (const input of inputsBrandCollection) {
+      if (input.checked === true) {
+        BrandFilter.push(input.id);
+      }
+    }
+  }
+  FiltredPRODUCTS = FiltredPRODUCTS.filter((value) => {
+    if (BrandFilter.length > 0 
+      && CategoryFilter.length > 0) {
+      for (let i = 0; i < BrandFilter.length; i++) {
+        for (let j = 0; j < CategoryFilter.length; j++) {
+          if (value.brand === BrandFilter[i] && value.category === CategoryFilter[j]) {
+            return true;
+          }
+        }
+      }
+    }
+    else if (BrandFilter.length > 0 && CategoryFilter.length === 0) {
+      for (let i = 0; i < BrandFilter.length; i++) {
+        if (value.brand === BrandFilter[i]) {
+          return true;
+        }        
+      }
+    }
+    else if (BrandFilter.length === 0 && CategoryFilter.length > 0) {
+      for (let i = 0; i < CategoryFilter.length; i++) {
+        if (value.category === CategoryFilter[i] ) {
+          return true;
+        }        
+      }
+    }
+    else if (BrandFilter.length === 0 && CategoryFilter.length === 0){       
+      return true;
+    }    
+  });  
+  if (e?.target !== undefined) {
+    if ((e?.target as HTMLInputElement).id.includes('Price')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.price >= Number((priceInputMin as HTMLInputElement).value) && card.price <= Number((priceInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.stock);
+      }, Infinity).toString();
+      (document.getElementById('maxStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.stock);
+      }, 0).toString();
+      (document.getElementById('minRangeStock') as HTMLInputElement).value = (document.getElementById('minStock') as HTMLInputElement).value;
+      (document.getElementById('maxRangeStock') as HTMLInputElement).value = (document.getElementById('maxStock') as HTMLInputElement).value;      
+    }
+    else if ((e?.target as HTMLInputElement).id.includes('Stock')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.stock >= Number((stokeInputMin as HTMLInputElement).value) && card.stock <= Number((stokeInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.price);
+      }, Infinity).toString();
+      (document.getElementById('maxPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.price);
+      }, 0).toString();
+      (document.getElementById('minRangePrice') as HTMLInputElement).value = (document.getElementById('minPrice') as HTMLInputElement).value;
+      (document.getElementById('maxRangePrice') as HTMLInputElement).value = (document.getElementById('maxPrice') as HTMLInputElement).value;     
+    }
+  }
+
+  if (e?.target === undefined) {
+    if (window.location.search.includes('Price')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.price >= Number((priceInputMin as HTMLInputElement).value) && card.price <= Number((priceInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.stock);
+      }, Infinity).toString();
+      (document.getElementById('maxStock') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.stock);
+      }, 0).toString();
+      (document.getElementById('minRangeStock') as HTMLInputElement).value = (document.getElementById('minStock') as HTMLInputElement).value;
+      (document.getElementById('maxRangeStock') as HTMLInputElement).value = (document.getElementById('maxStock') as HTMLInputElement).value;
+    }
+    if (window.location.search.includes('Stock')) {
+      FiltredPRODUCTS = FiltredPRODUCTS.filter((card) => {
+        if (card.stock >= Number((stokeInputMin as HTMLInputElement).value) && card.stock <= Number((stokeInputMax as HTMLInputElement).value)) {
+          return true;
+        }
+      });
+      (document.getElementById('minPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.min(elem1, elem2.price);
+      }, Infinity).toString();
+      (document.getElementById('maxPrice') as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+        return Math.max(elem1, elem2.price);
+      }, 0).toString();
+      (document.getElementById('minRangePrice') as HTMLInputElement).value = (document.getElementById('minPrice') as HTMLInputElement).value;
+      (document.getElementById('maxRangePrice') as HTMLInputElement).value = (document.getElementById('maxPrice') as HTMLInputElement).value;
+    }
+  } 
+  CardsRender(FiltredPRODUCTS);
+  searchFilter()
+}
+
+export function filterCheckbox (){
+  const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
+  const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
+  const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
+  const priceInputMax = document.querySelector('.price-inputs')?.querySelector('.input-max');
+  const stokeInputMin = document.querySelector('.stock-inputs')?.querySelector('.input-min');
+  const stokeInputMax = document.querySelector('.stock-inputs')?.querySelector('.input-max');
+  const CategoryFilter: Array<string> = [];
+  const BrandFilter: Array<string> = [];
+  let FiltredPRODUCTS: Array<IProduct> = [];
+  PRODUCTS.forEach((value) => {
+    FiltredPRODUCTS.push(value);
+  })
+  if (inputsCategoryCollection !== undefined) {
+    for (const input of inputsCategoryCollection) {
+      if (input.checked === true) {
+        CategoryFilter.push(input.id);
+      }
+    }
+  }
+  if (inputsBrandCollection !== undefined) {
+    for (const input of inputsBrandCollection) {
+      if (input.checked === true) {
+        BrandFilter.push(input.id);
+      }
+    }
+  }
+  FiltredPRODUCTS = FiltredPRODUCTS.filter((value) => {
+    if (BrandFilter.length > 0 
+      && CategoryFilter.length > 0) {
+      for (let i = 0; i < BrandFilter.length; i++) {
+        for (let j = 0; j < CategoryFilter.length; j++) {
+          if (value.brand === BrandFilter[i] && value.category === CategoryFilter[j]) {
+            return true;
+          }
+        }
+      }
+    }
+    else if (BrandFilter.length > 0 && CategoryFilter.length === 0) {
+      for (let i = 0; i < BrandFilter.length; i++) {
+        if (value.brand === BrandFilter[i]) {
+          return true;
+        }        
+      }
+    }
+    else if (BrandFilter.length === 0 && CategoryFilter.length > 0) {
+      for (let i = 0; i < CategoryFilter.length; i++) {
+        if (value.category === CategoryFilter[i]) {
+          return true;
+        }        
+      }
+    }
+    else if (BrandFilter.length === 0 && CategoryFilter.length === 0){
+      return true;
+    }    
+  });
+
+  (priceInputMin as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.price);
+  }, Infinity).toString();
+  (priceInputMax as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.price);
+  }, 0).toString();
+  (stokeInputMin as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.stock);
+  }, Infinity).toString();
+  (stokeInputMax as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.stock);
+  }, 0).toString();
+  (inputRangeMin[0] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.price);
+  }, Infinity).toString();
+  (inputRangeMin[1] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.min(elem1, elem2.stock);
+  }, Infinity).toString();
+  (inputRangeMax[0] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.price);
+  }, 0).toString();
+  (inputRangeMax[1] as HTMLInputElement).value = FiltredPRODUCTS.reduce(function(elem1, elem2) {
+    return Math.max(elem1, elem2.stock);
+  }, 0).toString();
+  CardsRender(FiltredPRODUCTS);
+  searchFilter();
+}
+
+
+const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
+const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
+const inputRangeMin = document.querySelectorAll('.range-min');
+const inputRangeMax = document.querySelectorAll('.range-max');
+const priceInputMin = document.querySelector('.price-inputs')?.querySelector('.input-min');
+const priceInputMax = document.querySelector('.price-inputs')?.querySelector('.input-max');
+const stokeInputMin = document.querySelector('.stock-inputs')?.querySelector('.input-min');
+const stokeInputMax = document.querySelector('.stock-inputs')?.querySelector('.input-max');
+const inputs = [];
+inputs.push(priceInputMax, priceInputMin, stokeInputMin, stokeInputMax);
+
+if (inputsCategoryCollection !== undefined) {
+  for (const input of inputsCategoryCollection) {
+    input.addEventListener('input', filterCheckbox);
+    input.addEventListener('input', urlChanger);
+  }
+}
+if (inputsBrandCollection !== undefined) {
+  for (const input of inputsBrandCollection) {
+    input.addEventListener('input', filterCheckbox);
+    input.addEventListener('input', urlChanger);
+  }
+}
+if (inputRangeMin !== undefined) {
+  for (const input of inputRangeMin) {
+    input.addEventListener('input', filterRange);
+    input?.addEventListener('mouseup', linkgenerator);
+  }
+}
+if (inputRangeMax !== undefined) {
+  for (const input of inputRangeMax) {
+    input.addEventListener('input', filterRange);
+    input?.addEventListener('mouseup', linkgenerator);
+  }
+}
+inputs.forEach((input) => {
+  input?.addEventListener('input', filterRange);
+  input?.addEventListener('mouseup', linkgenerator);
+})
+
+function linkgenerator (e: Event) {
+  const filterType = e.target; 
+  let newUrl = window.location.search;
+  if ((filterType as HTMLInputElement).id === 'minPrice' || (filterType as HTMLInputElement).id === 'minRangePrice') {
+    if (newUrl.includes('minPrice') || newUrl.includes('minRangePrice') || newUrl.includes('minStock') || newUrl.includes('minRangeStock') 
+    || newUrl.includes('maxStock') || newUrl.includes('maxRangeStock')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+      }
+    }   
+  }
+  if ((filterType as HTMLInputElement).id === 'maxPrice' || (filterType as HTMLInputElement).id === 'maxRangePrice') {
+    if (newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') || newUrl.includes('minStock') || newUrl.includes('minRangeStock') 
+    || newUrl.includes('maxStock') || newUrl.includes('maxRangeStock')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+      }
+    }
+  }
+  if ((filterType as HTMLInputElement).id === 'minStock' || (filterType as HTMLInputElement).id === 'minRangeStock') {
+    if (newUrl.includes('minStock') || newUrl.includes('minRangeStock') || newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') ||
+    newUrl.includes('minPrice') || newUrl.includes('minRangePrice')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('minStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minStock'), newUrl.indexOf('&', newUrl.indexOf('minStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangeStock'), newUrl.indexOf('&', newUrl.indexOf('minRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+      }
+    }
+  }
+  if ((filterType as HTMLInputElement).id === 'maxStock' || (filterType as HTMLInputElement).id === 'maxRangeStock') {
+    if (newUrl.includes('maxStock') || newUrl.includes('maxRangeStock') || newUrl.includes('maxPrice') || newUrl.includes('maxRangePrice') ||
+    newUrl.includes('minPrice') || newUrl.includes('minRangePrice')) {
+      if (newUrl.indexOf('&', newUrl.indexOf('maxStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxStock'), newUrl.indexOf('&', newUrl.indexOf('maxStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangeStock'), newUrl.indexOf('&', newUrl.indexOf('maxRangeStock')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxPrice'), newUrl.indexOf('&', newUrl.indexOf('maxPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&maxRangePrice'), newUrl.indexOf('&', newUrl.indexOf('maxRangePrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minPrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minPrice'), newUrl.indexOf('&', newUrl.indexOf('minPrice')))}`, '');
+      }
+      if (newUrl.indexOf('&', newUrl.indexOf('minRangePrice')) === -1) {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'))}`, '');
+      }
+      else {
+        newUrl = newUrl.replace(`${newUrl.slice(newUrl.indexOf('&minRangePrice'), newUrl.indexOf('&', newUrl.indexOf('minRangePrice')))}`, '');
+      }
+    }
+  }
+  if (!newUrl.includes('?')) {
+    newUrl = `${newUrl}?&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
+  } else {
+    newUrl = `${newUrl}&${(filterType as HTMLInputElement).id}=${(filterType as HTMLInputElement).value}`;
+  }
+  window.history.pushState({}, '', newUrl);
+}
+
+function restQuant() {
+  const restQuantCol = document.querySelectorAll('.availability');
+  restQuantCol.forEach((value) => value.innerHTML = '0 / 0');
+  const inputsCategoryCollection = document.querySelector('.block-category')?.getElementsByTagName('input');
+  const inputsBrandCollection = document.querySelector('.block-brand')?.getElementsByTagName('input');
+  const categoryCol = document.querySelectorAll('.cards__category');
+  const brandCol = document.querySelectorAll('.cards__brand');
+
+  for (const input of inputsCategoryCollection as HTMLCollection) {
+    let counter = 0;
+    categoryCol.forEach((value) => {
+      if (value.innerHTML === (input as HTMLInputElement).id) {
+        counter ++;        
+      }
+    });
+    (input?.nextElementSibling?.nextElementSibling as HTMLSpanElement).innerHTML = 
+    `${counter} / ${PRODUCTS.filter((elem) => elem.category === (input as HTMLInputElement).id).length}`;
+  }
+  for (const input of inputsBrandCollection as HTMLCollection) {
+    let counter = 0;
+    brandCol.forEach((value) => {
+      if (value.innerHTML === (input as HTMLInputElement).id) {
+        counter ++;        
+      }
+    });
+    (input?.nextElementSibling?.nextElementSibling as HTMLSpanElement).innerHTML = 
+    `${counter} / ${PRODUCTS.filter((elem) => elem.brand === (input as HTMLInputElement).id).length}`;
+  }
+
+}
+
+function Copier () {
+  const btn = document.querySelector('.block-category__reset-copy-copy');
+  btn?.classList.add('btn-active');
+  window.navigator.clipboard.writeText(window.location.href);
+  setTimeout(() => {
+    btn?.classList.remove('btn-active');
+  }, 1200);
+}
+
+
+document.querySelector('.block-category__reset-copy-copy')?.addEventListener('click', Copier);
+document.querySelector('.block-category__reset-copy-reset')?.addEventListener('click', restartFilters);
+
+CardsRender(PRODUCTS);

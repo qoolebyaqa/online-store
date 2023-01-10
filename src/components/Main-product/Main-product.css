@@ -1,0 +1,114 @@
+.cards__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.cards__container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 26%;
+  height: 300px;
+  margin-bottom: 15px;
+}
+.cards__img-wrapper {
+  margin: 10px;
+  padding: 0;
+  position: relative;
+  height: 250px;
+  background: white;
+  overflow: hidden;
+}
+.cards__pic {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+.cards__category {
+  text-align: center;
+}
+.cards__brand {
+  text-align: center;
+}
+.cards__title {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 100%;
+}
+.cards__price {
+  text-align: center;
+}
+.cards__button {
+  border-radius: 50px;
+  height: 40px;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid green;
+  transition: all 0.4s ease;
+}
+.cards__button-active {
+  border-radius: 50px;
+  height: 40px;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid red;
+  background-color: green;
+  transition: all 0.4s ease;
+}
+.cards__hover {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px 5px 0 0;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(370px);
+  transition: .4s ease-in-out;
+  color: green;
+  background: rgba(0,0,0,.7);
+}
+.cards__button:hover {
+  background-color: green;
+  cursor: pointer;
+  transform: scale(0.95);
+}
+.cards__button-active:hover {
+  background-color: rgb(116, 5, 5);
+  cursor: pointer;
+  transform: scale(0.95);
+}
+.cards__img-wrapper:hover .cards__pic{
+  cursor: pointer;
+  z-index: 0;
+}
+.cards__img-wrapper:hover .cards__hover {
+  transform: translateY(0);
+  cursor: pointer;
+}
+.cards__container5x {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 20%;
+  height: 300px;
+  margin-bottom: 15px;
+}
+
+.cards__container2x {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 40%;
+  height: 300px;
+  margin-bottom: 15px;
+}
