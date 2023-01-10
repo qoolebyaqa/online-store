@@ -14,6 +14,7 @@ export function restartFilters() {
   (maxInputsCollection[1] as HTMLInputElement).value = '100';
   (maxInputsCollection[2] as HTMLInputElement).value = '4500';
   (maxInputsCollection[3] as HTMLInputElement).value = '100';
+  (document.querySelector('.product-top__search-input') as HTMLInputElement).value = '';
   const newUrl = window.location.href.replace(window.location.search, '');
   window.history.pushState({}, '', newUrl);
   if (inputsCategoryCollection && inputsBrandCollection) {
